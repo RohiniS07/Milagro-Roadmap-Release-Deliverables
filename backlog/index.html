@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milagro — Backlog</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
+  --text:#0f1117;--sub:#5b6075;--muted:#9299af;
+  --blue:#2563eb;--blue-lt:#eff4ff;--blue-mid:#dbeafe;
+  --indigo:#4f46e5;--green:#059669;--green-lt:#ecfdf5;
+  --amber:#d97706;--amber-lt:#fffbeb;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --teal:#0891b2;--teal-lt:#ecfeff;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --orange:#ea580c;--orange-lt:#fff7ed;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --shadow:0 4px 16px rgba(0,0,0,.08);
+}
+html{scroll-behavior:smooth}
+body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#08091a 0%,#1a0a2e 55%,#0a0f1e 100%);padding:44px 48px 52px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(124,58,237,.2) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(220,38,38,.12) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.45)}
+.breadcrumb a{color:rgba(255,255,255,.55);text-decoration:none}
+.breadcrumb a:hover{color:#fff}
+.breadcrumb span{color:rgba(255,255,255,.25)}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:500;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.04em}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#f87171;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero h1{font-size:clamp(26px,4vw,42px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:10px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#f87171,#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:14px;color:rgba(255,255,255,.45);margin-bottom:24px;font-weight:300;line-height:1.7}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 18px;min-width:100px}
+.hstat-val{font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
+.hstat-label{font-size:10.5px;color:rgba(255,255,255,.38)}
+
+/* PAGE */
+.page{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:36px 32px 80px}
+
+/* PRIORITY SUMMARY CARDS */
+.priority-summary{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:28px}
+@media(max-width:900px){.priority-summary{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:500px){.priority-summary{grid-template-columns:repeat(2,1fr)}}
+.psum-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:12px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.psum-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.psum-card.active-filter{border-width:2px}
+.psum-dot{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.psum-info{}
+.psum-count{font-size:22px;font-weight:800;line-height:1}
+.psum-label{font-size:11px;color:var(--muted)}
+
+/* FILTER BAR */
+.filter-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.filter-select{border:1px solid var(--border);border-radius:8px;background:var(--white);padding:8px 14px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;cursor:pointer;transition:border-color .15s}
+.filter-select:focus{border-color:var(--blue)}
+.filter-search{position:relative;flex:1;min-width:200px}
+.filter-search input{width:100%;border:1px solid var(--border);border-radius:8px;background:var(--white);padding:8px 14px 8px 34px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+.filter-search input:focus{border-color:var(--blue)}
+.filter-search input::placeholder{color:var(--muted)}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
+.filter-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:4px 12px;border-radius:100px;white-space:nowrap}
+.clear-btn{font-size:12px;font-weight:600;color:var(--blue);cursor:pointer;padding:6px 12px;border:1px solid var(--blue-mid);border-radius:8px;background:var(--blue-lt);transition:all .15s}
+.clear-btn:hover{background:var(--blue);color:#fff}
+
+/* TABLE CARD */
+.tcard{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.dtable{width:100%;border-collapse:collapse}
+.dtable thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 16px;text-align:left;background:var(--off);border-bottom:1px solid var(--border);white-space:nowrap}
+.dtable tbody tr{transition:background .1s}
+.dtable tbody tr:hover{background:var(--off)}
+.dtable tbody td{padding:11px 16px;border-bottom:1px solid var(--pale);font-size:12.5px;color:var(--sub);vertical-align:middle}
+.dtable tbody tr:last-child td{border-bottom:none}
+.dtable tbody td.title-cell{color:var(--text);font-weight:500;max-width:420px}
+.dtable tbody td.title-cell a{color:var(--text);text-decoration:none}
+.dtable tbody td.title-cell a:hover{color:var(--blue);text-decoration:underline}
+
+/* BADGES */
+.status{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;white-space:nowrap}
+.s-backlog{background:var(--pale);color:var(--muted);border:1px solid var(--border)}
+.s-pre{background:var(--purple-lt);color:var(--purple)}
+.priority{display:inline-flex;align-items:center;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.p0{background:var(--red-lt);color:var(--red)}
+.p1{background:var(--orange-lt);color:var(--orange)}
+.p2{background:var(--amber-lt);color:var(--amber)}
+.p3{background:var(--blue-lt);color:var(--blue)}
+.p4{background:var(--pale);color:var(--muted)}
+.p-none{color:var(--muted);font-size:11px}
+.assignee{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--sub);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hidden-row{display:none}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:18px 32px;max-width:1200px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
+.footer-left{display:flex;align-items:center;gap:9px}
+.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+.footer-name{font-weight:600;color:var(--sub)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:fadeUp .5s ease both}
+.page{animation:fadeUp .5s ease .07s both}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="top-bar">
+      <div class="breadcrumb">
+        <a href="../">Portal</a>
+        <span>/</span>
+        <span>Backlog</span>
+      </div>
+      <div class="live-badge"><div class="live-dot"></div>Milagro · May 2026</div>
+    </div>
+    <h1>Milagro <em>Backlog</em></h1>
+    <p class="hero-desc">Full backlog across SmartPOS, Milagro Cloud, SmartWAIT and more — filterable by priority, status and assignee.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">92</div><div class="hstat-label">Total Items</div></div>
+      <div class="hstat"><div class="hstat-val">66</div><div class="hstat-label">Backlog</div></div>
+      <div class="hstat"><div class="hstat-val">26</div><div class="hstat-label">Prerequisite</div></div>
+      <div class="hstat"><div class="hstat-val">3</div><div class="hstat-label">P0/P1 Critical</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- PRIORITY SUMMARY -->
+  <div class="priority-summary">
+    <div class="psum-card" onclick="filterByPriority('P0')" id="psum-p0">
+      <div class="psum-dot" style="background:var(--red-lt)">🔴</div>
+      <div class="psum-info"><div class="psum-count" style="color:var(--red)" id="cnt-p0">0</div><div class="psum-label">P0 Blocker</div></div>
+    </div>
+    <div class="psum-card" onclick="filterByPriority('P1')" id="psum-p1">
+      <div class="psum-dot" style="background:var(--orange-lt)">🟠</div>
+      <div class="psum-info"><div class="psum-count" style="color:var(--orange)" id="cnt-p1">0</div><div class="psum-label">P1 Critical</div></div>
+    </div>
+    <div class="psum-card" onclick="filterByPriority('P2')" id="psum-p2">
+      <div class="psum-dot" style="background:var(--amber-lt)">🟡</div>
+      <div class="psum-info"><div class="psum-count" style="color:var(--amber)" id="cnt-p2">0</div><div class="psum-label">P2 High</div></div>
+    </div>
+    <div class="psum-card" onclick="filterByPriority('P3')" id="psum-p3">
+      <div class="psum-dot" style="background:var(--blue-lt)">🔵</div>
+      <div class="psum-info"><div class="psum-count" style="color:var(--blue)" id="cnt-p3">0</div><div class="psum-label">P3 Medium</div></div>
+    </div>
+    <div class="psum-card" onclick="filterByPriority('P4')" id="psum-p4">
+      <div class="psum-dot" style="background:var(--pale)">⚪</div>
+      <div class="psum-info"><div class="psum-count" style="color:var(--muted)" id="cnt-p4">0</div><div class="psum-label">P4 Low</div></div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <select class="filter-select" id="status-filter" onchange="applyFilters()">
+      <option value="">All Statuses</option>
+      <option value="backlog">Backlog</option>
+      <option value="prerequisite">Prerequisite</option>
+    </select>
+    <select class="filter-select" id="assignee-filter" onchange="applyFilters()">
+      <option value="">All Assignees</option>
+    </select>
+    <div class="filter-search">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search backlog items…" oninput="applyFilters()">
+    </div>
+    <div class="filter-count" id="filter-count">92 items</div>
+    <div class="clear-btn" onclick="clearFilters()">Clear filters</div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="tcard">
+    <table class="dtable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Assignees</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Comments</th>
+        </tr>
+      </thead>
+      <tbody id="backlog-tbody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-av">R</div>
+    <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
+  </div>
+  <span>Milagro Backlog · May 2026</span>
+</div>
+
+<script>
+const backlogData = [
+  {title:"SmartWAIT Optimization",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/141",assignees:"ShivaDattaK",status:"Backlog",priority:"P4 => Low",comments:""},
+  {title:"SmartPOS > Adjust CC Transaction after payment is completed",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/119",assignees:"",status:"Backlog",priority:"P2 => High",comments:""},
+  {title:"Order & Pay at the table Full QA",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1319",assignees:"PramodPudale",status:"Backlog",priority:"P1 => Critical",comments:"Alvin to start on this starting Sept 25"},
+  {title:"Cloud > Items & Categories > Promo - Item & Category Promo (SPQ)",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1317",assignees:"darshan-cn-dev",status:"Backlog",priority:"P1 => Critical",comments:""},
+  {title:"SmartPOS > Reprint To Kitchen - add a BUTTON loader",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1457",assignees:"",status:"Backlog",priority:"P2 => High",comments:""},
+  {title:"Google Ordering Integration",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1320",assignees:"",status:"Backlog",priority:"P3 => Medium",comments:""},
+  {title:"SmartPOS > Table Layout from POS does not match SW",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1642",assignees:"",status:"Backlog",priority:"P2 => High",comments:""},
+  {title:"Online Ordering: Single Sign On (SSO) for customer login using google and facebook",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1671",assignees:"Preranamulik05",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS -> End Day -> API optimization (reports empty)",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1744",assignees:"RohiniS07",status:"Backlog",priority:"",comments:""},
+  {title:"#2213",url:"",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Milagro Cloud > CDP > Customer Names with Initials",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1955",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"",comments:""},
+  {title:"SmartPOS > Remove signature - e-sign",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/97",assignees:"",status:"Backlog",priority:"P4 => Low",comments:""},
+  {title:"HR > Employees > Comments - missing from Milagro",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/113",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"CDP Segmentation | Ticket / Project Reporting",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/314",assignees:"RohiniS07, ShivaDattaK",status:"Backlog",priority:"",comments:""},
+  {title:"SmartWAIT > RSVP & WL - automated Follow up email",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/2611",assignees:"",status:"Backlog",priority:"P4 => Low",comments:""},
+  {title:"[Milagro] Related To field empty but not showing 'No Items Found'",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/2468",assignees:"Samir220711",status:"Backlog",priority:"",comments:""},
+  {title:"Pending updates for existing apps",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/2817",assignees:"ShivaDattaK",status:"Backlog",priority:"",comments:""},
+  {title:"Cloud > I&C > New Promo > Open %",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/2214",assignees:"",status:"Backlog",priority:"P2 => High",comments:""},
+  {title:"SmartPOS > Modifier Out of Stock",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/2146",assignees:"",status:"Backlog",priority:"P3 => Medium",comments:""},
+  {title:"SmartPOS > Split Evenly > Apply Item Level Promo",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1978",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"MBM > Lead to Client Conversion - Client Sign up Wizard",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1152",assignees:"RenugaPujari1",status:"Backlog",priority:"",comments:""},
+  {title:"[Milagro] Accounting >> Transaction >> Journal Entries issues.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/3598",assignees:"Samir220711",status:"Backlog",priority:"",comments:""},
+  {title:"[Milagro] Unable to delete the create Check.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/3494",assignees:"Samir220711",status:"Prerequisite",priority:"",comments:""},
+  {title:"Online Ordering > Pizza Fixes after Angular 17 upgrade",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/3251",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Comments - Create custom quick select buttons",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1890",assignees:"",status:"Backlog",priority:"P3 => Medium",comments:""},
+  {title:"Milagro Cloud > SmartPOS > Reports > Detail Report - Total Labor calculations incorrect",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/2813",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Merchant Notifications Of Delivery Orders | SmartPOS Changes",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/3729",assignees:"sandeepchorge03",status:"Backlog",priority:"",comments:""},
+  {title:"Price Levels for Items & Modifiers",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/93",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"[Sales][Opportunity] The Opportunity status is not displayed properly.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/3472",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Milagro Cloud > CDP - incorrect calculations - fake phone numbers from 3PD",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1954",assignees:"ShivaDattaK",status:"Backlog",priority:"",comments:""},
+  {title:"Preload images for new tenants for beverages",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1755",assignees:"RenugaPujari1",status:"Backlog",priority:"",comments:""},
+  {title:"SmartMENUS > Menu Specials - allow selection from existing items",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1712",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Cloud > HR > Employee > Dashboard vs Basic Details - EMP ID is different",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/998",assignees:"darshan-cn-dev",status:"Backlog",priority:"",comments:"Task 8"},
+  {title:"Milagro > Cloud > UI issues found",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4022",assignees:"PramodPudale",status:"Backlog",priority:"P3 => Medium",comments:""},
+  {title:"[Milagro] UI issues",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4039",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartWAIT > floor plan layout issues",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4321",assignees:"",status:"Backlog",priority:"P4 => Low",comments:"Less than a day, get it done else move down the priority."},
+  {title:"[Smart POS][Payment Page] we can add items in paid checks.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4108",assignees:"sandeepchorge03, vaishnavi-1005",status:"Prerequisite",priority:"",comments:"Task 4 for Abhishek"},
+  {title:"SmartPOS > Unable to load checks",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4434",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Partially Split Checks - items disappear until you click OK",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4549",assignees:"sandeepchorge03",status:"Backlog",priority:"",comments:""},
+  {title:"Milagro's Customer Profile Implementation",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4579",assignees:"kartikVT, RohiniS07, ShivaDattaK",status:"Prerequisite",priority:"",comments:""},
+  {title:"Cloud > Item pictures are missing / broken link",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4302",assignees:"darshan-cn-dev",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Map Menu > Lunch, Dinner, Happy Hour > Error message needs to be updated",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4515",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Milagro Cloud > Create a Client > Automatically create default Items and Modifier",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4533",assignees:"darshan-cn-dev, RenugaPujari1",status:"Backlog",priority:"",comments:""},
+  {title:"SmarPOS > Cloud > Service Charge > Service Charge Type",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4008",assignees:"darshan-cn-dev",status:"Backlog",priority:"",comments:""},
+  {title:"MBM > Tenant > Customers - data does not load - inaccurate data",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5021",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Gift Card (GC) > Cash > Puts name as Farid Hashemi",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4430",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"P3 => Medium",comments:""},
+  {title:"SmartPOS/Milagro Cloud > Enhancement Request > Real-time attendance monitoring",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5128",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Cloud > HR > Attendance > Time Change Request - Add Time Manually - bugs & enhancement",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5253",assignees:"RenugaPujari1, RohiniS07, ShivaDattaK",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Credit Card > Cancel button on tablet",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4841",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Utiliko > Estimates > Edit and add custom user. It doesn't work",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5433",assignees:"RenugaPujari1",status:"Prerequisite",priority:"",comments:""},
+  {title:"SmartPOS > Fix the table layout",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5487",assignees:"RohiniS07, Satishpatel46, ShivaDattaK",status:"Backlog",priority:"",comments:"Live Pointed App shared for Review by PM/BA"},
+  {title:"SmartPOS > Print Bill / Receipt - hide free items",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5488",assignees:"sandeepchorge03, vaishnavi-1005",status:"Backlog",priority:"",comments:"Planned with Chit Changes"},
+  {title:"SmartPOS > 3PD > Chowly Integrations > Pizza toggle not supported by Chowly",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5598",assignees:"",status:"Backlog",priority:"P2 => High",comments:""},
+  {title:"SmartPOS > Table Service > Order total computation is inaccurate",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5436",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"P0 => Blocker",comments:"Task 1"},
+  {title:"SmartPOS > Auto end day > End Day report should be printed automatically",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4982",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Cloud > SmartPOS > Transactions > Voided / Refunded transactions Status shows empty",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5685",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"",comments:""},
+  {title:"Website > Enhancement > Update Locations UI",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5557",assignees:"kartikVT",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Enhancement Request > Have an option to type in a void reason manually.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5520",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > To Go button - when they press it - all items added after are sent as TO GO",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5689",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartX > Feedback from SmartPOS and SmartWAIT",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5420",assignees:"RohiniS07, ShivaDattaK",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > E-Signature > Being activated for all locations when activated to just one",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5740",assignees:"darshan-cn-dev, Satishpatel46",status:"Prerequisite",priority:"P4 => Low",comments:""},
+  {title:"Online Order > check out > enter wrong CC info - bug",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5824",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"P0 => Blocker",comments:""},
+  {title:"SmartPOS > Lookup Customer Order Detail by phone number > Repeat order",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5816",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartX > Survey Report > Audit Trail",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5784",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Cloud > Schedular > we can schedule works outside of those availability times.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5371",assignees:"Samir220711, vaishnavi-1005",status:"Prerequisite",priority:"",comments:""},
+  {title:"SmartPOS > Check 23-1 table C5 was paid via cash twice",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5839",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"",comments:""},
+  {title:"Jonuzi > OO / SmartPOS > Deselect from WHOLE to LEFT only - Kitchen chit is wrong",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5962",assignees:"PramodPudale",status:"Backlog",priority:"P1 => Critical",comments:""},
+  {title:"SmartPOS > 3PD > the order is blank",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5992",assignees:"darshan-cn-dev",status:"Backlog",priority:"",comments:"Task 2"},
+  {title:"SmartPOS > Void Item after payment",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5971",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartWAIT > Reports > Have an option to export the reservation report",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/6166",assignees:"ShivaDattaK",status:"Backlog",priority:"P4 => Low",comments:""},
+  {title:"[SmartX][Optimization][Enhancement] Code Optimization | Priority Enhancements",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/6262",assignees:"Preranamulik05, Samir220711",status:"Prerequisite",priority:"",comments:""},
+  {title:"[SmartWAIT][Bug] Customer Activity Log are not in expected order",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/6567",assignees:"ngsison, vigneshSivanesan",status:"Backlog",priority:"",comments:""},
+  {title:"[SmartWAIT][Online Reservation] Reservation Hold feature for Online Reservation",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/6570",assignees:"Preranamulik05, ShivaDattaK",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Menu Builder > unique URL link on the MENU builder is missing",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/6631",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"[Milagro][SmartWAIT][Bug] Validations of Location Status in SmartWAIT",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7071",assignees:"ngsison, ShivaDattaK",status:"Backlog",priority:"",comments:""},
+  {title:"[SmartWAIT][Milagro Cloud] e2e Implementation for SmartWAIT APIs, Online RSVP & Waitlist",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7091",assignees:"ShivaDattaK, vigneshSivanesan",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Split Evenly > Apply Promo to a specific item",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7495",assignees:"darshan-cn-dev, sandeepchorge03",status:"Backlog",priority:"P3 => Medium",comments:""},
+  {title:"SmartPOS > Third-Party Delivery > Chowly > Notes in order not showing in SPOS / Kitchen Chit",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7499",assignees:"",status:"Backlog",priority:"P0 => Blocker",comments:"Task 2"},
+  {title:"SmartPOS > Order Entry > To Go - change Name on To Go | Items after To Go button ring in as To Go",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7419",assignees:"sandeepchorge03",status:"Backlog",priority:"P2 => High",comments:"Task 4"},
+  {title:"Cloud > HR > Leave Management - morning / evening / half day time off request",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7444",assignees:"",status:"Backlog",priority:"P2 => High",comments:""},
+  {title:"SmartPOS > Modifiers out of Stock - for POS & Online Ordering",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7498",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Cloud > Selection areas",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7441",assignees:"darshan-cn-dev",status:"Backlog",priority:"",comments:"Task 7"},
+  {title:"SmartPOS > Cover Count | Guest Count | change flow of Add Seat",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7440",assignees:"sandeepchorge03",status:"Backlog",priority:"P4 => Low",comments:""},
+  {title:"SmartMENUS > Order & Pay at the Table",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7433",assignees:"RohiniS07",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Transactions > Filter Transactions for previous days > Search does NOT work",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7420",assignees:"sandeepchorge03",status:"Prerequisite",priority:"P4 => Low",comments:"Task 1"},
+  {title:"SmartPOS > Add Sections from SmartWAIT (SW) to the SPOS",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7439",assignees:"",status:"Backlog",priority:"P3 => Medium",comments:""},
+  {title:"[milagro][bugfix]: online order and gift card session mixed together",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/6164",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"",comments:""},
+  {title:"Utiliko > Surveys > It's not allowing us to proceed to the next question.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7509",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Items & Categories > Modifier pricing and not in sync.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7703",assignees:"PramodPudale, Preranamulik05, vaishnavi-1005",status:"Backlog",priority:"P2 => High",comments:""},
+  {title:"SmartPOS > Promo Tax Calculation > Need to fix the logic of tax calculation",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7822",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > voided cash shows up on EDR as owed",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8152",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"",comments:""},
+  {title:"[smartpos][modifiers][bug] > The pricing in the Cloud and SPOS are not matching.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8274",assignees:"darshan-cn-dev, sandeepchorge03",status:"Backlog",priority:"",comments:""},
+  {title:"[smartpos][kds] - Showing the restart popup too frequent.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8305",assignees:"sandeepchorge03",status:"Prerequisite",priority:"",comments:""},
+  {title:"[milagro][cloud][online order] - Customer picked up order before assigned driver reached restaurant",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8341",assignees:"darshan-cn-dev, vaishnavi-1005",status:"Backlog",priority:"",comments:""},
+  {title:"[SmartWAIT][Tenant Set Up/Log In] Flow and Wording corrections in SmartWAIT app flows",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8400",assignees:"ngsison, ShivaDattaK, vigneshSivanesan, vrundavan2349",status:"Prerequisite",priority:"P1 => Critical",comments:""},
+  {title:"[Milagro][URLs over Text Message] Implement TinyURL pro subscription account",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8409",assignees:"Preranamulik05, vaishnavi-1005, vigneshSivanesan, vrundavan2349",status:"Prerequisite",priority:"",comments:""},
+  {title:"[SmartWAIT][Task] Add feature to add custom Quoted Wait time for Waitlist Parties",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8433",assignees:"ngsison, Preranamulik05, ShivaDattaK, vrundavan2349",status:"Prerequisite",priority:"",comments:""},
+  {title:"**Issue 7**: Special menu overlaps extreme right item price",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8375",assignees:"",status:"Prerequisite",priority:"",comments:""},
+  {title:"[smartWAIT <> smartPOS integration testing ticket",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7000",assignees:"darshan-cn-dev, ngsison, RohiniS07, Satishpatel46, ShivaDattaK",status:"Backlog",priority:"P1 => Critical",comments:""},
+  {title:"[smartpos][bugfix]: #8681 Move table Issue for QSR Check",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8885",assignees:"Pratik-u25",status:"Prerequisite",priority:"",comments:""},
+  {title:"[Chowly-3PD] Doesn't update day specific menu to garcon",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7130",assignees:"darshan-cn-dev, vaishnavi-1005",status:"Backlog",priority:"",comments:""},
+  {title:"Milagro Cloud > HR > Job Circular > We need to have this function added in MBM",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4974",assignees:"kartikVT",status:"Backlog",priority:"",comments:""},
+  {title:"Delivery Sales in SmartPOS and Cloud Reports",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/6224",assignees:"darshan-cn-dev",status:"Prerequisite",priority:"",comments:""},
+  {title:"SmartPOS > Menu Layout per device",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/1816",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Gift Card User Experience - Gordon Ramsey Restaurant",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/4516",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Epson KDS - New API Driven KDS",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5010",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Online Ordering > Group Ordering",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5399",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Marketing Campaign Report - Loyalty Campaign Report",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5462",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"UI issues across Milagro System (cloud & mobile)",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5535",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > remove the customer name after payment is voided",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5543",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Cloud > CDP > Filter does not work for 1st time/2nd time etc",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5546",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"MBM > Client Invoices - which location is it for?",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5630",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"Cloud > Partial Payment is not displayed",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5755",assignees:"",status:"Backlog",priority:"",comments:""},
+  {title:"SmartPOS > Transaction > Search > allow search by credit card",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/5756",assignees:"",status:"Backlog",priority:""},
+  {title:"Milagro Online Ordering > Wait Time",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8154",assignees:"",status:"Backlog",priority:"",comments:""},
+];
+
+function priorityBadge(p){
+  if(!p) return '<span class="p-none">—</span>';
+  const map={'P0':'p0','P1':'p1','P2':'p2','P3':'p3','P4':'p4'};
+  const key=p.substring(0,2);
+  return `<span class="priority ${map[key]||'p4'}">${p.replace(' => ',' · ')}</span>`;
+}
+
+function statusBadge(s){
+  return s==='Prerequisite'
+    ? `<span class="status s-pre">Prerequisite</span>`
+    : `<span class="status s-backlog">Backlog</span>`;
+}
+
+// Count priorities
+const counts={P0:0,P1:0,P2:0,P3:0,P4:0};
+backlogData.forEach(r=>{
+  if(!r.priority) return;
+  const k=r.priority.substring(0,2);
+  if(counts[k]!==undefined) counts[k]++;
+});
+document.getElementById('cnt-p0').textContent=counts.P0;
+document.getElementById('cnt-p1').textContent=counts.P1;
+document.getElementById('cnt-p2').textContent=counts.P2;
+document.getElementById('cnt-p3').textContent=counts.P3;
+document.getElementById('cnt-p4').textContent=counts.P4;
+
+// Build assignee dropdown
+const assignees=new Set();
+backlogData.forEach(r=>{if(r.assignees)r.assignees.split(',').forEach(a=>{const t=a.trim();if(t)assignees.add(t);})});
+const sel=document.getElementById('assignee-filter');
+[...assignees].sort().forEach(a=>{const o=document.createElement('option');o.value=a.toLowerCase();o.textContent=a;sel.appendChild(o);});
+
+// Build table
+const tb=document.getElementById('backlog-tbody');
+backlogData.forEach((r,i)=>{
+  const tr=document.createElement('tr');
+  tr.dataset.status=r.status.toLowerCase();
+  tr.dataset.priority=r.priority.substring(0,2).toLowerCase();
+  tr.dataset.assignees=(r.assignees||'').toLowerCase();
+  tr.dataset.search=(r.title+r.assignees+r.status+r.priority+r.comments).toLowerCase();
+  tr.innerHTML=`
+    <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td>
+    <td class="title-cell">${r.url?`<a href="${r.url}" target="_blank">${r.title}</a>`:r.title}</td>
+    <td class="assignee" title="${r.assignees}">${r.assignees||'—'}</td>
+    <td>${statusBadge(r.status)}</td>
+    <td>${priorityBadge(r.priority)}</td>
+    <td style="font-size:11.5px;color:var(--muted);font-style:italic;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.comments||''}">${r.comments||'—'}</td>`;
+  tb.appendChild(tr);
+});
+
+let activePriorityFilter='';
+
+function filterByPriority(p){
+  if(activePriorityFilter===p){activePriorityFilter='';document.getElementById(`psum-${p.toLowerCase()}`).style.outline='';}
+  else{
+    if(activePriorityFilter) document.getElementById(`psum-${activePriorityFilter.toLowerCase()}`).style.outline='';
+    activePriorityFilter=p;
+    document.getElementById(`psum-${p.toLowerCase()}`).style.outline='2px solid var(--blue)';
+  }
+  applyFilters();
+}
+
+function applyFilters(){
+  const status=document.getElementById('status-filter').value;
+  const assignee=document.getElementById('assignee-filter').value;
+  const search=document.getElementById('search-input').value.toLowerCase();
+  let count=0;
+  document.querySelectorAll('#backlog-tbody tr').forEach(tr=>{
+    const matchStatus=!status||tr.dataset.status.includes(status);
+    const matchAssignee=!assignee||tr.dataset.assignees.includes(assignee);
+    const matchSearch=!search||tr.dataset.search.includes(search);
+    const matchPriority=!activePriorityFilter||tr.dataset.priority===activePriorityFilter.toLowerCase();
+    const show=matchStatus&&matchAssignee&&matchSearch&&matchPriority;
+    tr.classList.toggle('hidden-row',!show);
+    if(show)count++;
+  });
+  document.getElementById('filter-count').textContent=`${count} item${count!==1?'s':''}`;
+}
+
+function clearFilters(){
+  document.getElementById('status-filter').value='';
+  document.getElementById('assignee-filter').value='';
+  document.getElementById('search-input').value='';
+  if(activePriorityFilter){document.getElementById(`psum-${activePriorityFilter.toLowerCase()}`).style.outline='';activePriorityFilter='';}
+  applyFilters();
+}
+</script>
+</body>
+</html>
