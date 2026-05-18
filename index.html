@@ -11,7 +11,7 @@
   --white:#ffffff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
   --text:#0f1117;--sub:#5b6075;--muted:#9299af;
   --blue:#2563eb;--blue-lt:#eff4ff;--blue-mid:#dbeafe;
-  --indigo:#4f46e5;--indigo-lt:#eef2ff;
+  --indigo:#4f46e5;
   --green:#059669;--green-lt:#ecfdf5;
   --amber:#d97706;--amber-lt:#fffbeb;
   --purple:#7c3aed;--purple-lt:#f5f3ff;
@@ -25,129 +25,136 @@ html{scroll-behavior:smooth}
 body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
 
 /* ── HERO ── */
-.hero{background:linear-gradient(135deg,#08091a 0%,#0d1b3e 55%,#080f2a 100%);padding:60px 48px 70px;position:relative;overflow:hidden}
+.hero{background:linear-gradient(135deg,#08091a 0%,#0d1b3e 55%,#080f2a 100%);padding:52px 48px 60px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(37,99,235,.22) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(124,58,237,.15) 0%,transparent 60%)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
 .hero-inner{position:relative;max-width:1180px;margin:0 auto}
-.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:36px}
-.author-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:100px;padding:7px 18px 7px 7px}
-.author-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+
+/* author + badge row */
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.author-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:100px;padding:6px 16px 6px 6px}
+.author-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
 .author-info{display:flex;flex-direction:column;line-height:1.25}
 .author-name{font-size:13px;font-weight:600;color:#fff}
 .author-role{font-size:11px;color:rgba(255,255,255,.45)}
-.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:7px 16px;font-size:11.5px;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:uppercase}
-.live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:pulse 2s infinite}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:uppercase}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-.hero h1{font-size:clamp(32px,5vw,56px);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:14px}
+
+/* heading */
+.hero h1{font-size:clamp(28px,4vw,48px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:12px}
 .hero h1 em{font-style:normal;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-desc{font-size:15.5px;color:rgba(255,255,255,.48);max-width:640px;margin-bottom:36px;font-weight:300;line-height:1.75}
+.hero-desc{font-size:15px;color:rgba(255,255,255,.45);max-width:580px;margin-bottom:28px;font-weight:300;line-height:1.7}
+
+/* stats */
 .hero-stats{display:flex;flex-wrap:wrap;gap:10px}
-.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 22px;min-width:115px}
-.hstat-val{font-size:24px;font-weight:800;color:#fff;line-height:1;margin-bottom:3px}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 20px;min-width:100px}
+.hstat-val{font-size:22px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
 .hstat-label{font-size:11px;color:rgba(255,255,255,.38)}
 
 /* ── PAGE ── */
-.page{flex:1;max-width:1180px;margin:0 auto;width:100%;padding:48px 32px 80px}
+.page{flex:1;max-width:1180px;margin:0 auto;width:100%;padding:44px 32px 80px}
 
 /* ── SECTION HEAD ── */
-.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
-.sec-num{width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sec-head h2{font-size:18px;font-weight:700;letter-spacing:-.02em}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.sec-num{width:28px;height:28px;border-radius:7px;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.02em}
 .sec-line{flex:1;height:1px;background:var(--border)}
-.sec-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px;white-space:nowrap}
+.sec-count{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px;white-space:nowrap}
 
-/* ── ALL 4 CARDS IN ONE ROW ── */
-.all-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:52px;align-items:start}
-@media(max-width:1100px){.all-cards{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:580px){.all-cards{grid-template-columns:1fr}}
+/* ── 4-COLUMN CARDS ── */
+.cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px;align-items:stretch}
+@media(max-width:1060px){.cards-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cards-row{grid-template-columns:1fr}}
 
 /* ── CARD ── */
-.card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
-.card:not(.coming){cursor:pointer}
-.card:not(.coming):hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+.card.active-card{cursor:pointer}
+.card.active-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
 .card.coming{opacity:.75;border:2px dashed var(--border)}
 
-.card-stripe{height:4px}
+.card-stripe{height:4px;flex-shrink:0}
 .s-blue{background:linear-gradient(90deg,var(--blue),var(--indigo))}
 .s-purple{background:linear-gradient(90deg,var(--purple),#be185d)}
 .s-teal{background:linear-gradient(90deg,var(--teal),var(--green))}
 .s-red{background:linear-gradient(90deg,var(--red),var(--amber))}
 
-.card-body{padding:20px 22px;flex:1;display:flex;flex-direction:column}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:8px}
-.card-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.card-body{padding:18px 20px;flex:1;display:flex;flex-direction:column}
 
-/* Pills */
-.pill{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:100px;white-space:nowrap}
+/* top row: icon + pill */
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:8px}
+.card-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;white-space:nowrap}
 .pill-green{background:var(--green-lt);color:var(--green)}
 .pill-amber{background:var(--amber-lt);color:var(--amber)}
-.pdot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.pdot{width:4px;height:4px;border-radius:50%;flex-shrink:0}
 .pdot-g{background:var(--green);animation:pulse 2s infinite}
 .pdot-a{background:var(--amber)}
 
-.card-tag{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
-.card-title{font-size:19px;font-weight:800;letter-spacing:-.03em;margin-bottom:7px;line-height:1.2}
-.card-desc{font-size:12.5px;color:var(--sub);line-height:1.6;margin-bottom:16px;flex:1}
+.card-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.card-title{font-size:18px;font-weight:800;letter-spacing:-.03em;margin-bottom:7px;line-height:1.2}
+.card-desc{font-size:12px;color:var(--sub);line-height:1.6;margin-bottom:14px}
 
-/* Sub list */
-.sub-list{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
-.sub-row{display:flex;align-items:center;justify-content:space-between;background:var(--off);border:1px solid var(--border);border-radius:9px;padding:9px 12px;text-decoration:none;color:inherit;transition:background .15s,border-color .15s;gap:8px}
-.sub-row:not(.disabled):hover{background:var(--blue-lt);border-color:var(--blue-mid)}
+/* sub rows */
+.sub-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.sub-row{display:flex;align-items:center;justify-content:space-between;background:var(--off);border:1px solid var(--border);border-radius:8px;padding:8px 10px;text-decoration:none;color:inherit;transition:background .15s,border-color .15s;gap:6px}
+.sub-row.clickable:hover{background:var(--blue-lt);border-color:var(--blue-mid)}
 .sub-row.disabled{cursor:default;opacity:.65}
-.sub-left{display:flex;align-items:center;gap:8px;min-width:0}
-.sub-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
-.sub-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sub-meta{font-size:10.5px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sub-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.sub-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.sub-left{display:flex;align-items:center;gap:7px;min-width:0;flex:1}
+.sub-icon{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.sub-text{min-width:0}
+.sub-name{font-size:11.5px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub-meta{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub-right{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.sub-tag{font-size:9.5px;font-weight:600;padding:2px 7px;border-radius:100px;white-space:nowrap}
 .st-draft{background:var(--amber-lt);color:var(--amber)}
 .st-soon{background:var(--pale);color:var(--muted);border:1px solid var(--border)}
 .st-tsv{background:var(--blue-lt);color:var(--blue)}
-.sub-arrow{font-size:12px;color:var(--muted)}
-.sub-row:not(.disabled):hover .sub-arrow{color:var(--blue)}
+.sub-arrow{font-size:11px;color:var(--muted)}
+.sub-row.clickable:hover .sub-arrow{color:var(--blue)}
 
-/* Team */
-.team-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.team-lbl{font-size:11px;color:var(--muted)}
+/* team */
+.team-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--pale)}
+.team-lbl{font-size:10.5px;color:var(--muted)}
 .avs{display:flex;align-items:center}
-.av{width:22px;height:22px;border-radius:50%;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;margin-left:-4px}
+.av{width:20px;height:20px;border-radius:50%;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;margin-left:-4px}
 .avs .av:first-child{margin-left:0}
 .av-b{background:var(--blue)} .av-i{background:var(--indigo)} .av-g{background:var(--green)} .av-a{background:var(--amber)} .av-p{background:var(--purple)}
-.team-names{font-size:11px;font-weight:500;color:var(--sub)}
+.team-names{font-size:10.5px;font-weight:500;color:var(--sub)}
 
-/* CS bars */
-.cs-bars{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
-.cs-bar{height:7px;background:var(--pale);border-radius:4px}
-.cs-bar:nth-child(1){width:70%}.cs-bar:nth-child(2){width:50%}.cs-bar:nth-child(3){width:62%}
+/* cs placeholder */
+.cs-bars{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.cs-bar{height:6px;background:var(--pale);border-radius:3px}
+.cs-bar:nth-child(1){width:68%}.cs-bar:nth-child(2){width:48%}.cs-bar:nth-child(3){width:60%}
 
-/* Scope tags */
-.scope-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.stag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:100px;background:var(--pale);border:1px solid var(--border);color:var(--muted)}
+/* scope tags */
+.scope-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px}
+.stag{font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--pale);border:1px solid var(--border);color:var(--muted)}
 
-/* Card foot */
-.card-foot{padding:11px 18px;background:var(--off);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px}
+/* card foot */
+.card-foot{padding:10px 16px;background:var(--off);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:11.5px;flex-shrink:0}
 .cf-label{font-weight:600;color:var(--blue)}
-.cf-arr{width:26px;height:26px;border-radius:7px;background:var(--blue-lt);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:13px;transition:background .15s,transform .15s}
-.card:not(.coming):hover .cf-arr{background:var(--blue);color:#fff;transform:translateX(3px)}
-.cf-lock{font-size:12px;color:var(--muted)}
+.cf-arr{width:24px;height:24px;border-radius:6px;background:var(--blue-lt);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:12px;transition:background .15s,transform .15s}
+.active-card:hover .cf-arr{background:var(--blue);color:#fff;transform:translateX(3px)}
+.cf-lock{font-size:11px;color:var(--muted)}
 
-/* ── REPO STRUCTURE ── */
-.howto{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 26px;box-shadow:var(--shadow-sm);display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}
-.howto-icon{width:36px;height:36px;border-radius:10px;background:var(--blue-lt);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+/* ── HOWTO ── */
+.howto{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 26px;box-shadow:var(--shadow-sm);display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.howto-icon{width:34px;height:34px;border-radius:9px;background:var(--blue-lt);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .howto-body{flex:1;min-width:200px}
-.howto-title{font-size:14px;font-weight:700;margin-bottom:6px}
-.howto-text{font-size:13px;color:var(--sub);line-height:1.65}
-.howto-code{margin-top:12px;background:var(--text);color:#a5f3fc;font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:14px 18px;border-radius:8px;line-height:1.9}
+.howto-title{font-size:13.5px;font-weight:700;margin-bottom:5px}
+.howto-text{font-size:12.5px;color:var(--sub);line-height:1.65}
+.howto-code{margin-top:10px;background:var(--text);color:#a5f3fc;font-family:'JetBrains Mono',monospace;font-size:11px;padding:14px 16px;border-radius:8px;line-height:1.9}
 
 /* ── FOOTER ── */
-.footer{border-top:1px solid var(--border);padding:22px 32px;max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted)}
-.footer-left{display:flex;align-items:center;gap:10px}
-.footer-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.footer{border-top:1px solid var(--border);padding:20px 32px;max-width:1180px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
+.footer-left{display:flex;align-items:center;gap:9px}
+.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
 .footer-name{font-weight:600;color:var(--sub)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .hero{animation:fadeUp .5s ease both}
-.page{animation:fadeUp .5s ease .08s both}
+.page{animation:fadeUp .5s ease .07s both}
 </style>
 </head>
 <body>
@@ -181,8 +188,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
 <!-- PAGE -->
 <div class="page">
 
-  <!-- All 4 cards in one section -->
-  <section style="margin-bottom:52px">
+  <section style="margin-bottom:48px">
     <div class="sec-head">
       <div class="sec-num">01</div>
       <h2>All Sections</h2>
@@ -190,10 +196,10 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
       <div class="sec-count">4 sections · 1 active · 2 via TSV</div>
     </div>
 
-    <div class="all-cards">
+    <div class="cards-row">
 
       <!-- SmartPOS -->
-      <div class="card">
+      <div class="card active-card">
         <div class="card-stripe s-blue"></div>
         <div class="card-body">
           <div class="card-top">
@@ -204,12 +210,12 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
           <div class="card-title">SmartPOS</div>
           <div class="card-desc">E2E test coverage and Jet Compose migration roadmap for the SmartPOS Android POS platform.</div>
           <div class="sub-list">
-            <a href="./smartpos/e2e/" class="sub-row">
+            <a href="./smartpos/e2e/" class="sub-row clickable">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--blue-lt)">🧪</div>
-                <div>
+                <div class="sub-text">
                   <div class="sub-name">E2E Test Roadmap</div>
-                  <div class="sub-meta">5 engineers · 90 suites</div>
+                  <div class="sub-meta">5 engineers · 90 suites · 2,061 cases</div>
                 </div>
               </div>
               <div class="sub-right">
@@ -220,8 +226,8 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
             <div class="sub-row disabled">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--pale)">🎨</div>
-                <div>
-                  <div class="sub-name">Jet Compose</div>
+                <div class="sub-text">
+                  <div class="sub-name">Jet Compose Roadmap</div>
                   <div class="sub-meta">Data not ready yet</div>
                 </div>
               </div>
@@ -270,7 +276,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
         </div>
         <div class="card-foot">
           <span class="cf-lock">🔒 Not yet published</span>
-          <span style="font-size:11px;color:var(--muted)">Add when ready</span>
+          <span style="font-size:10.5px;color:var(--muted)">Add when ready</span>
         </div>
       </div>
 
@@ -289,7 +295,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
             <div class="sub-row disabled">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--pale)">🎯</div>
-                <div>
+                <div class="sub-text">
                   <div class="sub-name">Milagro Priority</div>
                   <div class="sub-meta">Ready for Dev · In Dev · In Review</div>
                 </div>
@@ -299,7 +305,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
             <div class="sub-row disabled">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--pale)">🚀</div>
-                <div>
+                <div class="sub-text">
                   <div class="sub-name">Release Pipeline — QA</div>
                   <div class="sub-meta">QA Start & End Date</div>
                 </div>
@@ -309,7 +315,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
             <div class="sub-row disabled">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--pale)">⚙️</div>
-                <div>
+                <div class="sub-text">
                   <div class="sub-name">Dev Pipeline</div>
                   <div class="sub-meta">Start Date · Dev ETA</div>
                 </div>
@@ -320,7 +326,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
         </div>
         <div class="card-foot">
           <span class="cf-lock">📂 Upload TSV to activate</span>
-          <span style="font-size:11px;color:var(--muted)">Add when ready</span>
+          <span style="font-size:10.5px;color:var(--muted)">Add when ready</span>
         </div>
       </div>
 
@@ -339,7 +345,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
             <div class="sub-row disabled">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--red-lt)">🔴</div>
-                <div>
+                <div class="sub-text">
                   <div class="sub-name">P0 Blocker · P1 Critical</div>
                   <div class="sub-meta">Highest priority items</div>
                 </div>
@@ -349,7 +355,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
             <div class="sub-row disabled">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--amber-lt)">🟡</div>
-                <div>
+                <div class="sub-text">
                   <div class="sub-name">P2 High · P3 Med · P4 Low</div>
                   <div class="sub-meta">Full priority breakdown</div>
                 </div>
@@ -359,7 +365,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
             <div class="sub-row disabled">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--pale)">👥</div>
-                <div>
+                <div class="sub-text">
                   <div class="sub-name">Per Assignee Workload</div>
                   <div class="sub-meta">darshan · sandeep · satish + more</div>
                 </div>
@@ -376,14 +382,14 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
         </div>
         <div class="card-foot">
           <span class="cf-lock">📂 Upload TSV to activate</span>
-          <span style="font-size:11px;color:var(--muted)">Add when ready</span>
+          <span style="font-size:10.5px;color:var(--muted)">Add when ready</span>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Repo Structure -->
+  <!-- How to Add -->
   <section>
     <div class="sec-head">
       <div class="sec-num">02</div>
@@ -394,7 +400,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
       <div class="howto-icon">📁</div>
       <div class="howto-body">
         <div class="howto-title">Create a subfolder → upload index.html → update portal card</div>
-        <div class="howto-text">Each roadmap lives in its own folder. Add the HTML as <code style="background:var(--pale);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px">index.html</code> and it gets its own clean URL instantly.</div>
+        <div class="howto-text">Each roadmap lives in its own folder. Add the HTML as <code style="background:var(--pale);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px">index.html</code> and it gets its own clean URL instantly.</div>
         <div class="howto-code">
           Milagro-Roadmap-Release-Deliverables/<br>
           ├── index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← this portal ✅<br>
