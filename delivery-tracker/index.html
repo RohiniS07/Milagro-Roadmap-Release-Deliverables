@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milagro — Delivery Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
+  --text:#0f1117;--sub:#5b6075;--muted:#9299af;
+  --blue:#2563eb;--blue-lt:#eff4ff;--blue-mid:#dbeafe;
+  --indigo:#4f46e5;--green:#059669;--green-lt:#ecfdf5;
+  --amber:#d97706;--amber-lt:#fffbeb;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --teal:#0891b2;--teal-lt:#ecfeff;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --orange:#ea580c;--orange-lt:#fff7ed;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --shadow:0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.12);
+}
+html{scroll-behavior:smooth}
+body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#08091a 0%,#0d1b3e 55%,#080f2a 100%);padding:44px 48px 52px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(37,99,235,.22) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(8,145,178,.15) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.45)}
+.breadcrumb a{color:rgba(255,255,255,.55);text-decoration:none}
+.breadcrumb a:hover{color:#fff}
+.breadcrumb span{color:rgba(255,255,255,.25)}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:500;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.04em}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero h1{font-size:clamp(26px,4vw,42px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:10px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#34d399,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:14px;color:rgba(255,255,255,.45);margin-bottom:24px;font-weight:300;line-height:1.7}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 18px;min-width:100px}
+.hstat-val{font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
+.hstat-label{font-size:10.5px;color:rgba(255,255,255,.38)}
+
+/* PAGE */
+.page{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:36px 32px 80px}
+
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:28px;box-shadow:var(--shadow-sm);width:fit-content}
+.tab{padding:9px 20px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--muted);border:none;background:none;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.tab:hover{color:var(--text);background:var(--off)}
+.tab.active{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.tab-count{font-size:10px;font-weight:700;padding:2px 6px;border-radius:100px;background:rgba(255,255,255,.2)}
+.tab.active .tab-count{background:rgba(255,255,255,.25)}
+.tab:not(.active) .tab-count{background:var(--pale);color:var(--muted)}
+
+/* TAB PANELS */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* TABLE CARD */
+.tcard{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.tcard-header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
+.tcard-title{font-size:14px;font-weight:700}
+.tcard-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px}
+
+/* SEARCH */
+.search-bar{position:relative;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--off)}
+.search-bar input{width:100%;border:1px solid var(--border);border-radius:8px;background:var(--white);padding:8px 14px 8px 34px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+.search-bar input:focus{border-color:var(--blue)}
+.search-bar input::placeholder{color:var(--muted)}
+.search-icon{position:absolute;left:32px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
+
+/* DATA TABLE */
+.dtable{width:100%;border-collapse:collapse}
+.dtable thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 18px;text-align:left;background:var(--off);border-bottom:1px solid var(--border);white-space:nowrap}
+.dtable tbody tr{transition:background .1s}
+.dtable tbody tr:hover{background:var(--off)}
+.dtable tbody td{padding:11px 18px;border-bottom:1px solid var(--pale);font-size:13px;color:var(--sub);vertical-align:middle}
+.dtable tbody tr:last-child td{border-bottom:none}
+.dtable tbody td.title-cell{color:var(--text);font-weight:500;max-width:380px}
+.dtable tbody td.title-cell a{color:var(--text);text-decoration:none}
+.dtable tbody td.title-cell a:hover{color:var(--blue);text-decoration:underline}
+
+/* STATUS BADGES */
+.status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;white-space:nowrap}
+.s-ready{background:var(--blue-lt);color:var(--blue)}
+.s-dev{background:var(--amber-lt);color:var(--amber)}
+.s-review{background:var(--purple-lt);color:var(--purple)}
+.s-qa{background:var(--teal-lt);color:var(--teal)}
+.s-done{background:var(--green-lt);color:var(--green)}
+.s-pre{background:var(--pale);color:var(--muted);border:1px solid var(--border)}
+
+/* PRIORITY BADGES */
+.priority{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.p0{background:var(--red-lt);color:var(--red)}
+.p1{background:var(--orange-lt);color:var(--orange)}
+.p2{background:var(--amber-lt);color:var(--amber)}
+.p3{background:var(--blue-lt);color:var(--blue)}
+.p4{background:var(--pale);color:var(--muted)}
+
+/* ASSIGNEE */
+.assignee{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub)}
+
+/* DATE */
+.date-cell{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);white-space:nowrap}
+.date-range{display:flex;flex-direction:column;gap:2px}
+.date-label{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+/* COMMENT */
+.comment{font-size:11.5px;color:var(--muted);font-style:italic;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:18px 32px;max-width:1200px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
+.footer-left{display:flex;align-items:center;gap:9px}
+.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+.footer-name{font-weight:600;color:var(--sub)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:fadeUp .5s ease both}
+.page{animation:fadeUp .5s ease .07s both}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="top-bar">
+      <div class="breadcrumb">
+        <a href="../">Portal</a>
+        <span>/</span>
+        <span>Delivery Tracker</span>
+      </div>
+      <div class="live-badge"><div class="live-dot"></div>Milagro · May 2026</div>
+    </div>
+    <h1>Delivery <em>Tracker</em></h1>
+    <p class="hero-desc">Milagro Priority, Release Pipeline QA and Dev Pipeline — live delivery status across SmartPOS and Milagro Cloud.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">15</div><div class="hstat-label">Priority Items</div></div>
+      <div class="hstat"><div class="hstat-val">6</div><div class="hstat-label">In QA Pipeline</div></div>
+      <div class="hstat"><div class="hstat-val">9</div><div class="hstat-label">Dev Pipeline</div></div>
+      <div class="hstat"><div class="hstat-val">1</div><div class="hstat-label">Done</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('priority')">🎯 Milagro Priority <span class="tab-count">15</span></button>
+    <button class="tab" onclick="switchTab('qa')">🚀 Release Pipeline — QA <span class="tab-count">6</span></button>
+    <button class="tab" onclick="switchTab('dev')">⚙️ Dev Pipeline <span class="tab-count">9</span></button>
+  </div>
+
+  <!-- PRIORITY TAB -->
+  <div class="tab-panel active" id="panel-priority">
+    <div class="tcard">
+      <div class="tcard-header">
+        <div class="tcard-title">Milagro Priority</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--blue-lt);color:var(--blue)">13 Ready for Dev</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--amber-lt);color:var(--amber)">2 In Development</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--purple-lt);color:var(--purple)">1 In Review</span>
+        </div>
+      </div>
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search priority items…" oninput="filterTable('priority-tbody', this.value)">
+      </div>
+      <table class="dtable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Assignees</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody id="priority-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- QA PIPELINE TAB -->
+  <div class="tab-panel" id="panel-qa">
+    <div class="tcard">
+      <div class="tcard-header">
+        <div class="tcard-title">Release Pipeline — QA</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--teal-lt);color:var(--teal)">4 Ready for QA</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--purple-lt);color:var(--purple)">2 In Review</span>
+        </div>
+      </div>
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search QA pipeline…" oninput="filterTable('qa-tbody', this.value)">
+      </div>
+      <table class="dtable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Assignee</th>
+            <th>Status</th>
+            <th>QA Start Date</th>
+            <th>QA End Date</th>
+          </tr>
+        </thead>
+        <tbody id="qa-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DEV PIPELINE TAB -->
+  <div class="tab-panel" id="panel-dev">
+    <div class="tcard">
+      <div class="tcard-header">
+        <div class="tcard-title">Dev Pipeline</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--amber-lt);color:var(--amber)">4 In Development</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--teal-lt);color:var(--teal)">2 Ready for QA</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--purple-lt);color:var(--purple)">1 In Review</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--green-lt);color:var(--green)">1 Done</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--pale);color:var(--muted);border:1px solid var(--border)">1 Prerequisite</span>
+        </div>
+      </div>
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search dev pipeline…" oninput="filterTable('dev-tbody', this.value)">
+      </div>
+      <table class="dtable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Developer</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>Dev ETA</th>
+          </tr>
+        </thead>
+        <tbody id="dev-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-av">R</div>
+    <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
+  </div>
+  <span>Milagro Delivery Tracker · May 2026</span>
+</div>
+
+<script>
+// ── DATA ──
+const priorityData = [
+  {title:"SmartPOS > Crashlytics | Error Sink > Fix all the errors reported here & the memory issues",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/6823",assignees:"sandeepchorge03, Satishpatel46",status:"Ready for Dev",priority:"P1 => Critical",comments:"Task 5"},
+  {title:"SmartPOS > APIS > Modularization of API Files to Optimize PR Affected Rules & Test Triggering",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7381",assignees:"darshan-cn-dev",status:"Ready for Dev",priority:"",comments:"Imp 3"},
+  {title:"SmartPOS > API > Rewrite Proceed Payment API",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/7775",assignees:"darshan-cn-dev",status:"Ready for Dev",priority:"",comments:"Imp 3"},
+  {title:"[milagro][smartpos] > App Code Upgradation > Deliverables in milestones.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8139",assignees:"darshan-cn-dev, sandeepchorge03, Satishpatel46",status:"In Development",priority:"P1 => Critical",comments:""},
+  {title:"[milagro][online order][online reservation] > Multiple issues recorded under clarity on 12th Feb.",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8366",assignees:"PramodPudale",status:"Ready for Dev",priority:"P1 => Critical",comments:""},
+  {title:"[milagro][smartpos reports] - Tear down and Recreate whole SPOS Reports",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8299",assignees:"darshan-cn-dev",status:"Ready for Dev",priority:"P1 => Critical",comments:"Imp 1"},
+  {title:"Online order > [Regression Testing -Q2-2026] > Listed down all the issues - Darshan",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8685",assignees:"darshan-cn-dev",status:"Ready for Dev",priority:"",comments:""},
+  {title:"[smartpos][bug] - Seated table cannot be opened by assigned server",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8841",assignees:"Preranamulik05, vigneshSivanesan",status:"Ready for Dev",priority:"",comments:""},
+  {title:"SmartPOS > [Regression Testing -Q2-2026] > Listed down all the issues - Darshan",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8681",assignees:"darshan-cn-dev",status:"In Development",priority:"",comments:""},
+  {title:"SmartPOS > KDS > Duplicate items",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8905",assignees:"sandeepchorge03",status:"Ready for Dev",priority:"",comments:""},
+  {title:"SmartWAIT > Google Waitlist Integration > Showing reservation instead of waitlist on Google",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8930",assignees:"vigneshSivanesan",status:"In Review",priority:"P0 => Blocker",comments:""},
+  {title:"[milagro][online ordering] - Online Ordering SSR Implementation & UX Improvements (Phase 1)",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8943",assignees:"darshan-cn-dev, PramodPudale",status:"Ready for Dev",priority:"",comments:"Imp 2"},
+  {title:"Cloud > [Regression Testing -Q2-2026] > Listed down all the issues - Darshan",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8686",assignees:"darshan-cn-dev",status:"Ready for Dev",priority:"",comments:""},
+  {title:"SmartPOS > [Regression Testing -Q2-2026] > Listed down all the issues - Sandeep",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8683",assignees:"sandeepchorge03",status:"Ready for Dev",priority:"",comments:""},
+  {title:"SmartPOS > [Regression Testing -Q2-2026] > Listed down all the issues - Satish",url:"https://github.com/Milagro-Corp/milagro-utiliko/issues/8682",assignees:"Satishpatel46",status:"Ready for Dev",priority:"",comments:""},
+];
+
+const qaData = [
+  {title:"[smartpos][bugfix]: #8681 Move table Issue for QSR Check",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8885",assignees:"Pratik-u25",status:"In Review",qaStart:"May 15, 2026",qaEnd:"May 18, 2026"},
+  {title:"[smartpos][bugfix]: #8681 Device Setting Sync to App",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8890",assignees:"vaishnavi-1005",status:"Ready for QA",qaStart:"May 21, 2026",qaEnd:"May 22, 2026"},
+  {title:"[smartpos][enhancement]: #6823 Updated u220 lease time and improved print logging",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8888",assignees:"vaishnavi-1005",status:"Ready for QA",qaStart:"May 12, 2026",qaEnd:"May 12, 2026"},
+  {title:"[milagro][enhancement]: #8787 Online Order Page Performance Improvement",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8911",assignees:"vaishnavi-1005",status:"Ready for QA",qaStart:"May 19, 2026",qaEnd:"May 19, 2026"},
+  {title:"[milagro][bugfix]: #8299 Report Fixes",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8913",assignees:"vaishnavi-1005",status:"In Review",qaStart:"May 15, 2026",qaEnd:"May 18, 2026"},
+  {title:"[smartpos][enhancement]: #8139 App update Improvements",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8906",assignees:"vaishnavi-1005",status:"Ready for QA",qaStart:"May 22, 2026",qaEnd:"May 22, 2026"},
+];
+
+const devData = [
+  {title:"[smartpos][bugfix]: #8681 Move table Issue for QSR Check",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8885",startDate:"May 6, 2026",eta:"May 6, 2026",developer:"darshan-cn-dev",status:"Prerequisite"},
+  {title:"[milagro][enhancement]: #8787 Online Order Page Performance Improvement",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8911",startDate:"May 4, 2026",eta:"May 4, 2026",developer:"darshan-cn-dev",status:"Ready for QA"},
+  {title:"[milagro][bugfix]: #8299 Report Fixes",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8913",startDate:"May 7, 2026",eta:"May 8, 2026",developer:"darshan-cn-dev",status:"In Review"},
+  {title:"[smartpos][enhancement]: #8139 App update Improvements",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8906",startDate:"May 11, 2026",eta:"May 13, 2026",developer:"sandeepchorge03",status:"Ready for QA"},
+  {title:"[smartpos][enhancement]: #8139 e2e poc without csv driven smartpos app",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8956",startDate:"May 8, 2026",eta:"May 19, 2026",developer:"Satishpatel46",status:"In Development"},
+  {title:"[smartpos][enhancement]: #8905 device info validation changes",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8962",startDate:"May 12, 2026",eta:"May 14, 2026",developer:"sandeepchorge03",status:"In Development"},
+  {title:"[smartpos][bugfix]: #8682 Regression Issue Fixes Q2-2026",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8972",startDate:"May 14, 2026",eta:"May 20, 2026",developer:"Satishpatel46",status:"In Development"},
+  {title:"[milagro][bugfix]: #8686 Cloud Regression Fixes",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8969",startDate:"May 13, 2026",eta:"May 15, 2026",developer:"darshan-cn-dev",status:"In Development"},
+  {title:"[milagro][bugfix]: #8686 Online Order Next Day Issue",url:"https://github.com/Milagro-Corp/milagro-utiliko/pull/8975",startDate:"May 15, 2026",eta:"May 15, 2026",developer:"darshan-cn-dev",status:"Done"},
+];
+
+function statusBadge(s){
+  const map={
+    'Ready for Dev':'s-ready','In Development':'s-dev','In Review':'s-review',
+    'Ready for QA':'s-qa','Done':'s-done','Prerequisite':'s-pre'
+  };
+  return `<span class="status ${map[s]||'s-pre'}">${s||'—'}</span>`;
+}
+
+function priorityBadge(p){
+  if(!p) return '—';
+  const map={'P0':'p0','P1':'p1','P2':'p2','P3':'p3','P4':'p4'};
+  const key = p.substring(0,2);
+  const label = p.replace(' => ',' · ');
+  return `<span class="priority ${map[key]||'p4'}">${label}</span>`;
+}
+
+function buildPriorityTable(){
+  const tb = document.getElementById('priority-tbody');
+  priorityData.forEach((r,i) => {
+    const tr = document.createElement('tr');
+    tr.dataset.search = (r.title+r.assignees+r.status+r.priority).toLowerCase();
+    tr.innerHTML = `
+      <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px">${String(i+1).padStart(2,'0')}</td>
+      <td class="title-cell"><a href="${r.url}" target="_blank">${r.title}</a></td>
+      <td class="assignee">${r.assignees||'—'}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td>${priorityBadge(r.priority)}</td>
+      <td class="comment" title="${r.comments}">${r.comments||'—'}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function buildQATable(){
+  const tb = document.getElementById('qa-tbody');
+  qaData.forEach((r,i) => {
+    const tr = document.createElement('tr');
+    tr.dataset.search = (r.title+r.assignees+r.status).toLowerCase();
+    tr.innerHTML = `
+      <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px">${String(i+1).padStart(2,'0')}</td>
+      <td class="title-cell"><a href="${r.url}" target="_blank">${r.title}</a></td>
+      <td class="assignee">${r.assignees}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td class="date-cell">${r.qaStart}</td>
+      <td class="date-cell">${r.qaEnd}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function buildDevTable(){
+  const tb = document.getElementById('dev-tbody');
+  devData.forEach((r,i) => {
+    const tr = document.createElement('tr');
+    tr.dataset.search = (r.title+r.developer+r.status).toLowerCase();
+    tr.innerHTML = `
+      <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px">${String(i+1).padStart(2,'0')}</td>
+      <td class="title-cell"><a href="${r.url}" target="_blank">${r.title}</a></td>
+      <td class="assignee">${r.developer}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td class="date-cell">${r.startDate}</td>
+      <td class="date-cell">${r.eta}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function filterTable(tbodyId, q){
+  document.querySelectorAll(`#${tbodyId} tr`).forEach(tr => {
+    tr.style.display = tr.dataset.search?.includes(q.toLowerCase()) === false ? 'none' : '';
+  });
+}
+
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
+  document.getElementById(`panel-${name}`).classList.add('active');
+}
+
+buildPriorityTable();
+buildQATable();
+buildDevTable();
+</script>
+</body>
+</html>
