@@ -8,7 +8,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --white:#ffffff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
+  --white:#fff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
   --text:#0f1117;--sub:#5b6075;--muted:#9299af;
   --blue:#2563eb;--blue-lt:#eff4ff;--blue-mid:#dbeafe;
   --indigo:#4f46e5;--indigo-lt:#eef2ff;
@@ -16,219 +16,204 @@
   --amber:#d97706;--amber-lt:#fffbeb;
   --purple:#7c3aed;--purple-lt:#f5f3ff;
   --teal:#0891b2;--teal-lt:#ecfeff;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --orange:#ea580c;--orange-lt:#fff7ed;
   --shadow-sm:0 1px 3px rgba(0,0,0,.06);
   --shadow:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
-  --shadow-lg:0 12px 40px rgba(0,0,0,.12);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.12);
 }
 html{scroll-behavior:smooth}
-body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6}
+body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
 
-/* ── HERO ── */
-.hero{background:linear-gradient(135deg,#08091a 0%,#0d1b3e 55%,#080f2a 100%);padding:60px 48px 70px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(37,99,235,.22) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(124,58,237,.15) 0%,transparent 60%)}
+/* HERO */
+.hero{background:linear-gradient(135deg,#08091a 0%,#0d1b3e 55%,#080f2a 100%);padding:52px 48px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(37,99,235,.22) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(79,70,229,.15) 0%,transparent 60%)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
-.hero-inner{position:relative;max-width:1180px;margin:0 auto}
-
-.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:36px}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
 .author-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:100px;padding:7px 18px 7px 7px}
-.author-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+.author-av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff}
 .author-info{display:flex;flex-direction:column;line-height:1.25}
 .author-name{font-size:13px;font-weight:600;color:#fff}
 .author-role{font-size:11px;color:rgba(255,255,255,.45)}
-.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:7px 16px;font-size:11.5px;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:uppercase}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:6px 16px;font-size:11px;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:uppercase}
 .live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-
-.hero h1{font-size:clamp(32px,5vw,56px);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:14px}
+.hero h1{font-size:clamp(28px,4vw,50px);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:12px}
 .hero h1 em{font-style:normal;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-desc{font-size:15.5px;color:rgba(255,255,255,.48);max-width:560px;margin-bottom:36px;font-weight:300;line-height:1.75}
+.hero-desc{font-size:14.5px;color:rgba(255,255,255,.45);max-width:640px;margin-bottom:20px;font-weight:300;line-height:1.75}
+.draft-banner{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:5px 16px;font-size:11.5px;font-weight:600;color:#fbbf24;margin-bottom:22px}
 .hero-stats{display:flex;flex-wrap:wrap;gap:10px}
-.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 22px;min-width:115px}
-.hstat-val{font-size:24px;font-weight:800;color:#fff;line-height:1;margin-bottom:3px}
-.hstat-label{font-size:11px;color:rgba(255,255,255,.38)}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 20px;min-width:100px}
+.hstat-val{font-size:22px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
+.hstat-label{font-size:10.5px;color:rgba(255,255,255,.38)}
 
-/* ── PAGE ── */
-.page{max-width:1180px;margin:0 auto;padding:52px 32px 100px}
+/* PAGE */
+.page{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:44px 32px 80px}
 
-/* ── SEC HEAD ── */
-.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
-.sec-num{width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sec-head h2{font-size:18px;font-weight:700;letter-spacing:-.02em}
+/* SEC HEAD */
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.sec-num{width:28px;height:28px;border-radius:7px;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.02em}
 .sec-line{flex:1;height:1px;background:var(--border)}
-section{margin-bottom:56px}
+.sec-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px;white-space:nowrap}
+section{margin-bottom:52px}
 
-/* ── 3-TRACK GRID ── */
-.tracks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
-@media(max-width:900px){.tracks{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.tracks{grid-template-columns:1fr}}
+/* 4-TRACK GRID */
+.tracks-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:1100px){.tracks-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.tracks-grid{grid-template-columns:1fr}}
+.track-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.track-stripe{height:4px}
+.ts-blue{background:linear-gradient(90deg,var(--blue),var(--indigo))}
+.ts-green{background:linear-gradient(90deg,var(--green),var(--teal))}
+.ts-purple{background:linear-gradient(90deg,var(--purple),#be185d)}
+.ts-orange{background:linear-gradient(90deg,var(--orange),var(--red))}
+.track-body{padding:18px 20px;flex:1;display:flex;flex-direction:column}
+.track-label{font-size:9.5px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.track-title{font-size:17px;font-weight:800;margin-bottom:4px;letter-spacing:-.02em}
+.track-eta{font-size:12px;color:var(--sub);margin-bottom:14px}
+.track-big{font-size:42px;font-weight:900;line-height:1;letter-spacing:-.04em;margin-bottom:3px}
+.tb-blue{color:var(--blue)}.tb-green{color:var(--green)}.tb-purple{color:var(--purple)}.tb-orange{color:var(--orange)}
+.track-sub{font-size:11.5px;color:var(--sub);margin-bottom:16px}
+.track-members{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--pale)}
+.tm-lbl{font-size:10.5px;color:var(--muted)}
+.avs{display:flex;align-items:center}
+.av{width:22px;height:22px;border-radius:50%;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;margin-left:-4px}
+.avs .av:first-child{margin-left:0}
+.av-b{background:var(--blue)}.av-i{background:var(--indigo)}.av-g{background:var(--green)}.av-a{background:var(--amber)}.av-p{background:var(--purple)}.av-o{background:var(--orange)}
+.tm-names{font-size:10.5px;font-weight:500;color:var(--sub)}
 
-.track-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.track-card::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:16px 16px 0 0}
-.track-card.blue::after{background:linear-gradient(90deg,var(--blue),var(--indigo))}
-.track-card.green::after{background:linear-gradient(90deg,var(--green),var(--teal))}
-.track-card.purple::after{background:linear-gradient(90deg,var(--purple),#be185d)}
+/* VERIFICATION SPLIT */
+.vsplit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:900px){.vsplit-grid{grid-template-columns:repeat(2,1fr)}}
+.vsplit-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow-sm);text-align:center}
+.vsplit-label{font-size:10.5px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.vsplit-num{font-size:36px;font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:4px}
+.vsplit-sub{font-size:11px;color:var(--muted)}
 
-.parallel-badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:3px 10px;border-radius:100px;margin-bottom:12px}
-.pb-blue{background:var(--blue-lt);color:var(--blue)}
-.pb-green{background:var(--green-lt);color:var(--green)}
-.pb-purple{background:var(--purple-lt);color:var(--purple)}
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:24px;box-shadow:var(--shadow-sm);flex-wrap:wrap;width:fit-content}
+.tab{padding:8px 16px;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--muted);border:none;background:none;white-space:nowrap}
+.tab:hover{color:var(--text);background:var(--off)}
+.tab.active{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
 
-.track-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
-.track-title{font-size:18px;font-weight:700;margin-bottom:4px;letter-spacing:-.02em}
-.track-eta{font-size:13px;color:var(--sub);margin-bottom:18px}
-.big-num{font-size:46px;font-weight:900;line-height:1;letter-spacing:-.04em;margin-bottom:3px}
-.track-card.blue .big-num{color:var(--blue)}
-.track-card.green .big-num{color:var(--green)}
-.track-card.purple .big-num{color:var(--purple)}
-.num-sub{font-size:12.5px;color:var(--sub);margin-bottom:18px}
-
-.members{display:flex;flex-wrap:wrap;gap:7px}
-.chip{display:flex;align-items:center;gap:7px;background:var(--off);border:1px solid var(--border);border-radius:100px;padding:5px 12px 5px 5px;font-size:12.5px;font-weight:500}
-.av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
-.av-b{background:var(--blue)} .av-i{background:var(--indigo)} .av-g{background:var(--green)} .av-a{background:var(--amber)} .av-p{background:var(--purple)}
-
-.track-scope{margin-top:16px;padding-top:14px;border-top:1px solid var(--pale)}
-.track-scope-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
-.scope-items{display:flex;flex-direction:column;gap:5px}
-.scope-item{font-size:12px;color:var(--sub);display:flex;align-items:flex-start;gap:7px;line-height:1.4}
-.scope-dot{width:4px;height:4px;border-radius:50%;margin-top:6px;flex-shrink:0}
-.sd-blue{background:var(--blue)} .sd-green{background:var(--green)} .sd-purple{background:var(--purple)}
-
-/* ── PARALLEL FLOW ── */
-.parallel-flow{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 28px;box-shadow:var(--shadow-sm);margin-bottom:0}
-.pf-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:18px;display:flex;align-items:center;gap:8px}
-.pf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;position:relative}
-@media(max-width:900px){.pf-grid{grid-template-columns:1fr}}
-.pf-track{display:flex;flex-direction:column;position:relative}
-.pf-track:not(:last-child){border-right:1px dashed var(--border)}
-@media(max-width:900px){.pf-track:not(:last-child){border-right:none;border-bottom:1px dashed var(--border);margin-bottom:16px;padding-bottom:16px}}
-.pf-header{display:flex;align-items:center;gap:10px;padding:0 20px 14px;border-bottom:1px solid var(--pale);margin-bottom:12px}
-.pf-track:first-child .pf-header{padding-left:0}
-.pf-track:last-child .pf-header{padding-right:0}
-.pf-av{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
-.pf-av-b{background:linear-gradient(135deg,var(--blue),var(--indigo))}
-.pf-av-g{background:linear-gradient(135deg,var(--green),var(--teal))}
-.pf-av-p{background:linear-gradient(135deg,var(--purple),#be185d)}
-.pf-head-text{display:flex;flex-direction:column;line-height:1.25}
-.pf-head-name{font-size:13px;font-weight:700}
-.pf-head-sub{font-size:11px;color:var(--muted)}
-.pf-milestones{display:flex;flex-direction:column;gap:8px;padding:0 20px}
-.pf-track:first-child .pf-milestones{padding-left:0}
-.pf-track:last-child .pf-milestones{padding-right:0}
-.pf-ms{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:var(--sub);line-height:1.4}
-.pf-ms-dot{width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:1px}
-.md-b{background:var(--blue)} .md-g{background:var(--green)} .md-p{background:var(--purple)}
-
-/* ── SUITE TABLES ── */
-.table-card{background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
-.tbar{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
-.tbar-title{font-size:14px;font-weight:700}
-.tag{display:inline-flex;align-items:center;font-size:11.5px;font-weight:600;padding:3px 11px;border-radius:100px}
-.tag-b{background:var(--blue-lt);color:var(--blue)} .tag-g{background:var(--green-lt);color:var(--green)} .tag-a{background:var(--amber-lt);color:var(--amber)} .tag-p{background:var(--purple-lt);color:var(--purple)}
-.search-wrap{position:relative;padding:11px 18px;border-bottom:1px solid var(--border);background:var(--off)}
-.search-wrap input{width:100%;border:1px solid var(--border);border-radius:8px;background:var(--white);padding:8px 14px 8px 36px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+/* TABLE CARD */
+.tcard{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.tcard-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
+.tcard-title{font-size:14px;font-weight:700}
+.tag{display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px}
+.tag-b{background:var(--blue-lt);color:var(--blue)}.tag-g{background:var(--green-lt);color:var(--green)}.tag-a{background:var(--amber-lt);color:var(--amber)}.tag-p{background:var(--purple-lt);color:var(--purple)}.tag-o{background:var(--orange-lt);color:var(--orange)}
+.search-wrap{position:relative;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--off)}
+.search-wrap input{width:100%;border:1px solid var(--border);border-radius:8px;background:var(--white);padding:7px 14px 7px 32px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
 .search-wrap input:focus{border-color:var(--blue)}
 .search-wrap input::placeholder{color:var(--muted)}
-.sicon{position:absolute;left:32px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:14px;pointer-events:none}
-.suite-table{width:100%;border-collapse:collapse}
-.suite-table thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 20px;text-align:left;background:var(--off);border-bottom:1px solid var(--border)}
-.suite-table tbody tr:hover{background:var(--off)}
-.suite-table tbody td{padding:9px 20px;border-bottom:1px solid var(--pale);font-size:12.5px;color:var(--sub);font-family:'JetBrains Mono',monospace}
-.suite-table tbody td:first-child{color:var(--text);font-weight:500}
-.suite-table tbody tr:last-child td{border-bottom:none}
-.bar-cell{display:flex;align-items:center;gap:10px;min-width:160px}
-.bar-track{flex:1;height:5px;background:var(--pale);border-radius:10px;overflow:hidden}
-.bar-fill{height:100%;border-radius:10px;transition:width .9s cubic-bezier(.16,1,.3,1)}
-.bar-b{background:linear-gradient(90deg,var(--blue),var(--indigo))}
-.bar-g{background:linear-gradient(90deg,var(--green),var(--teal))}
-.bar-num{font-size:12px;font-weight:600;color:var(--text);min-width:36px;text-align:right}
-.total-row td{background:#eff4ff!important;font-weight:700!important;color:var(--blue)!important;border-top:2px solid var(--blue-mid)!important;border-bottom:none!important;font-size:13px!important;font-family:'Outfit',sans-serif!important}
+.si{position:absolute;left:28px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none}
+.dtable{width:100%;border-collapse:collapse}
+.dtable thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 16px;text-align:left;background:var(--off);border-bottom:1px solid var(--border);white-space:nowrap}
+.dtable tbody tr{transition:background .1s}
+.dtable tbody tr:hover{background:var(--off)}
+.dtable tbody td{padding:10px 16px;border-bottom:1px solid var(--pale);font-size:12px;color:var(--sub);vertical-align:middle;font-family:'JetBrains Mono',monospace}
+.dtable tbody td.title-col{color:var(--text);font-weight:500}
+.dtable tbody tr:last-child td{border-bottom:none}
+.total-row td{background:var(--blue-lt)!important;font-weight:700!important;color:var(--blue)!important;border-top:2px solid var(--blue-mid)!important;border-bottom:none!important;font-family:'Outfit',sans-serif!important}
 .hidden-row{display:none}
 
-/* ── DARSHAN WORKSTREAMS ── */
-.darshan-intro{background:var(--purple-lt);border:1px solid rgba(124,58,237,.2);border-radius:12px;padding:18px 22px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start}
-.di-av{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--purple),#be185d);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0}
-.di-text{font-size:13.5px;color:var(--sub);line-height:1.7}
-.di-text strong{color:var(--text)}
+/* TIMELINE */
+.phases{display:flex;flex-direction:column}
+.phase-item{display:flex;gap:20px}
+.phase-left{display:flex;flex-direction:column;align-items:center;width:44px;flex-shrink:0}
+.phase-dot{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex-shrink:0}
+.p1{background:var(--blue-lt);color:var(--blue)}.p2{background:var(--indigo-lt);color:var(--indigo)}.p3{background:var(--green-lt);color:var(--green)}.p4{background:var(--amber-lt);color:var(--amber)}
+.phase-connector{width:2px;flex:1;background:var(--border);margin:4px 0;min-height:18px}
+.phase-body{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px;flex:1;margin-bottom:14px;box-shadow:var(--shadow-sm)}
+.p-week{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.p-title{font-size:15px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em}
+.p-tags{display:flex;flex-wrap:wrap;gap:5px}
+.ptag{font-size:11.5px;font-weight:500;padding:3px 10px;border-radius:6px;background:var(--off);border:1px solid var(--border);color:var(--sub)}
 
-.effort-wrap{background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+/* REPORT TRACK SECTION */
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:700px){.report-grid{grid-template-columns:1fr}}
+.report-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow-sm)}
+.rc-title{font-size:13.5px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.rc-items{display:flex;flex-direction:column;gap:7px}
+.rc-item{font-size:12.5px;color:var(--sub);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.rc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px;background:var(--purple)}
+
+/* EFFORT TABLE */
+.effort-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
 .effort-table{width:100%;border-collapse:collapse}
-.effort-table thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:11px 22px;text-align:left;background:var(--off);border-bottom:1px solid var(--border)}
+.effort-table thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:11px 20px;text-align:left;background:var(--off);border-bottom:1px solid var(--border)}
 .effort-table tbody tr:hover{background:var(--off)}
-.effort-table tbody td{padding:13px 22px;border-bottom:1px solid var(--pale);font-size:13.5px;color:var(--sub)}
+.effort-table tbody td{padding:13px 20px;border-bottom:1px solid var(--pale);font-size:13.5px;color:var(--sub)}
 .effort-table tbody td:first-child{color:var(--text);font-weight:500}
-.hrs-pill{display:inline-flex;align-items:center;background:var(--purple-lt);color:var(--purple);font-weight:600;font-size:12px;padding:4px 12px;border-radius:100px}
+.hrs-pill{display:inline-flex;align-items:center;background:var(--purple-lt);color:var(--purple);font-weight:600;font-size:11.5px;padding:3px 11px;border-radius:100px}
 .effort-total td{background:var(--purple-lt);font-weight:700;color:var(--purple);font-size:14px;border-top:2px solid rgba(124,58,237,.2);border-bottom:none}
 
-/* ── TOTAL BANNER ── */
-.total-banner{background:linear-gradient(135deg,#1e3a8a 0%,#2e1065 100%);border-radius:18px;padding:36px 44px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+/* TOTAL BANNER */
+.total-banner{background:linear-gradient(135deg,#1e3a8a 0%,#2e1065 100%);border-radius:16px;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:28px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
 .total-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 80% 50%,rgba(124,58,237,.25) 0%,transparent 70%)}
 .t-left{position:relative}
-.t-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:8px}
-.t-num{font-size:58px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.04em;margin-bottom:6px}
-.t-num span{font-size:28px;color:rgba(255,255,255,.5)}
+.t-eyebrow{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.4);margin-bottom:6px}
+.t-num{font-size:54px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.04em;margin-bottom:5px}
+.t-num span{font-size:26px;color:rgba(255,255,255,.5)}
 .t-sub{font-size:14px;color:rgba(255,255,255,.4);font-weight:300}
-.t-right{position:relative;display:flex;flex-direction:column;gap:9px}
-.t-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:9px 16px;font-size:13px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:10px}
-.tpd{width:18px;height:18px;background:rgba(52,211,153,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#34d399;flex-shrink:0}
+.t-right{position:relative;display:flex;flex-direction:column;gap:8px}
+.t-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:8px 14px;font-size:12.5px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:9px}
+.tpd{width:16px;height:16px;background:rgba(52,211,153,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#34d399;flex-shrink:0}
 
-/* ── CI STRATEGY ── */
-.ci-intro{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
-.ci-intro-title{font-size:14px;font-weight:700;margin-bottom:8px}
-.ci-intro-text{font-size:13.5px;color:var(--sub);line-height:1.7}
-.code-inline{background:var(--pale);padding:1px 7px;border-radius:4px;font-size:12px;font-family:'JetBrains Mono',monospace}
+/* CI STRATEGY */
+.ci-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+@media(max-width:680px){.ci-grid{grid-template-columns:1fr}}
+.ci-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow-sm)}
+.ci-head{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.ci-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ci-title{font-size:13.5px;font-weight:700}
+.ci-sub{font-size:11px;color:var(--muted)}
+.ci-list{display:flex;flex-direction:column;gap:5px}
+.ci-li{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--sub);line-height:1.5}
+.ci-dot{width:4px;height:4px;border-radius:50%;background:var(--blue);margin-top:8px;flex-shrink:0}
 
-.ci-flow-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:18px;box-shadow:var(--shadow-sm);overflow-x:auto}
-.ci-flow-title{font-size:13px;font-weight:700;margin-bottom:16px}
-.ci-flow{display:flex;align-items:flex-start;gap:0}
-.ci-step{display:flex;flex-direction:column;align-items:center;min-width:118px}
-.ci-step-box{background:var(--off);border:1.5px solid var(--border);border-radius:10px;padding:11px 12px;text-align:center;width:110px}
-.ci-step-icon{font-size:18px;margin-bottom:4px}
-.ci-step-label{font-size:11.5px;font-weight:600;color:var(--text);line-height:1.3}
-.ci-step-sub{font-size:10px;color:var(--muted);margin-top:2px}
-.ci-arrow{display:flex;align-items:center;padding:0 4px;color:var(--muted);font-size:16px;margin-top:18px;flex-shrink:0}
+/* RISKS */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:680px){.risk-grid{grid-template-columns:1fr}}
+.risk-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:14px 16px;box-shadow:var(--shadow-sm)}
+.risk-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:4px}
+.risk-title{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:4px}
+.risk-solution{font-size:11.5px;color:var(--sub);line-height:1.5}
 
-.ci-four{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
-@media(max-width:680px){.ci-four{grid-template-columns:1fr}}
-.ci-box{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow-sm)}
-.ci-box-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.ci-box-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.ci-box-title{font-size:14px;font-weight:700}
-.ci-box-sub{font-size:11.5px;color:var(--muted)}
-.ci-list{display:flex;flex-direction:column;gap:6px}
-.ci-li{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--sub);line-height:1.5}
-.ci-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);margin-top:8px;flex-shrink:0}
+/* DOC LINK */
+.doc-link{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 22px;box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;color:inherit;transition:box-shadow .15s,border-color .15s}
+.doc-link:hover{box-shadow:var(--shadow);border-color:var(--blue-mid)}
+.doc-left{display:flex;align-items:center;gap:12px}
+.doc-icon{width:38px;height:38px;border-radius:9px;background:var(--blue-lt);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.doc-title{font-size:13.5px;font-weight:700;margin-bottom:2px}
+.doc-url{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted)}
+.doc-arr{font-size:18px;color:var(--blue)}
 
-.triggers-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 24px;box-shadow:var(--shadow-sm)}
-.triggers-title{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.triggers-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
-.trig-pill{background:var(--off);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--sub);display:flex;align-items:center;gap:8px}
-.trig-dot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0}
+/* FLOW DIAGRAM */
+.flow-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow-sm);overflow-x:auto;margin-bottom:16px}
+.flow-title{font-size:13px;font-weight:700;margin-bottom:14px}
+.flow-steps{display:flex;align-items:flex-start;gap:0;min-width:600px}
+.flow-step{display:flex;flex-direction:column;align-items:center;min-width:100px}
+.flow-box{background:var(--off);border:1.5px solid var(--border);border-radius:9px;padding:10px 10px;text-align:center;width:94px}
+.flow-icon{font-size:16px;margin-bottom:3px}
+.flow-label{font-size:10.5px;font-weight:600;color:var(--text);line-height:1.3}
+.flow-sub{font-size:9.5px;color:var(--muted);margin-top:2px}
+.flow-arrow{display:flex;align-items:center;padding:0 3px;color:var(--muted);font-size:14px;margin-top:16px;flex-shrink:0}
 
-/* ── RISKS ── */
-.risks-intro{font-size:13.5px;color:#92400e;background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);border-radius:12px;padding:14px 18px;margin-bottom:18px;line-height:1.6}
-.risks-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:680px){.risks-grid{grid-template-columns:1fr}}
-.risk-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:13px 16px;display:flex;gap:10px;align-items:flex-start;box-shadow:var(--shadow-sm)}
-.risk-num{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;color:var(--muted);min-width:28px;padding-top:2px}
-.risk-text{font-size:13px;color:var(--sub);line-height:1.5}
-
-/* ── FOOTER ── */
-.footer{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:var(--muted)}
-.footer-author{display:flex;align-items:center;gap:10px}
-.footer-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:20px 32px;max-width:1200px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
+.footer-left{display:flex;align-items:center;gap:9px}
+.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
 .footer-name{font-weight:600;color:var(--sub)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-.hero{animation:fadeUp .6s ease both}
-section{animation:fadeUp .5s ease both}
-section:nth-child(2){animation-delay:.05s}
-section:nth-child(3){animation-delay:.08s}
-section:nth-child(4){animation-delay:.11s}
-section:nth-child(5){animation-delay:.14s}
-section:nth-child(6){animation-delay:.17s}
-section:nth-child(7){animation-delay:.2s}
-section:nth-child(8){animation-delay:.23s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:fadeUp .5s ease both}
+.page{animation:fadeUp .5s ease .07s both}
 </style>
 </head>
 <body>
@@ -238,7 +223,7 @@ section:nth-child(8){animation-delay:.23s}
   <div class="hero-grid"></div>
   <div class="hero-inner">
     <div class="top-bar">
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <div class="author-chip">
           <div class="author-av">R</div>
           <div class="author-info">
@@ -246,19 +231,18 @@ section:nth-child(8){animation-delay:.23s}
             <span class="author-role">Product Manager · Roadmap Author</span>
           </div>
         </div>
-        <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.35);border-radius:100px;padding:7px 16px;font-size:11.5px;font-weight:600;color:#fbbf24;letter-spacing:.04em;text-transform:uppercase">
-          <span style="font-size:13px">✏️</span> Draft — Pending Finalization
-        </div>
+        <div class="draft-banner">✏️ Draft — Pending Finalization</div>
       </div>
-      <div class="live-badge"><div class="live-dot"></div>SmartPOS Platform · May 2026</div>
+      <div class="live-badge"><div class="live-dot"></div>SmartPOS · May 2026</div>
     </div>
-    <h1>E2E Test Development<br><em>Roadmap 2026</em></h1>
-    <p class="hero-desc">Three parallel tracks across 5 engineers — QA verification, Android transactional execution, and backend report verification running simultaneously.</p>
+    <h1>SmartPOS E2E<br><em>Test Development Roadmap</em></h1>
+    <p class="hero-desc">Four parallel tracks covering verification, transactional testing, report verification and manual printing test cases across 5 engineers.</p>
     <div class="hero-stats">
-      <div class="hstat"><div class="hstat-val" id="hero-total">—</div><div class="hstat-label">Total Test Cases</div></div>
-      <div class="hstat"><div class="hstat-val">90</div><div class="hstat-label">Total Suites</div></div>
+      <div class="hstat"><div class="hstat-val">4</div><div class="hstat-label">Tracks</div></div>
       <div class="hstat"><div class="hstat-val">5</div><div class="hstat-label">Engineers</div></div>
-      <div class="hstat"><div class="hstat-val">3</div><div class="hstat-label">Parallel Tracks</div></div>
+      <div class="hstat"><div class="hstat-val">2,436</div><div class="hstat-label">Verification TCs</div></div>
+      <div class="hstat"><div class="hstat-val">247</div><div class="hstat-label">Transaction TCs</div></div>
+      <div class="hstat"><div class="hstat-val">308</div><div class="hstat-label">Manual Print TCs</div></div>
       <div class="hstat"><div class="hstat-val">30 Days</div><div class="hstat-label">Target ETA</div></div>
     </div>
   </div>
@@ -266,181 +250,296 @@ section:nth-child(8){animation-delay:.23s}
 
 <div class="page">
 
-  <!-- 01 THREE TRACKS -->
+  <!-- 01 FOUR TRACKS -->
   <section>
-    <div class="sec-head"><div class="sec-num">01</div><h2>Three Parallel Tracks</h2><div class="sec-line"></div></div>
-    <div class="tracks">
+    <div class="sec-head"><div class="sec-num">01</div><h2>Four Parallel Tracks</h2><div class="sec-line"></div><div class="sec-meta">All running simultaneously</div></div>
+    <div class="tracks-grid">
 
-      <!-- Track A -->
-      <div class="track-card blue">
-        <div class="parallel-badge pb-blue">⚡ Running in Parallel</div>
-        <div class="track-label">Track A — QA</div>
-        <div class="track-title">Verification Suite</div>
-        <div class="track-eta">📅 30-Day ETA</div>
-        <div class="big-num" id="v-total">—</div>
-        <div class="num-sub">test cases · 68 suites</div>
-        <div class="members">
-          <div class="chip"><div class="av av-b">V</div>Vaishanavi</div>
-          <div class="chip"><div class="av av-i">P</div>Pratik</div>
-        </div>
-        <div class="track-scope">
-          <div class="track-scope-title">Scope</div>
-          <div class="scope-items">
-            <div class="scope-item"><div class="scope-dot sd-blue"></div>Manual tag-based E2E suite execution</div>
-            <div class="scope-item"><div class="scope-dot sd-blue"></div>Order entry, payments, notifications, reports</div>
-            <div class="scope-item"><div class="scope-dot sd-blue"></div>Table service, split check, drawer flows</div>
-            <div class="scope-item"><div class="scope-dot sd-blue"></div>Manager & server login scenarios</div>
+      <!-- Track A: Verification -->
+      <div class="track-card">
+        <div class="track-stripe ts-blue"></div>
+        <div class="track-body">
+          <div class="track-label">Track A · QA</div>
+          <div class="track-title">Verification</div>
+          <div class="track-eta">📅 30-Day ETA</div>
+          <div class="track-big tb-blue">2,436</div>
+          <div class="track-sub">test cases · 68 suites</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px">
+            <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--blue-lt);color:var(--blue)">Pratik: 812</span>
+            <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--blue-lt);color:var(--blue)">Vaishanavi: 812</span>
+            <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--green-lt);color:var(--green)">Satish: 406</span>
+            <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--green-lt);color:var(--green)">Sandeep: 406</span>
+          </div>
+          <div class="track-members">
+            <span class="tm-lbl">Team</span>
+            <div class="avs"><div class="av av-b">V</div><div class="av av-i">P</div><div class="av av-g">S</div><div class="av av-a">S</div></div>
+            <span class="tm-names">Vaishanavi, Pratik, Satish, Sandeep</span>
           </div>
         </div>
       </div>
 
-      <!-- Track B -->
-      <div class="track-card green">
-        <div class="parallel-badge pb-green">⚡ Running in Parallel</div>
-        <div class="track-label">Track B — Android</div>
-        <div class="track-title">Transactional Suite</div>
-        <div class="track-eta">📅 28-Day ETA</div>
-        <div class="big-num" id="t-total">—</div>
-        <div class="num-sub">test cases · 22 suites</div>
-        <div class="members">
-          <div class="chip"><div class="av av-g">S</div>Satish</div>
-          <div class="chip"><div class="av av-a">S</div>Sandeep</div>
-        </div>
-        <div class="track-scope">
-          <div class="track-scope-title">Scope</div>
-          <div class="scope-items">
-            <div class="scope-item"><div class="scope-dot sd-green"></div>Transaction execution on Android emulator</div>
-            <div class="scope-item"><div class="scope-dot sd-green"></div>Cash, CC, Gift Card payment flows</div>
-            <div class="scope-item"><div class="scope-dot sd-green"></div>Tip, promo, void, service charge scenarios</div>
-            <div class="scope-item"><div class="scope-dot sd-green"></div>End Day trigger from Android E2E flow</div>
+      <!-- Track B: Transaction -->
+      <div class="track-card">
+        <div class="track-stripe ts-green"></div>
+        <div class="track-body">
+          <div class="track-label">Track B · Android</div>
+          <div class="track-title">Transaction</div>
+          <div class="track-eta">📅 28-Day ETA</div>
+          <div class="track-big tb-green">247</div>
+          <div class="track-sub">test cases · 22 suites</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px">
+            <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--green-lt);color:var(--green)">Satish: 124</span>
+            <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--green-lt);color:var(--green)">Sandeep: 123</span>
+            <span style="font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--pale);border:1px solid var(--border);color:var(--sub)">Cash/CC/GC</span>
+            <span style="font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--pale);border:1px solid var(--border);color:var(--sub)">Promo/Loyalty</span>
+          </div>
+          <div class="track-members">
+            <span class="tm-lbl">Team</span>
+            <div class="avs"><div class="av av-g">S</div><div class="av av-a">S</div></div>
+            <span class="tm-names">Satish, Sandeep</span>
           </div>
         </div>
       </div>
 
-      <!-- Track C -->
-      <div class="track-card purple">
-        <div class="parallel-badge pb-purple">⚡ Running in Parallel</div>
-        <div class="track-label">Track C — Backend</div>
-        <div class="track-title">Report Verification</div>
-        <div class="track-eta">📅 80–120 hrs · Darshan</div>
-        <div class="big-num" style="font-size:36px;margin-top:4px">14</div>
-        <div class="num-sub">workstreams · SmartPOS Reports</div>
-        <div class="members">
-          <div class="chip"><div class="av av-p">D</div>Darshan</div>
-        </div>
-        <div class="track-scope">
-          <div class="track-scope-title">Scope</div>
-          <div class="scope-items">
-            <div class="scope-item"><div class="scope-dot sd-purple"></div>Backend scripting — location setup, tenant, APIs</div>
-            <div class="scope-item"><div class="scope-dot sd-purple"></div>Open Day vs Closed Day report comparison</div>
-            <div class="scope-item"><div class="scope-dot sd-purple"></div>Playwright test cases for SmartPOS reports</div>
-            <div class="scope-item"><div class="scope-dot sd-purple"></div>CI integration + artifact pipeline</div>
+      <!-- Track C: Report -->
+      <div class="track-card">
+        <div class="track-stripe ts-purple"></div>
+        <div class="track-body">
+          <div class="track-label">Track C · Backend</div>
+          <div class="track-title">Report Verification</div>
+          <div class="track-eta">📅 80–120 hrs · Parallel via APIs</div>
+          <div class="track-big tb-purple">14</div>
+          <div class="track-sub">workstreams · 3 locations</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px">
+            <span style="font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--purple-lt);color:var(--purple)">Open vs Closed Day</span>
+            <span style="font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--purple-lt);color:var(--purple)">Revenue Summary</span>
+            <span style="font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--purple-lt);color:var(--purple)">Payment Summary</span>
+          </div>
+          <div class="track-members">
+            <span class="tm-lbl">Team</span>
+            <div class="avs"><div class="av av-p">D</div></div>
+            <span class="tm-names">Darshan</span>
           </div>
         </div>
       </div>
+
+      <!-- Track D: Manual Printing -->
+      <div class="track-card">
+        <div class="track-stripe ts-orange"></div>
+        <div class="track-body">
+          <div class="track-label">Track D · Manual</div>
+          <div class="track-title">Printing Tests</div>
+          <div class="track-eta">⚠️ Not automated — Manual only</div>
+          <div class="track-big tb-orange">308</div>
+          <div class="track-sub">test cases · hardware required</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px">
+            <span style="font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--orange-lt);color:var(--orange)">Kitchen Prints</span>
+            <span style="font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--orange-lt);color:var(--orange)">KDS</span>
+            <span style="font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--orange-lt);color:var(--orange)">Receipt Prints</span>
+          </div>
+          <div class="track-members">
+            <span class="tm-lbl">Note</span>
+            <span class="tm-names" style="color:var(--orange)">Hardware printers required · Not CI</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- 02 PARALLEL EXECUTION PLAN -->
+  <!-- 02 VERIFICATION SPLIT -->
   <section>
-    <div class="sec-head"><div class="sec-num">02</div><h2>Parallel Execution Plan</h2><div class="sec-line"></div></div>
-    <div class="parallel-flow">
-      <div class="pf-title">🔀 All three tracks execute simultaneously — no blocking dependency</div>
-      <div class="pf-grid">
-
-        <div class="pf-track">
-          <div class="pf-header">
-            <div class="pf-av pf-av-b">QA</div>
-            <div class="pf-head-text"><span class="pf-head-name">Vaishanavi & Pratik</span><span class="pf-head-sub">Track A · Verification</span></div>
-          </div>
-          <div class="pf-milestones">
-            <div class="pf-ms"><div class="pf-ms-dot md-b">W1</div>Suite setup, login & device config</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-b">W2</div>Order entry & notification suites</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-b">W3</div>Payment, split check, table service</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-b">W4</div>Reports, drawer, end-day verification</div>
-          </div>
-        </div>
-
-        <div class="pf-track">
-          <div class="pf-header" style="padding-left:20px">
-            <div class="pf-av pf-av-g">AND</div>
-            <div class="pf-head-text"><span class="pf-head-name">Satish & Sandeep</span><span class="pf-head-sub">Track B · Android Transactional</span></div>
-          </div>
-          <div class="pf-milestones" style="padding-left:20px">
-            <div class="pf-ms"><div class="pf-ms-dot md-g">W1</div>Android env setup, emulator config</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-g">W2</div>Cash, CC, Gift Card transaction flows</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-g">W3</div>Tip, promo, void, service charge flows</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-g">W4</div>End Day trigger, check detail, e-signature</div>
-          </div>
-        </div>
-
-        <div class="pf-track">
-          <div class="pf-header" style="padding-left:20px">
-            <div class="pf-av pf-av-p">D</div>
-            <div class="pf-head-text"><span class="pf-head-name">Darshan</span><span class="pf-head-sub">Track C · Backend & Reports</span></div>
-          </div>
-          <div class="pf-milestones" style="padding-left:20px">
-            <div class="pf-ms"><div class="pf-ms-dot md-p">W1</div>Tenant setup, location scripts, 3 locations</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-p">W2</div>Report APIs, Open Day capture, JSON storage</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-p">W3</div>Customized report API, Closed Day comparison</div>
-            <div class="pf-ms"><div class="pf-ms-dot md-p">W4</div>CI integration, Playwright suites, deflake</div>
-          </div>
-        </div>
-
+    <div class="sec-head"><div class="sec-num">02</div><h2>Verification Split — 2,436 Test Cases</h2><div class="sec-line"></div><div class="sec-meta">÷3 = 812 · 3rd set ÷2 = 406 each</div></div>
+    <div class="vsplit-grid">
+      <div class="vsplit-card">
+        <div class="vsplit-label">Pratik</div>
+        <div class="vsplit-num" style="color:var(--blue)">812</div>
+        <div class="vsplit-sub">Verification · Track A</div>
       </div>
+      <div class="vsplit-card">
+        <div class="vsplit-label">Vaishanavi</div>
+        <div class="vsplit-num" style="color:var(--blue)">812</div>
+        <div class="vsplit-sub">Verification · Track A</div>
+      </div>
+      <div class="vsplit-card">
+        <div class="vsplit-label">Satish</div>
+        <div class="vsplit-num" style="color:var(--green)">406 + 124</div>
+        <div class="vsplit-sub">Verif 406 + Transaction 124 = <strong>530</strong></div>
+      </div>
+      <div class="vsplit-card">
+        <div class="vsplit-label">Sandeep</div>
+        <div class="vsplit-num" style="color:var(--green)">406 + 123</div>
+        <div class="vsplit-sub">Verif 406 + Transaction 123 = <strong>529</strong></div>
+      </div>
+    </div>
+    <div style="background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:12px 18px;margin-top:12px;font-size:13px;color:#92400e;display:flex;align-items:center;gap:10px">
+      📋 <span>Deductions applied: <strong>91 printer test cases</strong> removed from Verification (rows 1–11) · <strong>218</strong> removed from Transaction (rows 12+) · Print track = <strong>308</strong> manual test cases</span>
     </div>
   </section>
 
   <!-- 03 VERIFICATION SUITES -->
   <section>
-    <div class="sec-head"><div class="sec-num">03</div><h2>Verification Suites — Vaishanavi & Pratik</h2><div class="sec-line"></div></div>
-    <div class="table-card">
-      <div class="tbar"><div class="tbar-title">Suite Index — Track A</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag tag-b">QA Track</span><span class="tag tag-a">30-Day ETA</span></div></div>
-      <div class="search-wrap"><span class="sicon">🔍</span><input type="text" placeholder="Search suites…" oninput="filterTable('v-tbody',this.value)"></div>
-      <table class="suite-table">
-        <thead><tr><th>Suite Name</th><th style="width:210px">Test Cases</th></tr></thead>
+    <div class="sec-head"><div class="sec-num">03</div><h2>Verification Suites — Vaishanavi & Pratik</h2><div class="sec-line"></div><div class="sec-meta">Track A · 30-Day ETA</div></div>
+    <div class="tcard">
+      <div class="tcard-header"><div class="tcard-title">Suite Index</div><div style="display:flex;gap:7px;flex-wrap:wrap"><span class="tag tag-b">Track A</span><span class="tag tag-a">30 Days</span></div></div>
+      <div class="search-wrap"><span class="si">🔍</span><input type="text" placeholder="Search suites…" oninput="filterTable('v-tbody',this.value)"></div>
+      <table class="dtable">
+        <thead><tr><th>#</th><th>Suite Name</th><th style="width:180px">Test Cases</th></tr></thead>
         <tbody id="v-tbody"></tbody>
       </table>
     </div>
   </section>
 
-  <!-- 04 TRANSACTIONAL SUITES -->
+  <!-- 04 TRANSACTION SUITES -->
   <section>
-    <div class="sec-head"><div class="sec-num">04</div><h2>Transactional Suites — Satish & Sandeep</h2><div class="sec-line"></div></div>
-    <div class="table-card">
-      <div class="tbar"><div class="tbar-title">Suite Index — Track B</div><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag tag-g">Android Track</span><span class="tag tag-a">28-Day ETA</span></div></div>
-      <div class="search-wrap"><span class="sicon">🔍</span><input type="text" placeholder="Search suites…" oninput="filterTable('t-tbody',this.value)"></div>
-      <table class="suite-table">
-        <thead><tr><th>Suite Name</th><th style="width:210px">Test Cases</th></tr></thead>
+    <div class="sec-head"><div class="sec-num">04</div><h2>Transaction Suites — Satish & Sandeep</h2><div class="sec-line"></div><div class="sec-meta">Track B · 28-Day ETA</div></div>
+    <div class="tcard">
+      <div class="tcard-header"><div class="tcard-title">Suite Index</div><div style="display:flex;gap:7px;flex-wrap:wrap"><span class="tag tag-g">Track B</span><span class="tag tag-a">28 Days</span></div></div>
+      <div class="search-wrap"><span class="si">🔍</span><input type="text" placeholder="Search suites…" oninput="filterTable('t-tbody',this.value)"></div>
+      <table class="dtable">
+        <thead><tr><th>#</th><th>Suite Name</th><th style="width:180px">Test Cases</th></tr></thead>
         <tbody id="t-tbody"></tbody>
       </table>
     </div>
   </section>
 
-  <!-- 05 DARSHAN WORKSTREAMS -->
+
+  <!-- 05 PRINTER / MANUAL SUITES -->
   <section>
-    <div class="sec-head"><div class="sec-num">05</div><h2>Darshan's Report Verification Workstreams</h2><div class="sec-line"></div></div>
-    <div class="darshan-intro">
-      <div class="di-av">D</div>
-      <div class="di-text">
-        <strong>Darshan</strong> is responsible for all backend scripting and Playwright test cases for SmartPOS report verification. For every transaction completed in Track B, Darshan validates that the reports generated — Revenue Summary, Sales Revenue, and Payment Summary — are consistent between <strong>Open Day</strong> and <strong>Closed Day</strong> states across 3 dedicated test locations. This track runs in parallel via API work while Tracks A & B execute.
+    <div class="sec-head"><div class="sec-num" style="background:var(--orange)">05</div><h2>Manual Printing Suites — Track D</h2><div class="sec-line"></div><div class="sec-meta">38 suites · 310 test cases · Not automated</div></div>
+    <div style="background:var(--orange-lt);border:1px solid rgba(234,88,12,.2);border-radius:10px;padding:12px 18px;margin-bottom:16px;font-size:13px;color:#9a3412;display:flex;align-items:center;gap:10px">
+      🖨️ <span>These test cases require <strong>physical printer hardware</strong> and are executed manually. Not included in CI pipeline. Deducted from Verification (rows 1–11 = 91 TCs) and Transaction (rows 12+ = 218 TCs).</span>
+    </div>
+    <div class="tcard">
+      <div class="tcard-header"><div class="tcard-title">Printer Suite Index</div><div style="display:flex;gap:7px;flex-wrap:wrap"><span class="tag tag-o">Track D</span><span class="tag tag-o">Manual Only</span><span class="tag tag-o">Not CI</span></div></div>
+      <div class="search-wrap"><span class="si">🔍</span><input type="text" placeholder="Search printer suites…" oninput="filterTable('p-tbody',this.value)"></div>
+      <table class="dtable">
+        <thead><tr><th>#</th><th>Suite Name</th><th>Printer TCs</th><th>Rows</th></tr></thead>
+        <tbody id="p-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 05 REPORT VERIFICATION -->
+  <section>
+    <div class="sec-head"><div class="sec-num">05</div><h2>Report Verification — Darshan</h2><div class="sec-line"></div><div class="sec-meta">Track C · Backend · Parallel</div></div>
+
+    <div style="background:var(--purple-lt);border:1px solid rgba(124,58,237,.2);border-radius:12px;padding:18px 22px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start">
+      <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--purple),#be185d);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0">D</div>
+      <div style="font-size:13.5px;color:var(--sub);line-height:1.7">
+        <strong style="color:var(--text)">Darshan</strong> is responsible for all backend scripting and Playwright test cases for SmartPOS report verification. For every transaction completed in Track B, Darshan validates that <strong>Revenue Summary, Sales Revenue and Payment Summary</strong> remain consistent between <strong>Open Day and Closed Day</strong> states across 3 dedicated test locations. This track runs in parallel via API work.
       </div>
     </div>
 
+    <div class="report-grid">
+      <div class="report-card">
+        <div class="rc-title">📍 3 Test Locations</div>
+        <div class="rc-items">
+          <div class="rc-item"><div class="rc-dot"></div><strong>Location 1</strong> — Cash Discount enabled (3.85%)</div>
+          <div class="rc-item"><div class="rc-dot"></div><strong>Location 2</strong> — Cash Discount disabled</div>
+          <div class="rc-item"><div class="rc-dot"></div><strong>Location 3</strong> — Beverage + Print Ingredients configuration</div>
+          <div class="rc-item"><div class="rc-dot"></div>Each location validated: smt_location, user, POS device, menu, payment settings, pos_day_management, receipt templates</div>
+        </div>
+      </div>
+      <div class="report-card">
+        <div class="rc-title">📊 Reports Verified</div>
+        <div class="rc-items">
+          <div class="rc-item"><div class="rc-dot"></div><strong>Revenue Summary</strong> — Gross Sales, Net Sales, Tax, Total Revenue</div>
+          <div class="rc-item"><div class="rc-dot"></div><strong>Sales Revenue</strong> — by category (Food, Beverage etc.)</div>
+          <div class="rc-item"><div class="rc-dot"></div><strong>Payment Summary</strong> — Cash, CC, Gift Card totals</div>
+          <div class="rc-item"><div class="rc-dot"></div>Open Day captured before End Day → compared with Closed Day after processing</div>
+        </div>
+      </div>
+      <div class="report-card">
+        <div class="rc-title">💳 Transaction Combinations</div>
+        <div class="rc-items">
+          <div class="rc-item"><div class="rc-dot"></div>Cash · Credit Card · Gift Card payments</div>
+          <div class="rc-item"><div class="rc-dot"></div>Promo · Loyalty · Service Charge · Suggested Tip</div>
+          <div class="rc-item"><div class="rc-dot"></div>Manual/Add Tip · Discount + Service Charge</div>
+          <div class="rc-item"><div class="rc-dot"></div>Cash Discount scenario · Non-Cash Discount scenario</div>
+        </div>
+      </div>
+      <div class="report-card">
+        <div class="rc-title">⚖️ Comparison Rules</div>
+        <div class="rc-items">
+          <div class="rc-item"><div class="rc-dot"></div>Strict match: Gross Sales, Net Sales, Tax, Promos, Loyalty, Tips, GC values, Payment totals</div>
+          <div class="rc-item"><div class="rc-dot"></div>Warning only: Cash Deposit, Closing Cash, Ending Cash</div>
+          <div class="rc-item"><div class="rc-dot"></div>Normalized decimal comparison — ignore $, commas</div>
+          <div class="rc-item"><div class="rc-dot"></div>Fail if row missing or amount/count mismatch found</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Open Day JSON structure -->
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 22px;box-shadow:var(--shadow-sm);margin-top:16px">
+      <div style="font-size:13.5px;font-weight:700;margin-bottom:12px">📦 Open Day JSON Storage Structure</div>
+      <pre style="background:var(--text);color:#a5f3fc;font-family:'JetBrains Mono',monospace;font-size:11px;padding:16px 18px;border-radius:8px;line-height:1.8;overflow-x:auto">{
+  "locationId": 72061,
+  "locationName": "Automation004",
+  "dayId": 2233,
+  "reportDate": "2026-05-15",
+  "cashDiscountEnabled": true,
+  "capturedAt": "2026-05-15T10:30:00.000Z",
+  "reports": {
+    "revenueSummary": { "Gross Sales": { "amount": 120.00, "count": 3 } },
+    "salesRevenue":   { "Food": { "amount": 80.00, "count": 2 } },
+    "paymentSummary": { "Cash": { "amount": 50.00, "count": 1 } }
+  }
+}</pre>
+    </div>
+  </section>
+
+  <!-- 06 4-WEEK TIMELINE -->
+  <section>
+    <div class="sec-head"><div class="sec-num">06</div><h2>4-Week Implementation Plan</h2><div class="sec-line"></div></div>
+    <div class="phases">
+      <div class="phase-item">
+        <div class="phase-left"><div class="phase-dot p1">1</div><div class="phase-connector"></div></div>
+        <div class="phase-body">
+          <div class="p-week">Week 1</div><div class="p-title">Environment & Infrastructure Setup</div>
+          <div class="p-tags"><span class="ptag">Tenant validation</span><span class="ptag">Location script reuse</span><span class="ptag">Cash Discount explicit config</span><span class="ptag">Location 1/2/3 creation</span><span class="ptag">POS device mapping</span><span class="ptag">pos_day_management setup</span></div>
+        </div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-left"><div class="phase-dot p2">2</div><div class="phase-connector"></div></div>
+        <div class="phase-body">
+          <div class="p-week">Week 2</div><div class="p-title">Transaction Execution & Open Day Capture</div>
+          <div class="p-tags"><span class="ptag">Cash/CC/GC flows</span><span class="ptag">Promo & Loyalty</span><span class="ptag">Service Charge & Tips</span><span class="ptag">Open Day report capture</span><span class="ptag">JSON normalization & storage</span><span class="ptag">Playwright artifact attach</span></div>
+        </div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-left"><div class="phase-dot p3">3</div><div class="phase-connector"></div></div>
+        <div class="phase-body">
+          <div class="p-week">Week 3</div><div class="p-title">End Day Flow & Report Comparison</div>
+          <div class="p-tags"><span class="ptag">End Day trigger (Android)</span><span class="ptag">Customized report API</span><span class="ptag">DB validation (tbl_customize_sales_report)</span><span class="ptag">Closed Day capture</span><span class="ptag">Open vs Closed comparison</span><span class="ptag">Sales Revenue + Payment verification</span></div>
+        </div>
+      </div>
+      <div class="phase-item">
+        <div class="phase-left"><div class="phase-dot p4">4</div></div>
+        <div class="phase-body">
+          <div class="p-week">Week 4</div><div class="p-title">CI Integration, Deflake & Stabilization</div>
+          <div class="p-tags"><span class="ptag">PR smoke suite CI</span><span class="ptag">Nightly full suite</span><span class="ptag">Playwright trace uploads</span><span class="ptag">Failure reporting</span><span class="ptag">Concurrency groups per location</span><span class="ptag">Deflake & stabilization</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 EFFORT -->
+  <section>
+    <div class="sec-head"><div class="sec-num">07</div><h2>Darshan's Effort Breakdown</h2><div class="sec-line"></div></div>
     <div class="total-banner">
       <div class="t-left">
-        <div class="t-eyebrow">Darshan's Estimated Effort</div>
+        <div class="t-eyebrow">Darshan's Estimated Effort — Track C</div>
         <div class="t-num">80–120 <span>hrs</span></div>
-        <div class="t-sub">14 workstreams · Track C</div>
+        <div class="t-sub">14 workstreams · Report Verification</div>
       </div>
       <div class="t-right">
-        <div class="t-pill"><div class="tpd">✓</div>3 dedicated test locations (Cash Discount ON / OFF / Beverage)</div>
-        <div class="t-pill"><div class="tpd">✓</div>Revenue Summary + Sales Revenue + Payment Summary</div>
-        <div class="t-pill"><div class="tpd">✓</div>Open Day JSON captured & stored before End Day</div>
-        <div class="t-pill"><div class="tpd">✓</div>Closed Day compared and asserted after End Day</div>
+        <div class="t-pill"><div class="tpd">✓</div>PR smoke: 1 Cash Discount ON + 1 OFF per PR</div>
+        <div class="t-pill"><div class="tpd">✓</div>Full suite: nightly + pre-release</div>
+        <div class="t-pill"><div class="tpd">✓</div>Open Day vs Closed Day strict comparison</div>
+        <div class="t-pill"><div class="tpd">✓</div>DB validation after customized report API</div>
       </div>
     </div>
-
     <div class="effort-wrap">
       <table class="effort-table">
         <thead><tr><th>#</th><th>Workstream</th><th>Estimate</th></tr></thead>
@@ -449,110 +548,139 @@ section:nth-child(8){animation-delay:.23s}
     </div>
   </section>
 
-  <!-- 06 CI STRATEGY -->
+  <!-- 08 CI STRATEGY -->
   <section>
-    <div class="sec-head"><div class="sec-num">06</div><h2>CI / PR Strategy</h2><div class="sec-line"></div></div>
-    <div class="ci-intro">
-      <div class="ci-intro-title">How the CI pipeline works</div>
-      <div class="ci-intro-text">When a PR is opened or updated against <strong>dev</strong> or <strong>prod</strong>, the <span class="code-inline">build.yml</span> workflow calculates affected rules. If SmartPOS E2E files are touched, it spins up hermetic Docker services, starts an Android emulator, and runs the Playwright suite authored by Darshan. Two tiers exist — a <strong>PR Smoke Suite</strong> (fast, every PR) and a <strong>Nightly Full Suite</strong> (comprehensive, pre-release).</div>
+    <div class="sec-head"><div class="sec-num">08</div><h2>CI / PR Strategy</h2><div class="sec-line"></div></div>
+
+    <!-- Flow diagram -->
+    <div class="flow-card">
+      <div class="flow-title">PR CI Flow — Step by Step</div>
+      <div class="flow-steps" id="ci-flow"></div>
     </div>
-    <div class="ci-flow-card">
-      <div class="ci-flow-title">PR CI Flow — step by step</div>
-      <div class="ci-flow" id="ci-flow-render"></div>
-    </div>
-    <div class="ci-four">
-      <div class="ci-box">
-        <div class="ci-box-head"><div class="ci-box-icon" style="background:var(--blue-lt)">🚀</div><div><div class="ci-box-title">PR Smoke Suite</div><div class="ci-box-sub">Every PR · fast focused coverage</div></div></div>
+
+    <div class="ci-grid">
+      <div class="ci-card">
+        <div class="ci-head"><div class="ci-icon" style="background:var(--blue-lt)">🚀</div><div><div class="ci-title">PR Smoke Suite</div><div class="ci-sub">Every PR · targeted · fast</div></div></div>
         <div class="ci-list">
           <div class="ci-li"><div class="ci-dot"></div>1× Cash Discount ON transaction</div>
           <div class="ci-li"><div class="ci-dot"></div>1× Cash Discount OFF transaction</div>
           <div class="ci-li"><div class="ci-dot"></div>Open Day report captured before End Day</div>
-          <div class="ci-li"><div class="ci-dot"></div>End Day triggered via Android E2E flow</div>
-          <div class="ci-li"><div class="ci-dot"></div>Customized report processing API called</div>
-          <div class="ci-li"><div class="ci-dot"></div>Open vs Closed values compared & asserted</div>
+          <div class="ci-li"><div class="ci-dot"></div>End Day triggered via Android websocket flow</div>
+          <div class="ci-li"><div class="ci-dot"></div>Customized report API + DB record validation</div>
+          <div class="ci-li"><div class="ci-dot"></div>Open vs Closed JSON comparison and assertion</div>
+          <div class="ci-li"><div class="ci-dot"></div>Target runtime: within 25 minutes</div>
         </div>
       </div>
-      <div class="ci-box">
-        <div class="ci-box-head"><div class="ci-box-icon" style="background:var(--indigo-lt)">🌙</div><div><div class="ci-box-title">Nightly Full Suite</div><div class="ci-box-sub">Nightly · pre-release · manual dispatch</div></div></div>
+      <div class="ci-card">
+        <div class="ci-head"><div class="ci-icon" style="background:var(--indigo-lt)">🌙</div><div><div class="ci-title">Nightly Full Suite</div><div class="ci-sub">Nightly · pre-release · manual dispatch</div></div></div>
         <div class="ci-list">
           <div class="ci-li"><div class="ci-dot"></div>All transaction row combinations</div>
-          <div class="ci-li"><div class="ci-dot"></div>Split check & full payment scenarios</div>
-          <div class="ci-li"><div class="ci-dot"></div>Promo / Loyalty / Gift Card / Void / Refund</div>
-          <div class="ci-li"><div class="ci-dot"></div>Cash Discount ON + OFF locations</div>
-          <div class="ci-li"><div class="ci-dot"></div>Tip, Service Charge, Suggested Tip</div>
-          <div class="ci-li"><div class="ci-dot"></div>Revenue Summary + Sales Revenue + Payment Summary</div>
+          <div class="ci-li"><div class="ci-dot"></div>Cash Discount ON + OFF scenarios</div>
+          <div class="ci-li"><div class="ci-dot"></div>Split check + full payment scenarios</div>
+          <div class="ci-li"><div class="ci-dot"></div>Promo / Loyalty / GC / Tip / Service Charge / Void</div>
+          <div class="ci-li"><div class="ci-dot"></div>Revenue + Sales Revenue + Payment Summary</div>
+          <div class="ci-li"><div class="ci-dot"></div>Nightly failures → notify MilagroDevTeam via email</div>
         </div>
       </div>
-      <div class="ci-box">
-        <div class="ci-box-head"><div class="ci-box-icon" style="background:var(--green-lt)">📦</div><div><div class="ci-box-title">Artifacts Per Run</div><div class="ci-box-sub">Full debug bundle every execution</div></div></div>
+      <div class="ci-card">
+        <div class="ci-head"><div class="ci-icon" style="background:var(--green-lt)">📦</div><div><div class="ci-title">Artifacts Per Run</div><div class="ci-sub">Full debug bundle every execution</div></div></div>
         <div class="ci-list">
           <div class="ci-li"><div class="ci-dot"></div>Playwright trace + HTML report</div>
           <div class="ci-li"><div class="ci-dot"></div>Android emulator + ADB logs</div>
-          <div class="ci-li"><div class="ci-dot"></div>Android test video (when available)</div>
-          <div class="ci-li"><div class="ci-dot"></div>Open Day captured report JSON</div>
-          <div class="ci-li"><div class="ci-dot"></div>Closed Day captured report JSON</div>
-          <div class="ci-li"><div class="ci-dot"></div>Open vs Closed diff + failure reason</div>
+          <div class="ci-li"><div class="ci-dot"></div>Android test video (where available)</div>
+          <div class="ci-li"><div class="ci-dot"></div>Open Day captured report JSON (per location)</div>
+          <div class="ci-li"><div class="ci-dot"></div>Closed Day captured report JSON (per location)</div>
+          <div class="ci-li"><div class="ci-dot"></div>Open vs Closed diff + failure reason + widget/row label</div>
         </div>
       </div>
-      <div class="ci-box">
-        <div class="ci-box-head"><div class="ci-box-icon" style="background:var(--amber-lt)">🗂️</div><div><div class="ci-box-title">Reports Verified by Darshan</div><div class="ci-box-sub">3 locations · Open Day vs Closed Day</div></div></div>
+      <div class="ci-card">
+        <div class="ci-head"><div class="ci-icon" style="background:var(--amber-lt)">⚡</div><div><div class="ci-title">PR Trigger Conditions</div><div class="ci-sub">Auto-fires when these paths are modified</div></div></div>
         <div class="ci-list">
-          <div class="ci-li"><div class="ci-dot"></div><strong style="color:var(--text)">Revenue Summary</strong> — Gross, Net, Tax, Total</div>
-          <div class="ci-li"><div class="ci-dot"></div><strong style="color:var(--text)">Sales Revenue</strong> — by category breakdown</div>
-          <div class="ci-li"><div class="ci-dot"></div><strong style="color:var(--text)">Payment Summary</strong> — Cash, CC, Gift Card</div>
-          <div class="ci-li"><div class="ci-dot"></div>Location 1 — Cash Discount enabled</div>
-          <div class="ci-li"><div class="ci-dot"></div>Location 2 — Cash Discount disabled</div>
-          <div class="ci-li"><div class="ci-dot"></div>Location 3 — Beverage + Print Ingredients</div>
+          <div class="ci-li"><div class="ci-dot"></div>SmartPOS/**</div>
+          <div class="ci-li"><div class="ci-dot"></div>smartpos-reports.mobile.spec.ts</div>
+          <div class="ci-li"><div class="ci-dot"></div>smartpos-report-page.ts</div>
+          <div class="ci-li"><div class="ci-dot"></div>milagro-api/common/models/pos-reports.js</div>
+          <div class="ci-li"><div class="ci-dot"></div>Customized report generation logic</div>
+          <div class="ci-li"><div class="ci-dot"></div>End Day code + location setup scripts</div>
         </div>
       </div>
     </div>
-    <div class="triggers-card">
-      <div class="triggers-title">⚡ PR Trigger Conditions — E2E fires automatically when these paths are modified</div>
-      <div class="triggers-grid" id="triggers-grid"></div>
-    </div>
   </section>
 
-  <!-- 07 RISKS -->
+  <!-- 09 RISKS & SOLUTIONS -->
   <section>
-    <div class="sec-head"><div class="sec-num">07</div><h2>Risks & Challenges</h2><div class="sec-line"></div></div>
-    <div class="risks-intro">⚠️ The following risks were identified by Darshan as part of the E2E spec. Each should be tracked and mitigated before the nightly full suite goes live.</div>
-    <div class="risks-grid" id="risks-grid"></div>
+    <div class="sec-head"><div class="sec-num">09</div><h2>CI Risks & Solutions</h2><div class="sec-line"></div></div>
+    <div class="risk-grid" id="risk-grid"></div>
   </section>
 
-  <div class="footer">
-    <div class="footer-author">
-      <div class="footer-av" style="background:linear-gradient(135deg,#7c3aed,#be185d)">R</div>
-      <span>Created by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
-    </div>
-    <div style="display:inline-flex;align-items:center;gap:6px;background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);border-radius:100px;padding:4px 14px;font-size:12px;font-weight:600;color:var(--amber)">✏️ Draft · Pending Finalization</div>
-    <span>SmartPOS E2E Roadmap · May 2026 · codengine internal</span>
+  <!-- 10 IMPLEMENTATION DOC LINK -->
+  <section>
+    <div class="sec-head"><div class="sec-num">10</div><h2>Implementation Document</h2><div class="sec-line"></div></div>
+    <a href="https://docs.google.com/document/d/1Rbu1zGWpEicLBU6w1dKWYw7sBvvHfeYg/edit?usp=sharing&ouid=111222387635755281595&rtpof=true&sd=true" target="_blank" class="doc-link">
+      <div class="doc-left">
+        <div class="doc-icon">📄</div>
+        <div>
+          <div class="doc-title">SmartPOS E2E Report Verification — Full Implementation Spec</div>
+          <div class="doc-url">docs.google.com/document/d/1Rbu1zGWpEicLBU6w1dKWYw7sBvvHfeYg</div>
+        </div>
+      </div>
+      <div class="doc-arr">↗</div>
+    </a>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-av">R</div>
+    <span>Created by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
   </div>
+  <div style="display:inline-flex;align-items:center;gap:6px;background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);border-radius:100px;padding:3px 12px;font-size:11.5px;font-weight:600;color:var(--amber)">✏️ Draft · Pending Finalization</div>
+  <span>SmartPOS E2E Roadmap · May 2026</span>
 </div>
 
 <script>
-const vSuites=[["e2e-manual-smartpos-e-receipt",22],["e2e-manual-smartpos-drawer-payout",6],["e2e-manual-smartpos-giftcard-deactivate-card",16],["e2e-manual-smartpos-giftcard-check-balance",6],["e2e-manual-smartpos-login-user",1],["e2e-manual-smartpos-login-online-order-drawer",33],["e2e-manual-smartpos-notification-menu-update",2],["e2e-manual-smartpos-notification-item-update",3],["e2e-manual-smartpos-notification-item-out-of-stock",2],["e2e-manual-smartpos-notification-online-chowly-order",7],["e2e-manual-smartpos-notification-online-chowly-auto-accept-status",5],["e2e-manual-smartpos-notification-start-day",4],["e2e-manual-smartpos-splash-screen",6],["e2e-manual-smartpos-splash-screen-check-permission",6],["e2e-manual-smartpos-order-entry-menu",35],["e2e-manual-smartpos-order-entry-split-check",37],["e2e-manual-smartpos-order-entry-operations",698],["e2e-manual-smartpos-order-entry-single-check",37],["e2e-manual-smartpos-order-entry-add-customer",62],["e2e-manual-smartpos-order-entry-item-out-of-stock",4],["e2e-manual-smartpos-order-entry-track-item-add",10],["e2e-manual-smartpos-printer",61],["e2e-manual-smartpos-split-preview-page",48],["e2e-manual-smartpos-split-by-item",18],["e2e-manual-smartpos-split-evenly",7],["e2e-manual-smartpos-table-service-layout",9],["e2e-manual-smartpos-table-service-neworder",4],["e2e-manual-smartpos-table-service-sw-spos-integration",46],["e2e-manual-smartpos-table-service-transfer-table",63],["e2e-manual-smartpos-tablet-setting-qsr-tsr",6],["e2e-manual-smartpos-device-info-sync-menu",2],["e2e-manual-smartpos-device-info-coupon-list-download",4],["e2e-manual-smartpos-transaction-list-view-transactions",11],["e2e-manual-smartpos-device-info-discover-printer",5],["e2e-manual-smartpos-transaction-list-neworder-qsr",31],["e2e-manual-smartpos-transaction-list-neworder-tsr",4],["e2e-manual-smartpos-transactions-details-resend-to-kitchen",4],["e2e-manual-smartpos-transactions-details-remove-promo",3],["e2e-manual-smartpos-transactions-details-repeat-item",22],["e2e-manual-smartpos-transactions-details-hold-and-fire",4],["e2e-manual-smartpos-transactions-details-transfer-table",64],["e2e-manual-smartpos-end-day-cash",2],["e2e-manual-smartpos-end-day-declare-cash-tip",4],["e2e-manual-smartpos-end-day",3],["e2e-manual-smartpos-sale-report",89],["e2e-manual-smartpos-drawer",28],["e2e-manual-smartpos-payment-page",85],["e2e-manual-smartpos-payment-confirm-cash",6],["e2e-manual-smartpos-payment-confirm-cc",22],["e2e-manual-smartpos-payment-confirm-giftcard",5],["e2e-manual-smartpos-payment-page-promo",38],["e2e-manual-smartpos-payment-page-servicecharge",18],["e2e-manual-smartpos-payment-page-delivery-sale",6],["e2e-manual-smartpos-payment-page-coupons",17],["e2e-manual-smartpos-payment-page-loyalty",46],["e2e-manual-smartpos-payment-page-taxExempt",11],["e2e-manual-smartpos-payment-page-giftcard-operation",5],["e2e-manual-smartpos-reports",449],["e2e-manual-smartpos-reports-salessummary-detailreport",62],["e2e-manual-smartpos-reports-salessummary-locationsales",7],["e2e-manual-smartpos-reports-promocode",4],["e2e-manual-smartpos-reports-empsales",16],["e2e-manual-smartpos-reports-voidcheck",20],["e2e-manual-smartpos-reports-voiditem",17],["e2e-manual-smartpos-reports-refund",20],["e2e-manual-smartpos-reports-cashdrawer",22],["e2e-manual-smartpos-transactions-details-move-table",77],["e2e-manual-smartpos-transactions-details-move-item",30]];
-const tSuites=[["e2e-manual-smartpos-transactions-details-check-detail",50],["e2e-manual-smartpos-giftcard-load-card",21],["e2e-manual-smartpos-e-signature",14],["e2e-manual-smartpos-end-day-report",43],["e2e-manual-smartpos-payment-page",85],["e2e-manual-smartpos-payment-confirm-cash",6],["e2e-manual-smartpos-payment-confirm-cc",22],["e2e-manual-smartpos-payment-confirm-giftcard",5],["e2e-manual-smartpos-payment-page-promo",38],["e2e-manual-smartpos-payment-page-servicecharge",18],["e2e-manual-smartpos-payment-page-delivery-sale",6],["e2e-manual-smartpos-payment-page-coupons",17],["e2e-manual-smartpos-payment-page-taxExempt",11],["e2e-manual-smartpos-payment-page-giftcard-operation",5],["e2e-manual-smartpos-payment-page-loyalty",46],["e2e-manual-smartpos-transactions-details-apply-promo",30],["e2e-manual-smartpos-transactions-details-apply-service-charge",16],["e2e-manual-smartpos-transactions-details-void",17],["e2e-manual-smartpos-transactions-details-gc-void",3],["e2e-manual-smartpos-transactions-details-add-tip-cc",6],["e2e-manual-smartpos-transactions-details-add-tip-gc",6]];
-const effortRows=[["Tenant / location setup validation","4–8 hrs"],["Location script reuse + post-creation config","8–12 hrs"],["Transaction row finalization for PR smoke","4 hrs"],["Open Day report capture","8 hrs"],["Open Day JSON storage + artifact attachment","4–8 hrs"],["End Day flow validation","4–8 hrs"],["Customized report API + DB validation","8 hrs"],["Closed Day report capture","4–8 hrs"],["Open Day vs Closed Day comparison logic","8–12 hrs"],["Sales Revenue verification","8 hrs"],["Payment Summary verification","8 hrs"],["PR CI integration","8–12 hrs"],["CI artifacts + failure reporting","4–8 hrs"],["Deflake / stabilization","16–24 hrs"]];
-const risks=["Android emulator startup can be slow or flaky — needs retry logic and health checks","Gradle build time can significantly increase total PR execution time","Docker service readiness must be confirmed stable before test suite starts","Location data must be fully isolated per test row to prevent cross-contamination","Cash Discount configuration must not depend on location name patterns — must be explicit","Date filters must be scoped precisely to avoid mixing multiple day IDs in reports","Report APIs may return HTTP 200 even when customized report records were not inserted correctly","Open Day and Closed Day reports use different backend calculation paths — values may diverge","Cash Deposit and End Day cash values require special comparison rules — not strict-matched","Full matrix execution is too heavy for every PR — must be gated to nightly / manual dispatch"];
-const triggers=["SmartPOS/**","e2e/milagro/tests/features/reporting/smartpos-reports.mobile.spec.ts","e2e/milagro/pom/smartpos-report-page.ts","SmartPOS report UI files","SmartPOS report API files","milagro-api/common/models/pos-reports.js","Customized report generation logic","End Day related SmartPOS code","Location setup scripts"];
+// ── VERIFICATION SUITES ──
+const vSuites=[["e2e-manual-smartpos-e-receipt",12],["e2e-manual-smartpos-drawer-payout",6],["e2e-manual-smartpos-giftcard-deactivate-card",16],["e2e-manual-smartpos-giftcard-check-balance",6],["e2e-manual-smartpos-login-user",1],["e2e-manual-smartpos-login-online-order-drawer",33],["e2e-manual-smartpos-notification-menu-update",2],["e2e-manual-smartpos-notification-item-update",3],["e2e-manual-smartpos-notification-item-out-of-stock",2],["e2e-manual-smartpos-notification-online-chowly-order",7],["e2e-manual-smartpos-notification-online-chowly-auto-accept-status",5],["e2e-manual-smartpos-notification-start-day",4],["e2e-manual-smartpos-splash-screen",6],["e2e-manual-smartpos-splash-screen-check-permission",6],["e2e-manual-smartpos-order-entry-menu",35],["e2e-manual-smartpos-order-entry-split-check",36],["e2e-manual-smartpos-order-entry-operations",666],["e2e-manual-smartpos-order-entry-single-check",24],["e2e-manual-smartpos-order-entry-add-customer",39],["e2e-manual-smartpos-order-entry-item-out-of-stock",4],["e2e-manual-smartpos-order-entry-track-item-add",10],["e2e-manual-smartpos-printer",35],["e2e-manual-smartpos-split-preview-page",45],["e2e-manual-smartpos-split-by-item",15],["e2e-manual-smartpos-split-evenly",6],["e2e-manual-smartpos-table-service-layout",9],["e2e-manual-smartpos-table-service-neworder",2],["e2e-manual-smartpos-table-service-sw-spos-integration",46],["e2e-manual-smartpos-table-service-transfer-table",63],["e2e-manual-smartpos-tablet-setting-qsr-tsr",6],["e2e-manual-smartpos-device-info-sync-menu",2],["e2e-manual-smartpos-device-info-coupon-list-download",4],["e2e-manual-smartpos-transaction-list-view-transactions",11],["e2e-manual-smartpos-device-info-discover-printer",5],["e2e-manual-smartpos-transaction-list-neworder-qsr",30],["e2e-manual-smartpos-transaction-list-neworder-tsr",2],["e2e-manual-smartpos-transactions-details-resend-to-kitchen",0],["e2e-manual-smartpos-transactions-details-remove-promo",3],["e2e-manual-smartpos-transactions-details-repeat-item",4],["e2e-manual-smartpos-transactions-details-hold-and-fire",2],["e2e-manual-smartpos-transactions-details-transfer-table",56],["e2e-manual-smartpos-end-day-cash",2],["e2e-manual-smartpos-end-day-declare-cash-tip",0],["e2e-manual-smartpos-end-day",0],["e2e-manual-smartpos-sale-report",87],["e2e-manual-smartpos-drawer",28],["e2e-manual-smartpos-payment-page",85],["e2e-manual-smartpos-payment-confirm-cash",6],["e2e-manual-smartpos-payment-confirm-cc",22],["e2e-manual-smartpos-payment-confirm-giftcard",5],["e2e-manual-smartpos-payment-page-promo",38],["e2e-manual-smartpos-payment-page-servicecharge",18],["e2e-manual-smartpos-payment-page-delivery-sale",6],["e2e-manual-smartpos-payment-page-coupons",17],["e2e-manual-smartpos-payment-page-loyalty",46],["e2e-manual-smartpos-payment-page-taxExempt",11],["e2e-manual-smartpos-payment-page-giftcard-operation",5],["e2e-manual-smartpos-reports",449],["e2e-manual-smartpos-reports-salessummary-detailreport",62],["e2e-manual-smartpos-reports-salessummary-locationsales",7],["e2e-manual-smartpos-reports-promocode",4],["e2e-manual-smartpos-reports-empsales",16],["e2e-manual-smartpos-reports-voidcheck",20],["e2e-manual-smartpos-reports-voiditem",17],["e2e-manual-smartpos-reports-refund",20],["e2e-manual-smartpos-reports-cashdrawer",22],["e2e-manual-smartpos-transactions-details-move-table",72],["e2e-manual-smartpos-transactions-details-move-item",30]];
 
-function buildTable(id,suites,green){
+// ── TRANSACTION SUITES ──
+const tSuites=[["e2e-manual-smartpos-transactions-details-check-detail",34],["e2e-manual-smartpos-giftcard-load-card",21],["e2e-manual-smartpos-e-signature",14],["e2e-manual-smartpos-end-day-report",43],["e2e-manual-smartpos-payment-page",45],["e2e-manual-smartpos-payment-confirm-cash",0],["e2e-manual-smartpos-payment-confirm-cc",13],["e2e-manual-smartpos-payment-confirm-giftcard",3],["e2e-manual-smartpos-payment-page-promo",37],["e2e-manual-smartpos-payment-page-servicecharge",10],["e2e-manual-smartpos-payment-page-delivery-sale",3],["e2e-manual-smartpos-payment-page-coupons",11],["e2e-manual-smartpos-payment-page-taxExempt",1],["e2e-manual-smartpos-payment-page-giftcard-operation",3],["e2e-manual-smartpos-payment-page-loyalty",39],["e2e-manual-smartpos-transactions-details-apply-promo",27],["e2e-manual-smartpos-transactions-details-apply-service-charge",8],["e2e-manual-smartpos-transactions-details-void",4],["e2e-manual-smartpos-transactions-details-gc-void",0],["e2e-manual-smartpos-transactions-details-add-tip-cc",1],["e2e-manual-smartpos-transactions-details-add-tip-gc",1]];
+
+// ── PRINTER SUITES (Track D — Manual) ──
+const pSuites=[["e2e-manual-smartpos-e-receipt",10],["e2e-manual-smartpos-order-entry-single-chec",13],["e2e-manual-smartpos-order-entry-split-check",1],["e2e-manual-smartpos-order-entry-operations",32],["e2e-manual-smartpos-order-entry-add-customer",23],["e2e-manual-smartpos-split-preview",3],["e2e-manual-smartpos-split-by-item",3],["e2e-manual-smartpos-split-evenly",1],["e2e-manual-smartpos-table-service-neworder",2],["e2e-manual-smartpos-transaction-list-neworder-qsr",1],["e2e-manual-smartpos-transaction-list-neworder-tsr",2],["e2e-manual-smartpos-transactions-details-resend-to-kitchen",4],["e2e-manual-smartpos-transactions-details-repeat-item",18],["e2e-manual-smartpos-transactions-details-hold-and-fire",2],["e2e-manual-smartpos-end-day-declare-cash-tip",4],["e2e-manual-smartpos-end-day",3],["e2e-manual-smartpos-sale-report",2],["e2e-manual-smartpos-payment-page",40],["e2e-manual-smartpos-payment-confirm-cash",6],["e2e-manual-smartpos-payment-confirm-cc",9],["e2e-manual-smartpos-payment-confirm-giftcard",2],["e2e-manual-smartpos-payment-page-promo",1],["e2e-manual-smartpos-payment-page-servicecharge",8],["e2e-manual-smartpos-payment-page-delivery-sale",3],["e2e-manual-smartpos-payment-page-coupons",6],["e2e-manual-smartpos-payment-page-loyalty",7],["e2e-manual-smartpos-payment-page-taxExempt",10],["e2e-manual-smartpos-payment-page-giftcard-operation",2],["e2e-manual-smartpos-transactions-details-check-detail",16],["e2e-manual-smartpos-transactions-details-apply-promo",3],["e2e-manual-smartpos-transactions-details-apply-service-charge",8],["e2e-manual-smartpos-transactions-details-void",13],["e2e-manual-smartpos-transactions-details-gc-void",3],["e2e-manual-smartpos-transactions-details-add-tip-cc",5],["e2e-manual-smartpos-transactions-details-add-tip-gc",5],["e2e-manual-smartpos-transactions-details-transfer-table",8],["e2e-manual-smartpos-transactions-details-move-table",5],["e2e-manual-smartpos-printer",26]];
+
+// ── EFFORT ──
+const effort=[["Tenant / location setup validation","4–8 hrs"],["Location script reuse + post-creation config","8–12 hrs"],["Transaction row finalization for PR smoke","4 hrs"],["Open Day report capture","8 hrs"],["Open Day JSON storage + artifact attachment","4–8 hrs"],["End Day flow validation","4–8 hrs"],["Customized report API + DB validation","8 hrs"],["Closed Day report capture","4–8 hrs"],["Open Day vs Closed Day comparison logic","8–12 hrs"],["Sales Revenue verification","8 hrs"],["Payment Summary verification","8 hrs"],["PR CI integration","8–12 hrs"],["CI artifacts + failure reporting","4–8 hrs"],["Deflake / stabilization","16–24 hrs"]];
+
+// ── RISKS ──
+const risks=[
+  {title:"Android emulator startup slow or flaky",solution:"Keep PR E2E runtime ≤25 min · Run only one SmartPOS report verification TC per PR job · Upload emulator logs + ADB + Playwright trace + Android video for debugging · Full matrix stays in nightly only"},
+  {title:"Gradle build increases PR execution time",solution:"Limit PR to affected test rows only · Dispatch each affected row as separate E2E job · Run full transaction/report coverage only in nightly or manual workflow"},
+  {title:"Docker service readiness before test start",solution:"Continue existing Docker readiness approach · Use existing localhost:8080 readiness check · Keep Docker startup logs as CI artifacts · No additional API-specific checks in phase 1"},
+  {title:"Location data isolation per test row",solution:"Reuse 3 configured automation locations · Pre-run DB cleanup/reset helper before execution · GitHub Actions concurrency group per location · Nightly: limited parallel batches per location"},
+  {title:"Cash Discount config depends on name pattern",solution:"Add explicit post-creation DB validation · Enforce: CD ON = is_cash_discount_enabled=1, 3.85% · CD OFF = is_cash_discount_enabled=0 · Validate Beverage + Print Ingredients settings"},
+  {title:"Date filters mixing multiple day IDs",solution:"Use dayId + locationId + startDayTime from pos_day_management as source of truth · Capture active Open Day dayId before transaction · Compare only same locationId and dayId"},
+  {title:"Report API returns HTTP 200 without inserting records",solution:"Add DB validation after API call · Validate records in tbl_customize_sales_report and tbl_sales_summary_count · Missing DB rows = test failure · Row-exists check sufficient for phase 1"},
+  {title:"Open Day and Closed Day use different calculation paths",solution:"Capture Open Day response before End Day · Store JSON per location · Run End Day once · Run customized report processing · Compare Revenue, Sales Revenue, Payment Summary · Strict decimal comparison — no rounding"},
+  {title:"Cash Deposit and End Day cash need special rules",solution:"Cash Deposit mismatch = warning only (not fail) in phase 1 · Cash Drawer report out of phase 1 scope · Revenue, tax, payment, tip, loyalty, promo, GC values still strict-compared"},
+  {title:"Full matrix execution too heavy for every PR",solution:"Full matrix only via nightly or manual dispatch · PR CI runs only affected rows based on changed files · Nightly failures → notify MilagroDevTeam email · Preserve Open Day + Closed Day JSONs for all nightly runs"},
+];
+
+function buildTable(id, suites, color){
   const max=Math.max(...suites.map(s=>s[1]));
   const tb=document.getElementById(id);
   let total=0;
-  suites.forEach(([n,c])=>{
+  suites.forEach(([n,c],i)=>{
     total+=c;
     const pct=Math.round((c/max)*100);
     const tr=document.createElement('tr');
     tr.dataset.name=n.toLowerCase();
-    tr.innerHTML=`<td>${n}</td><td><div class="bar-cell"><div class="bar-track"><div class="bar-fill ${green?'bar-g':'bar-b'}" style="width:0%" data-pct="${pct}"></div></div><span class="bar-num">${c}</span></div></td>`;
+    tr.innerHTML=`<td style="color:var(--muted);font-size:10.5px">${String(i+1).padStart(2,'0')}</td><td class="title-col">${n}</td><td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:5px;background:var(--pale);border-radius:10px;overflow:hidden"><div style="height:100%;border-radius:10px;width:0%;transition:width .9s cubic-bezier(.16,1,.3,1);background:linear-gradient(90deg,${color})" data-w="${pct}%"></div></div><span style="font-size:11.5px;font-weight:600;color:var(--text);min-width:30px;text-align:right">${c}</span></div></td>`;
     tb.appendChild(tr);
   });
-  const tot=document.createElement('tr');
-  tot.className='total-row';
-  tot.innerHTML=`<td>Total</td><td><strong>${total.toLocaleString()} test cases</strong></td>`;
+  const tot=document.createElement('tr');tot.className='total-row';
+  tot.innerHTML=`<td></td><td>Total</td><td><strong>${total.toLocaleString()} test cases</strong></td>`;
   tb.appendChild(tot);
-  return total;
 }
 
 function filterTable(id,q){
@@ -562,40 +690,61 @@ function filterTable(id,q){
   });
 }
 
-const vT=buildTable('v-tbody',vSuites,false);
-const tT=buildTable('t-tbody',tSuites,true);
-document.getElementById('v-total').textContent=vT.toLocaleString();
-document.getElementById('t-total').textContent=tT.toLocaleString();
-document.getElementById('hero-total').textContent=(vT+tT).toLocaleString();
+buildTable('v-tbody',vSuites,'var(--blue),var(--indigo)');
+buildTable('t-tbody',tSuites,'var(--green),var(--teal)');
+// Printer table — show row group label
+(function(){
+  const max=Math.max(...pSuites.map(s=>s[1]));
+  const tb=document.getElementById('p-tbody');
+  let total=0;
+  pSuites.forEach(([n,c],i)=>{
+    total+=c;
+    const pct=Math.round((c/max)*100);
+    const rowGroup = i < 11 ? 'Rows 1–11 (V)' : 'Rows 12+ (T)';
+    const rowColor = i < 11 ? 'background:var(--blue-lt);color:var(--blue)' : 'background:var(--green-lt);color:var(--green)';
+    const tr=document.createElement('tr');
+    tr.dataset.name=n.toLowerCase();
+    tr.innerHTML=`<td style="color:var(--muted);font-size:10.5px">${String(i+1).padStart(2,'0')}</td><td class="title-col">${n}</td><td><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:5px;background:var(--pale);border-radius:10px;overflow:hidden"><div style="height:100%;border-radius:10px;width:0%;transition:width .9s cubic-bezier(.16,1,.3,1);background:linear-gradient(90deg,var(--orange),var(--red))" data-w="${pct}%"></div></div><span style="font-size:11.5px;font-weight:600;color:var(--text);min-width:30px;text-align:right">${c}</span></div></td><td><span style="font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;${rowColor}">${rowGroup}</span></td>`;
+    tb.appendChild(tr);
+  });
+  const tot=document.createElement('tr');tot.className='total-row';
+  tot.innerHTML=`<td></td><td>Total</td><td><strong>${total.toLocaleString()} test cases</strong></td><td><strong>38 suites</strong></td>`;
+  tb.appendChild(tot);
+})();
 
+// Effort table
 const etb=document.getElementById('effort-tbody');
-effortRows.forEach(([task,hrs],i)=>{
+effort.forEach(([task,hrs],i)=>{
   const tr=document.createElement('tr');
   tr.innerHTML=`<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px">${String(i+1).padStart(2,'0')}</td><td>${task}</td><td><span class="hrs-pill">${hrs}</span></td>`;
   etb.appendChild(tr);
 });
-const totTr=document.createElement('tr');
-totTr.className='effort-total';
-totTr.innerHTML=`<td></td><td>Total — Darshan's Estimated Effort</td><td><span class="hrs-pill" style="background:var(--purple);color:#fff;font-size:13px;padding:6px 16px">80–120 hrs</span></td>`;
+const totTr=document.createElement('tr');totTr.className='effort-total';
+totTr.innerHTML=`<td></td><td>Total — Darshan's Estimated Effort</td><td><span class="hrs-pill" style="background:var(--purple);color:#fff;font-size:12.5px;padding:5px 14px">80–120 hrs</span></td>`;
 etb.appendChild(totTr);
 
-// CI flow
-const ciSteps=[{icon:'📥',label:'PR Opened',sub:'dev / prod'},{icon:'⚙️',label:'build.yml',sub:'Rules calculated'},{icon:'🧩',label:'Milagro E2E',sub:'Job triggered'},{icon:'🐳',label:'Docker',sub:'Services up'},{icon:'📱',label:'Android',sub:'Emulator start'},{icon:'🎭',label:'Playwright',sub:'Darshan\'s suite'},{icon:'✅',label:'PR Status',sub:'Pass / Fail'}];
-const flow=document.getElementById('ci-flow-render');
+// CI Flow
+const ciSteps=[{icon:'📥',l:'PR Opened',s:'dev / prod'},{icon:'⚙️',l:'build.yml',s:'Affected rules'},{icon:'🧩',l:'Milagro E2E',s:'Job triggered'},{icon:'🐳',l:'Docker',s:'Services up'},{icon:'📱',l:'Android',s:'Emulator start'},{icon:'🎭',l:'Playwright',s:'Darshan suite'},{icon:'✅',l:'PR Status',s:'Pass / Fail'}];
+const cf=document.getElementById('ci-flow');
 ciSteps.forEach((s,i)=>{
-  const step=document.createElement('div');step.className='ci-step';
-  step.innerHTML=`<div class="ci-step-box"><div class="ci-step-icon">${s.icon}</div><div class="ci-step-label">${s.label}</div><div class="ci-step-sub">${s.sub}</div></div>`;
-  flow.appendChild(step);
-  if(i<ciSteps.length-1){const a=document.createElement('div');a.className='ci-arrow';a.textContent='→';flow.appendChild(a);}
+  const d=document.createElement('div');d.className='flow-step';
+  d.innerHTML=`<div class="flow-box"><div class="flow-icon">${s.icon}</div><div class="flow-label">${s.l}</div><div class="flow-sub">${s.s}</div></div>`;
+  cf.appendChild(d);
+  if(i<ciSteps.length-1){const a=document.createElement('div');a.className='flow-arrow';a.textContent='→';cf.appendChild(a);}
 });
 
-const tg=document.getElementById('triggers-grid');
-triggers.forEach(t=>{const d=document.createElement('div');d.className='trig-pill';d.innerHTML=`<div class="trig-dot"></div>${t}`;tg.appendChild(d);});
+// Risks
+const rg=document.getElementById('risk-grid');
+risks.forEach((r,i)=>{
+  const d=document.createElement('div');d.className='risk-card';
+  d.innerHTML=`<div class="risk-num">R${String(i+1).padStart(2,'0')}</div><div class="risk-title">${r.title}</div><div class="risk-solution"><strong style="color:var(--green)">✓ Solution:</strong> ${r.solution}</div>`;
+  rg.appendChild(d);
+});
 
-const rg=document.getElementById('risks-grid');
-risks.forEach((r,i)=>{const d=document.createElement('div');d.className='risk-card';d.innerHTML=`<div class="risk-num">R${String(i+1).padStart(2,'0')}</div><div class="risk-text">${r}</div>`;rg.appendChild(d);});
-
-requestAnimationFrame(()=>setTimeout(()=>{document.querySelectorAll('.bar-fill').forEach(el=>{el.style.width=el.dataset.pct+'%'});},300));
+// Animate bars
+requestAnimationFrame(()=>setTimeout(()=>{
+  document.querySelectorAll('[data-w]').forEach(el=>{el.style.width=el.dataset.w;});
+},300));
 </script>
 </body>
 </html>
