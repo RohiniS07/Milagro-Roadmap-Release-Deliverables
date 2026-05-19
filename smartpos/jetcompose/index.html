@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jet Compose Roadmap — SmartPOS UI</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
+  --text:#0f1117;--sub:#5b6075;--muted:#9299af;
+  --blue:#2563eb;--blue-lt:#eff4ff;--blue-mid:#dbeafe;
+  --indigo:#4f46e5;--indigo-lt:#eef2ff;
+  --green:#059669;--green-lt:#ecfdf5;
+  --amber:#d97706;--amber-lt:#fffbeb;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --teal:#0891b2;--teal-lt:#ecfeff;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --orange:#ea580c;--orange-lt:#fff7ed;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --shadow:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.12);
+}
+html{scroll-behavior:smooth}
+body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#08091a 0%,#0a1f10 55%,#071a20 100%);padding:52px 48px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(5,150,105,.2) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(8,145,178,.15) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.45)}
+.breadcrumb a{color:rgba(255,255,255,.55);text-decoration:none}.breadcrumb a:hover{color:#fff}
+.breadcrumb span{color:rgba(255,255,255,.25)}
+.top-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.author-chip{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:100px;padding:5px 14px 5px 5px}
+.author-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.author-name{font-size:12px;font-weight:600;color:#fff}
+.author-role{font-size:10px;color:rgba(255,255,255,.45)}
+.author-info{line-height:1.2}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:500;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.04em}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero h1{font-size:clamp(26px,4vw,46px);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:8px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#34d399,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:12px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.35);margin-bottom:14px;letter-spacing:.06em}
+.hero-desc{font-size:14px;color:rgba(255,255,255,.45);max-width:620px;margin-bottom:20px;font-weight:300;line-height:1.75}
+.draft-banner{display:inline-flex;align-items:center;gap:7px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:5px 14px;font-size:11.5px;font-weight:600;color:#fbbf24;margin-bottom:22px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 20px;min-width:100px}
+.hstat-val{font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
+.hstat-label{font-size:10.5px;color:rgba(255,255,255,.38)}
+.hstat.golive{background:rgba(5,150,105,.15);border-color:rgba(5,150,105,.3)}
+.hstat.golive .hstat-val{color:#34d399}
+
+/* PAGE */
+.page{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:44px 32px 80px}
+
+/* SEC HEAD */
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.sec-num{width:28px;height:28px;border-radius:7px;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.sec-line{flex:1;height:1px;background:var(--border)}
+.sec-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px;white-space:nowrap}
+section{margin-bottom:52px}
+
+/* OVERVIEW CARDS */
+.overview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:0}
+@media(max-width:900px){.overview-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.overview-grid{grid-template-columns:1fr}}
+.ov-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow-sm);text-align:center}
+.ov-icon{font-size:24px;margin-bottom:8px}
+.ov-val{font-size:22px;font-weight:800;margin-bottom:4px;letter-spacing:-.02em}
+.ov-label{font-size:11.5px;color:var(--muted)}
+.ov-sub{font-size:11px;color:var(--sub);margin-top:4px}
+
+/* TEAM CARD */
+.team-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--green),var(--teal))}
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.team-grid{grid-template-columns:1fr}}
+.dev-card{background:var(--off);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.dev-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.dev-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.dev-av-g{background:linear-gradient(135deg,var(--green),var(--teal))}
+.dev-av-a{background:linear-gradient(135deg,var(--amber),var(--orange))}
+.dev-name{font-size:14px;font-weight:700}
+.dev-role{font-size:11px;color:var(--muted)}
+.dev-items{display:flex;flex-direction:column;gap:6px}
+.dev-item{font-size:12.5px;color:var(--sub);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.dev-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px;background:var(--green)}
+.risk-item .dev-dot{background:var(--amber)}
+
+/* RISK BANNER */
+.risk-banner{background:var(--amber-lt);border:1px solid rgba(217,119,6,.25);border-radius:12px;padding:16px 20px;margin-bottom:0;display:flex;align-items:flex-start;gap:12px}
+.risk-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.risk-content{flex:1}
+.risk-title{font-size:13.5px;font-weight:700;color:#92400e;margin-bottom:4px}
+.risk-desc{font-size:13px;color:#b45309;line-height:1.6}
+
+/* TIMELINE */
+.timeline-wrap{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.tl-header{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:var(--off)}
+.tl-title{font-size:14px;font-weight:700}
+.tl-legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tl-leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sub)}
+.tl-leg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+
+.week-row{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--pale);transition:background .1s}
+.week-row:hover{background:var(--off)}
+.week-row:last-child{border-bottom:none}
+.week-row.risk-week{background:rgba(251,191,36,.05)}
+.week-row.risk-week:hover{background:rgba(251,191,36,.1)}
+.week-label{padding:14px 16px;border-right:1px solid var(--pale);background:var(--off)}
+.week-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.week-dates{font-size:11.5px;font-weight:600;color:var(--text);line-height:1.3}
+.week-content{padding:14px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.week-bar-wrap{flex:1;min-width:200px}
+.week-bar-track{height:28px;background:var(--pale);border-radius:8px;overflow:hidden;position:relative;display:flex;align-items:center}
+.week-bar-fill{height:100%;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:11.5px;font-weight:600;color:#fff;white-space:nowrap;min-width:80px}
+.wbf-green{background:linear-gradient(90deg,var(--green),var(--teal))}
+.wbf-amber{background:linear-gradient(90deg,var(--amber),var(--orange))}
+.wbf-blue{background:linear-gradient(90deg,var(--blue),var(--indigo))}
+.wbf-red{background:linear-gradient(90deg,var(--red),#be185d)}
+.week-note{font-size:11.5px;color:var(--sub);max-width:280px;line-height:1.4}
+.week-note.risk-note{color:#b45309;font-weight:500}
+.week-tags{display:flex;gap:6px;flex-wrap:wrap}
+.wtag{font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:100px;background:var(--green-lt);color:var(--green);border:1px solid rgba(5,150,105,.2)}
+.wtag-soon{background:var(--pale);color:var(--muted);border:1px solid var(--border)}
+.wtag-risk{background:var(--amber-lt);color:var(--amber)}
+.wtag-go{background:var(--green);color:#fff;border:none;font-weight:700}
+
+/* MODULES COMING SOON */
+.modules-cs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.module-cs-card{background:var(--white);border:2px dashed var(--border);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.mc-icon{width:32px;height:32px;border-radius:8px;background:var(--pale);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.mc-text{flex:1}
+.mc-name{font-size:12.5px;font-weight:600;color:var(--sub)}
+.mc-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px;background:var(--pale);color:var(--muted);border:1px solid var(--border);margin-top:3px;display:inline-block}
+
+/* GOALS */
+.goals-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:680px){.goals-grid{grid-template-columns:1fr}}
+.goal-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow-sm)}
+.goal-title{font-size:13.5px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.goal-items{display:flex;flex-direction:column;gap:8px}
+.goal-item{font-size:12.5px;color:var(--sub);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.goal-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px;background:var(--green)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:18px 32px;max-width:1200px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
+.footer-left{display:flex;align-items:center;gap:9px}
+.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+.footer-name{font-weight:600;color:var(--sub)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:fadeUp .5s ease both}
+.page{animation:fadeUp .5s ease .07s both}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="top-bar">
+      <div class="breadcrumb">
+        <a href="../">Portal</a>
+        <span>/</span>
+        <a href="../smartpos/e2e/">SmartPOS</a>
+        <span>/</span>
+        <span>Jet Compose</span>
+      </div>
+      <div class="top-right">
+        <div class="author-chip">
+          <div class="author-av">R</div>
+          <div class="author-info">
+            <div class="author-name">Rohini Sujith</div>
+            <div class="author-role">Product Manager</div>
+          </div>
+        </div>
+        <div class="live-badge"><div class="live-dot"></div>SmartPOS · May 2026</div>
+      </div>
+    </div>
+    <h1>Jet Compose <em>Roadmap</em></h1>
+    <div class="hero-sub">SMARTPOS · ANDROID UI MIGRATION · KOTLIN</div>
+    <p class="hero-desc">Convert every SmartPOS POS UI module to Jet Compose Kotlin UI. Full migration across all Android UI components by Satish & Sandeep.</p>
+    <div class="draft-banner">✏️ Draft — Module List Pending</div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">Jun 25</div><div class="hstat-label">Start Date</div></div>
+      <div class="hstat"><div class="hstat-val">Aug 14</div><div class="hstat-label">Dev Complete</div></div>
+      <div class="hstat golive"><div class="hstat-val">Aug 17</div><div class="hstat-label">Go Live 🚀</div></div>
+      <div class="hstat"><div class="hstat-val">~7 Wks</div><div class="hstat-label">Duration</div></div>
+      <div class="hstat"><div class="hstat-val">2</div><div class="hstat-label">Devs</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 01 OVERVIEW -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <h2>Overview</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">Jun 25 → Aug 17, 2026</div>
+    </div>
+    <div class="overview-grid">
+      <div class="ov-card">
+        <div class="ov-icon">📅</div>
+        <div class="ov-val" style="color:var(--blue)">Jun 25</div>
+        <div class="ov-label">Development Start</div>
+        <div class="ov-sub">Satish & Sandeep begin</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-icon">🏁</div>
+        <div class="ov-val" style="color:var(--green)">Aug 14</div>
+        <div class="ov-label">Dev Complete</div>
+        <div class="ov-sub">All modules converted</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-icon">🚀</div>
+        <div class="ov-val" style="color:var(--green)">Aug 17</div>
+        <div class="ov-label">Go Live</div>
+        <div class="ov-sub">Last go live date</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-icon">⚠️</div>
+        <div class="ov-val" style="color:var(--amber)">5 Days</div>
+        <div class="ov-label">Paternity Leave Buffer</div>
+        <div class="ov-sub">Satish · After Jun 16</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 TEAM -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <h2>Development Team</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">2 Android devs</div>
+    </div>
+    <div class="team-card">
+      <div class="team-grid">
+        <div class="dev-card">
+          <div class="dev-header">
+            <div class="dev-av dev-av-a">S</div>
+            <div>
+              <div class="dev-name">Satish</div>
+              <div class="dev-role">Android Developer · Satishpatel46</div>
+            </div>
+          </div>
+          <div class="dev-items">
+            <div class="dev-item"><div class="dev-dot"></div>Jet Compose UI migration — SmartPOS modules</div>
+            <div class="dev-item risk-item"><div class="dev-dot"></div>⚠️ Paternity leave: 5 days expected anytime after Jun 16 (Jun or Jul)</div>
+            <div class="dev-item"><div class="dev-dot"></div>Timeline accounts for paternity buffer</div>
+          </div>
+        </div>
+        <div class="dev-card">
+          <div class="dev-header">
+            <div class="dev-av dev-av-g">S</div>
+            <div>
+              <div class="dev-name">Sandeep</div>
+              <div class="dev-role">Android Developer · sandeepchorge03</div>
+            </div>
+          </div>
+          <div class="dev-items">
+            <div class="dev-item"><div class="dev-dot"></div>Jet Compose UI migration — SmartPOS modules</div>
+            <div class="dev-item"><div class="dev-dot"></div>Parallel development with Satish</div>
+            <div class="dev-item"><div class="dev-dot"></div>Will cover during Satish's paternity leave</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 RISK -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <h2>Risk & Mitigation</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="risk-banner">
+      <div class="risk-icon">⚠️</div>
+      <div class="risk-content">
+        <div class="risk-title">Paternity Leave Risk — Satish</div>
+        <div class="risk-desc">
+          Satish's paternity leave of <strong>5 days</strong> is expected anytime after <strong>June 16th</strong> — could fall in June or July 2026. 
+          This has been factored into the timeline with an Aug 14 completion date (vs an earlier possible end date without the leave). 
+          Sandeep will continue development solo during this period. Go live remains <strong>August 17, 2026</strong>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 WEEK-BY-WEEK TIMELINE -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <h2>Week-by-Week Timeline</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">Jun 25 → Aug 17</div>
+    </div>
+    <div class="timeline-wrap">
+      <div class="tl-header">
+        <div class="tl-title">Development & Release Timeline</div>
+        <div class="tl-legend">
+          <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--green)"></div>Development</div>
+          <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--amber)"></div>Risk Window</div>
+          <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--blue)"></div>Testing / QA</div>
+          <div class="tl-leg-item"><div class="tl-leg-dot" style="background:var(--teal)"></div>Go Live</div>
+        </div>
+      </div>
+
+      <!-- Week 1 -->
+      <div class="week-row">
+        <div class="week-label">
+          <div class="week-num">Week 1</div>
+          <div class="week-dates">Jun 25 – Jul 1</div>
+        </div>
+        <div class="week-content">
+          <div class="week-bar-wrap">
+            <div class="week-bar-track">
+              <div class="week-bar-fill wbf-green" style="width:100%">Development Begins</div>
+            </div>
+          </div>
+          <div class="week-note">Satish & Sandeep start Jet Compose migration. Module list finalised. First modules converted.</div>
+          <div class="week-tags"><span class="wtag-soon">Modules TBD</span></div>
+        </div>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="week-row risk-week">
+        <div class="week-label">
+          <div class="week-num">Week 2</div>
+          <div class="week-dates">Jul 2 – Jul 8</div>
+        </div>
+        <div class="week-content">
+          <div class="week-bar-wrap">
+            <div class="week-bar-track">
+              <div class="week-bar-fill wbf-amber" style="width:100%">Dev · Risk Window</div>
+            </div>
+          </div>
+          <div class="week-note risk-note">⚠️ Paternity leave may fall here. Sandeep continues solo if Satish is on leave.</div>
+          <div class="week-tags"><span class="wtag-risk">Paternity Risk</span><span class="wtag-soon">Modules TBD</span></div>
+        </div>
+      </div>
+
+      <!-- Week 3 -->
+      <div class="week-row risk-week">
+        <div class="week-label">
+          <div class="week-num">Week 3</div>
+          <div class="week-dates">Jul 9 – Jul 15</div>
+        </div>
+        <div class="week-content">
+          <div class="week-bar-wrap">
+            <div class="week-bar-track">
+              <div class="week-bar-fill wbf-amber" style="width:100%">Dev · Risk Window</div>
+            </div>
+          </div>
+          <div class="week-note risk-note">⚠️ Paternity leave may still be active. Buffer absorbed in this week.</div>
+          <div class="week-tags"><span class="wtag-risk">Paternity Buffer</span><span class="wtag-soon">Modules TBD</span></div>
+        </div>
+      </div>
+
+      <!-- Week 4 -->
+      <div class="week-row">
+        <div class="week-label">
+          <div class="week-num">Week 4</div>
+          <div class="week-dates">Jul 16 – Jul 22</div>
+        </div>
+        <div class="week-content">
+          <div class="week-bar-wrap">
+            <div class="week-bar-track">
+              <div class="week-bar-fill wbf-green" style="width:100%">Core Development</div>
+            </div>
+          </div>
+          <div class="week-note">Both devs back on track. Core UI module conversion accelerates.</div>
+          <div class="week-tags"><span class="wtag-soon">Modules TBD</span></div>
+        </div>
+      </div>
+
+      <!-- Week 5 -->
+      <div class="week-row">
+        <div class="week-label">
+          <div class="week-num">Week 5</div>
+          <div class="week-dates">Jul 23 – Jul 29</div>
+        </div>
+        <div class="week-content">
+          <div class="week-bar-wrap">
+            <div class="week-bar-track">
+              <div class="week-bar-fill wbf-green" style="width:100%">Core Development</div>
+            </div>
+          </div>
+          <div class="week-note">Remaining POS UI modules being converted. Code reviews & PRs raised.</div>
+          <div class="week-tags"><span class="wtag-soon">Modules TBD</span></div>
+        </div>
+      </div>
+
+      <!-- Week 6 -->
+      <div class="week-row">
+        <div class="week-label">
+          <div class="week-num">Week 6</div>
+          <div class="week-dates">Jul 30 – Aug 5</div>
+        </div>
+        <div class="week-content">
+          <div class="week-bar-wrap">
+            <div class="week-bar-track">
+              <div class="week-bar-fill wbf-green" style="width:100%">Final Development</div>
+            </div>
+          </div>
+          <div class="week-note">Final module conversions. Internal testing begins alongside development.</div>
+          <div class="week-tags"><span class="wtag-soon">Modules TBD</span></div>
+        </div>
+      </div>
+
+      <!-- Week 7 -->
+      <div class="week-row">
+        <div class="week-label">
+          <div class="week-num">Week 7</div>
+          <div class="week-dates">Aug 6 – Aug 12</div>
+        </div>
+        <div class="week-content">
+          <div class="week-bar-wrap">
+            <div class="week-bar-track">
+              <div class="week-bar-fill wbf-blue" style="width:100%">QA & Testing</div>
+            </div>
+          </div>
+          <div class="week-note">Full QA cycle. Bug fixes, regression testing across all converted modules.</div>
+          <div class="week-tags"><span class="wtag" style="background:var(--blue-lt);color:var(--blue)">QA Cycle</span><span class="wtag" style="background:var(--blue-lt);color:var(--blue)">Regression</span></div>
+        </div>
+      </div>
+
+      <!-- Final -->
+      <div class="week-row">
+        <div class="week-label">
+          <div class="week-num">Final</div>
+          <div class="week-dates">Aug 13 – Aug 17</div>
+        </div>
+        <div class="week-content">
+          <div class="week-bar-wrap">
+            <div class="week-bar-track">
+              <div class="week-bar-fill" style="width:100%;background:linear-gradient(90deg,var(--green),var(--teal))">Dev Complete Aug 14 · Go Live Aug 17</div>
+            </div>
+          </div>
+          <div class="week-note">Dev complete Aug 14. Final sign-off. <strong>Go live Aug 17.</strong></div>
+          <div class="week-tags">
+            <span class="wtag">Aug 14 — Dev Done</span>
+            <span class="wtag-go">🚀 Aug 17 — Go Live</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 05 MODULES -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <h2>Module Scope</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">Module list coming soon</div>
+    </div>
+    <div style="background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13px;color:#92400e;display:flex;align-items:center;gap:10px">
+      📋 <span>Every single SmartPOS POS UI module will be converted to Jet Compose Kotlin UI. Module list will be added once finalised by the team.</span>
+    </div>
+    <div class="modules-cs-grid">
+      <div class="module-cs-card"><div class="mc-icon">📱</div><div class="mc-text"><div class="mc-name">Order Entry</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">💳</div><div class="mc-text"><div class="mc-name">Payment</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🪑</div><div class="mc-text"><div class="mc-name">Table Service</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🔔</div><div class="mc-text"><div class="mc-name">Notifications</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🔀</div><div class="mc-text"><div class="mc-name">Split Check</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🗂️</div><div class="mc-text"><div class="mc-name">Transactions</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🧾</div><div class="mc-text"><div class="mc-name">Reports</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">💰</div><div class="mc-text"><div class="mc-name">Drawer</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">📧</div><div class="mc-text"><div class="mc-name">E-Receipt</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🎁</div><div class="mc-text"><div class="mc-name">Gift Card</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🖨️</div><div class="mc-text"><div class="mc-name">Printer</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">⚙️</div><div class="mc-text"><div class="mc-name">Settings</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🔐</div><div class="mc-text"><div class="mc-name">Login / Splash</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">📊</div><div class="mc-text"><div class="mc-name">Sale Report</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">🏁</div><div class="mc-text"><div class="mc-name">End Day</div><span class="mc-badge">Coming Soon</span></div></div>
+      <div class="module-cs-card"><div class="mc-icon">➕</div><div class="mc-text"><div class="mc-name">More modules…</div><span class="mc-badge">TBD by team</span></div></div>
+    </div>
+  </section>
+
+  <!-- 06 GOALS -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">06</div>
+      <h2>Goals & Deliverables</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-title">🎯 Conversion Goals</div>
+        <div class="goal-items">
+          <div class="goal-item"><div class="goal-dot"></div>100% of SmartPOS POS UI modules converted to Jet Compose Kotlin UI</div>
+          <div class="goal-item"><div class="goal-dot"></div>All screens migrated from legacy Android XML views</div>
+          <div class="goal-item"><div class="goal-dot"></div>Maintain feature parity — no regressions</div>
+          <div class="goal-item"><div class="goal-dot"></div>Performance improvements from Compose rendering</div>
+          <div class="goal-item"><div class="goal-dot"></div>Go live by August 17, 2026</div>
+        </div>
+      </div>
+      <div class="goal-card">
+        <div class="goal-title">📦 Technical Deliverables</div>
+        <div class="goal-items">
+          <div class="goal-item"><div class="goal-dot"></div>All UI files converted to Jetpack Compose (Kotlin)</div>
+          <div class="goal-item"><div class="goal-dot"></div>PRs raised per module — reviewed and merged</div>
+          <div class="goal-item"><div class="goal-dot"></div>CI pipeline runs Android instrumentation tests</div>
+          <div class="goal-item"><div class="goal-dot"></div>QA sign-off on all converted modules before go live</div>
+          <div class="goal-item"><div class="goal-dot"></div>Module-wise date timeline updated as work progresses</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-av">R</div>
+    <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
+  </div>
+  <span>Jet Compose Roadmap · SmartPOS · May 2026 · Draft</span>
+</div>
+
+</body>
+</html>
