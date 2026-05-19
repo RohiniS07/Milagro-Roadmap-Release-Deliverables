@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Playwright Automation Roadmap — Utiliko | Milagro | PBX</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
+  --text:#0f1117;--sub:#5b6075;--muted:#9299af;
+  --blue:#2563eb;--blue-lt:#eff4ff;--blue-mid:#dbeafe;
+  --indigo:#4f46e5;--indigo-lt:#eef2ff;
+  --green:#059669;--green-lt:#ecfdf5;
+  --amber:#d97706;--amber-lt:#fffbeb;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --teal:#0891b2;--teal-lt:#ecfeff;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --pink:#db2777;--pink-lt:#fdf2f8;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --shadow:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+  --shadow-lg:0 16px 48px rgba(0,0,0,.12);
+}
+html{scroll-behavior:smooth}
+body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#08091a 0%,#12052e 55%,#0a0f1e 100%);padding:52px 48px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(124,58,237,.22) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(37,99,235,.15) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.45)}
+.breadcrumb a{color:rgba(255,255,255,.55);text-decoration:none}.breadcrumb a:hover{color:#fff}
+.breadcrumb span{color:rgba(255,255,255,.25)}
+.top-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.author-chip{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:100px;padding:5px 14px 5px 5px}
+.author-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.author-name{font-size:12px;font-weight:600;color:#fff}
+.author-role{font-size:10px;color:rgba(255,255,255,.45)}
+.author-info{line-height:1.2}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:500;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.04em}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#a78bfa;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+
+.hero h1{font-size:clamp(26px,4vw,46px);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:8px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#a78bfa,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:12px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.35);margin-bottom:14px;letter-spacing:.06em}
+.hero-desc{font-size:14px;color:rgba(255,255,255,.45);max-width:620px;margin-bottom:28px;font-weight:300;line-height:1.75}
+.draft-banner{display:inline-flex;align-items:center;gap:7px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.3);border-radius:100px;padding:5px 14px;font-size:11.5px;font-weight:600;color:#fbbf24;margin-bottom:20px}
+
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 20px;min-width:100px}
+.hstat-val{font-size:22px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
+.hstat-label{font-size:10.5px;color:rgba(255,255,255,.38)}
+
+/* PAGE */
+.page{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:44px 32px 80px}
+
+/* SEC HEAD */
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.sec-num{width:28px;height:28px;border-radius:7px;background:var(--purple);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.sec-line{flex:1;height:1px;background:var(--border)}
+.sec-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px;white-space:nowrap}
+section{margin-bottom:52px}
+
+/* MILESTONES */
+.milestones{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.milestones{grid-template-columns:1fr}}
+.ms-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.ms-stripe{height:4px;position:absolute;top:0;left:0;right:0;border-radius:14px 14px 0 0}
+.ms1-s{background:linear-gradient(90deg,var(--blue),var(--indigo))}
+.ms2-s{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.ms3-s{background:linear-gradient(90deg,var(--teal),var(--green))}
+.ms-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;margin-bottom:14px}
+.msb-done{background:var(--green-lt);color:var(--green)}
+.msb-active{background:var(--blue-lt);color:var(--blue)}
+.msb-tbd{background:var(--pale);color:var(--muted);border:1px solid var(--border)}
+.ms-title{font-size:15px;font-weight:800;margin-bottom:4px;letter-spacing:-.02em}
+.ms-eta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);margin-bottom:14px}
+.ms-items{display:flex;flex-direction:column;gap:7px}
+.ms-item{font-size:12.5px;color:var(--sub);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.ms-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px}
+.msd-b{background:var(--blue)}.msd-p{background:var(--purple)}.msd-t{background:var(--teal)}
+
+/* TRACKS */
+.tracks-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.tracks-row{grid-template-columns:1fr}}
+.track-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.track-top-stripe{height:4px;position:absolute;top:0;left:0;right:0;border-radius:14px 14px 0 0}
+.tt-blue{background:linear-gradient(90deg,var(--blue),var(--indigo))}
+.tt-purple{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.tt-teal{background:linear-gradient(90deg,var(--teal),var(--green))}
+.track-label{font-size:9.5px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px;margin-top:10px}
+.track-title{font-size:18px;font-weight:800;margin-bottom:6px;letter-spacing:-.02em}
+.track-eta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.track-eta-pill{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px}
+.tep-blue{background:var(--blue-lt);color:var(--blue)}
+.tep-purple{background:var(--purple-lt);color:var(--purple)}
+.tep-amber{background:var(--amber-lt);color:var(--amber)}
+.track-desc{font-size:12.5px;color:var(--sub);line-height:1.6;margin-bottom:14px}
+.track-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.tpill{font-size:11px;font-weight:500;padding:3px 9px;border-radius:100px;background:var(--pale);border:1px solid var(--border);color:var(--sub)}
+.track-members{display:flex;align-items:center;gap:7px;padding-top:12px;border-top:1px solid var(--pale)}
+.tm-lbl{font-size:10.5px;color:var(--muted)}
+.avs{display:flex;align-items:center}
+.av{width:22px;height:22px;border-radius:50%;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;margin-left:-4px}
+.avs .av:first-child{margin-left:0}
+.av-b{background:var(--blue)}.av-i{background:var(--indigo)}.av-p{background:var(--purple)}.av-t{background:var(--teal)}.av-pk{background:var(--pink)}.av-a{background:var(--amber)}
+.tm-names{font-size:11px;font-weight:500;color:var(--sub)}
+
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:24px;box-shadow:var(--shadow-sm);flex-wrap:wrap;width:fit-content}
+.tab{padding:8px 18px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--muted);border:none;background:none;white-space:nowrap}
+.tab:hover{color:var(--text);background:var(--off)}
+.tab.active{background:var(--purple);color:#fff;box-shadow:0 2px 8px rgba(124,58,237,.3)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* TABLE CARD */
+.tcard{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.tcard-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px}
+.tcard-title{font-size:14px;font-weight:700}
+.tcard-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px}
+
+/* SEARCH */
+.search-bar{position:relative;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--off)}
+.search-bar input{width:100%;border:1px solid var(--border);border-radius:8px;background:var(--white);padding:7px 14px 7px 32px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+.search-bar input:focus{border-color:var(--purple)}
+.search-bar input::placeholder{color:var(--muted)}
+.si{position:absolute;left:28px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none}
+
+/* TABLE */
+.dtable{width:100%;border-collapse:collapse}
+.dtable thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 16px;text-align:left;background:var(--off);border-bottom:1px solid var(--border);white-space:nowrap}
+.dtable tbody tr{transition:background .1s}
+.dtable tbody tr:hover{background:var(--off)}
+.dtable tbody td{padding:10px 16px;border-bottom:1px solid var(--pale);font-size:12.5px;color:var(--sub);vertical-align:middle}
+.dtable tbody tr:last-child td{border-bottom:none}
+.suite-name{color:var(--text);font-weight:500;font-family:'JetBrains Mono',monospace;font-size:11px}
+.hidden-row{display:none}
+
+/* GROUP ROW */
+.group-row td{background:var(--off);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:8px 16px;border-top:2px solid var(--border);border-bottom:1px solid var(--border)}
+
+/* BADGES */
+.asgn{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.asgn-v{background:var(--blue-lt);color:var(--blue)}
+.asgn-p{background:var(--indigo-lt);color:var(--indigo)}
+.asgn-vp{background:var(--purple-lt);color:var(--purple)}
+.asgn-pre{background:var(--pink-lt);color:var(--pink)}
+.asgn-vru{background:var(--teal-lt);color:var(--teal)}
+.asgn-pra{background:var(--amber-lt);color:var(--amber)}
+
+.eta-cell{font-family:'JetBrains Mono',monospace;font-size:11px;white-space:nowrap}
+.eta-done{color:var(--green);font-weight:600}
+.eta-soon{color:var(--amber);font-weight:600}
+.eta-future{color:var(--sub)}
+
+/* PBX NOTE */
+.pbx-note{background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:14px 18px;margin-bottom:18px;font-size:13px;color:#92400e;display:flex;align-items:flex-start;gap:10px;line-height:1.65}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:18px 32px;max-width:1200px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
+.footer-left{display:flex;align-items:center;gap:9px}
+.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+.footer-name{font-weight:600;color:var(--sub)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:fadeUp .5s ease both}
+.page{animation:fadeUp .5s ease .07s both}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="top-bar">
+      <div class="breadcrumb">
+        <a href="../">Portal</a>
+        <span>/</span>
+        <span>Playwright Automation Roadmap</span>
+      </div>
+      <div class="top-right">
+        <div class="author-chip">
+          <div class="author-av">R</div>
+          <div class="author-info">
+            <div class="author-name">Rohini Sujith</div>
+            <div class="author-role">Product Manager</div>
+          </div>
+        </div>
+        <div class="live-badge"><div class="live-dot"></div>May 2026</div>
+      </div>
+    </div>
+    <h1>Playwright <em>Automation</em><br>Roadmap</h1>
+    <div class="hero-sub">UTILIKO &nbsp;·&nbsp; MILAGRO CLOUD &nbsp;·&nbsp; PBX</div>
+    <p class="hero-desc">Convert all qa.md manual test cases into automated tests using Playwright and Android native frameworks, executed via CI pipelines.</p>
+    <div class="draft-banner">✏️ Draft — Pending Finalization</div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val">3</div><div class="hstat-label">Milestones</div></div>
+      <div class="hstat"><div class="hstat-val">3</div><div class="hstat-label">Tracks</div></div>
+      <div class="hstat"><div class="hstat-val">5th Jun</div><div class="hstat-label">Cloud ETA</div></div>
+      <div class="hstat"><div class="hstat-val">30th Jun</div><div class="hstat-label">Android ETA</div></div>
+      <div class="hstat"><div class="hstat-val">~90%</div><div class="hstat-label">Target Coverage</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 01 MILESTONES -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <h2>Milestones</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">3 milestones</div>
+    </div>
+    <div class="milestones">
+      <div class="ms-card">
+        <div class="ms-stripe ms1-s"></div>
+        <div class="ms-badge msb-done">✅ Completed</div>
+        <div class="ms-title">Milestone 1 — Framework Setup</div>
+        <div class="ms-eta">Target: March 2026 · Cloud Only</div>
+        <div class="ms-items">
+          <div class="ms-item"><div class="ms-dot msd-b"></div>Cloud UI automation via Playwright (filename.spec.ts)</div>
+          <div class="ms-item"><div class="ms-dot msd-b"></div>Cloud API automation via Playwright (filename.api.spec.ts)</div>
+          <div class="ms-item"><div class="ms-dot msd-b"></div>Each QA converts 1 Cloud module</div>
+          <div class="ms-item"><div class="ms-dot msd-b"></div>CI execution via Playwright</div>
+        </div>
+      </div>
+      <div class="ms-card">
+        <div class="ms-stripe ms2-s"></div>
+        <div class="ms-badge msb-active">🔵 In Progress</div>
+        <div class="ms-title">Milestone 2 — Cloud + Android Expansion</div>
+        <div class="ms-eta">Cloud: 5th Jun 2026 · Android: 30th Jun 2026 · Utiliko: 30th Jun 2026</div>
+        <div class="ms-items">
+          <div class="ms-item"><div class="ms-dot msd-p"></div>100% test case conversion across Cloud + Android</div>
+          <div class="ms-item"><div class="ms-dot msd-p"></div>First 50% → Remaining 50% conversion</div>
+          <div class="ms-item"><div class="ms-dot msd-p"></div>Android UI: FeatureNameUxTest.kt</div>
+          <div class="ms-item"><div class="ms-dot msd-p"></div>Android API: FeatureNameApiTest.kt</div>
+          <div class="ms-item"><div class="ms-dot msd-p"></div>CI triggers Playwright + Android instrumentation</div>
+        </div>
+      </div>
+      <div class="ms-card">
+        <div class="ms-stripe ms3-s"></div>
+        <div class="ms-badge msb-tbd">⏳ Start Date TBD</div>
+        <div class="ms-title">Milestone 3 — Device Execution & Scaling</div>
+        <div class="ms-eta">Start Date: TBD · Phased Approach</div>
+        <div class="ms-items">
+          <div class="ms-item"><div class="ms-dot msd-t"></div>Phase 1 — CI Stability: single emulator, ≥90% stability</div>
+          <div class="ms-item"><div class="ms-dot msd-t"></div>Phase 2 — Controlled Parallel: 1–2 device configs</div>
+          <div class="ms-item"><div class="ms-dot msd-t"></div>Phase 3 — Multi-Device Scaling via TestMU</div>
+          <div class="ms-item"><div class="ms-dot msd-t"></div>Logs, screenshots, videos per run</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 TRACKS -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <h2>Automation Tracks</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">3 parallel tracks</div>
+    </div>
+    <div class="tracks-row">
+      <div class="track-card">
+        <div class="track-top-stripe tt-blue"></div>
+        <div class="track-label">Track 1 · Cloud</div>
+        <div class="track-title">Milagro Cloud</div>
+        <div class="track-eta-row">
+          <span class="track-eta-pill tep-blue">📅 5th June 2026</span>
+        </div>
+        <div class="track-desc">Playwright automation for all Milagro Cloud UI and API modules. Executed via CI pipeline.</div>
+        <div class="track-pills">
+          <span class="tpill">filename.spec.ts</span>
+          <span class="tpill">filename.api.spec.ts</span>
+          <span class="tpill">CI via Playwright</span>
+          <span class="tpill">12 Modules</span>
+        </div>
+        <div class="track-members">
+          <span class="tm-lbl">QA</span>
+          <div class="avs">
+            <div class="av av-b">V</div>
+            <div class="av av-i">P</div>
+          </div>
+          <span class="tm-names">Vaishanavi, Pratik</span>
+        </div>
+      </div>
+      <div class="track-card">
+        <div class="track-top-stripe tt-purple"></div>
+        <div class="track-label">Track 2 · Utiliko</div>
+        <div class="track-title">Utiliko Admin</div>
+        <div class="track-eta-row">
+          <span class="track-eta-pill tep-purple">📅 30th June 2026</span>
+        </div>
+        <div class="track-desc">Playwright automation for Utiliko admin view. Accounting & Reports ETAs TBD after current modules complete.</div>
+        <div class="track-pills">
+          <span class="tpill">Playwright</span>
+          <span class="tpill">CI Pipeline</span>
+          <span class="tpill">35 Sub-modules</span>
+          <span class="tpill">Acctg TBD</span>
+        </div>
+        <div class="track-members">
+          <span class="tm-lbl">QA</span>
+          <div class="avs">
+            <div class="av av-pk">Pre</div>
+            <div class="av av-t">Vru</div>
+          </div>
+          <span class="tm-names">Prerana, Vrudavan</span>
+        </div>
+      </div>
+      <div class="track-card">
+        <div class="track-top-stripe tt-teal"></div>
+        <div class="track-label">Track 3 · PBX</div>
+        <div class="track-title">PBX — Message</div>
+        <div class="track-eta-row">
+          <span class="track-eta-pill tep-amber">⚠️ Local Only · Not CI</span>
+        </div>
+        <div class="track-desc">Selenium → Playwright transition for PBX. Local execution first. CI/CD via Kiani once productivity confirmed.</div>
+        <div class="track-pills">
+          <span class="tpill">Playwright (Local)</span>
+          <span class="tpill">16 Sub-modules</span>
+          <span class="tpill">Message Module</span>
+          <span class="tpill">No CI yet</span>
+        </div>
+        <div class="track-members">
+          <span class="tm-lbl">QA</span>
+          <div class="avs">
+            <div class="av av-a">Pra</div>
+          </div>
+          <span class="tm-names">Pramila</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 CLOUD SUITES -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <h2>Milagro Cloud — Suite Index</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">12 modules · Vaishanavi & Pratik</div>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('cloud-all')">All Suites</button>
+      <button class="tab" onclick="switchTab('cloud-v')">Vaishanavi</button>
+      <button class="tab" onclick="switchTab('cloud-p')">Pratik</button>
+      <button class="tab" onclick="switchTab('cloud-vp')">Shared</button>
+    </div>
+    <div class="tab-panel active" id="panel-cloud-all">
+      <div class="tcard">
+        <div class="tcard-header">
+          <div class="tcard-title">All Cloud Suites</div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap">
+            <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--blue-lt);color:var(--blue)">Vaishanavi</span>
+            <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--indigo-lt);color:var(--indigo)">Pratik</span>
+            <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--purple-lt);color:var(--purple)">Shared</span>
+          </div>
+        </div>
+        <div class="search-bar">
+          <span class="si">🔍</span>
+          <input type="text" placeholder="Search suites…" oninput="filterTable('cloud-all-tbody', this.value)">
+        </div>
+        <table class="dtable">
+          <thead><tr><th>#</th><th>Suite Name</th><th>Module</th><th>Assignee</th></tr></thead>
+          <tbody id="cloud-all-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-panel" id="panel-cloud-v">
+      <div class="tcard">
+        <div class="tcard-header"><div class="tcard-title">Vaishanavi's Suites</div></div>
+        <table class="dtable">
+          <thead><tr><th>#</th><th>Suite Name</th><th>Module</th></tr></thead>
+          <tbody id="cloud-v-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-panel" id="panel-cloud-p">
+      <div class="tcard">
+        <div class="tcard-header"><div class="tcard-title">Pratik's Suites</div></div>
+        <table class="dtable">
+          <thead><tr><th>#</th><th>Suite Name</th><th>Module</th></tr></thead>
+          <tbody id="cloud-p-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-panel" id="panel-cloud-vp">
+      <div class="tcard">
+        <div class="tcard-header"><div class="tcard-title">Shared Suites — Vaishanavi & Pratik</div></div>
+        <table class="dtable">
+          <thead><tr><th>#</th><th>Suite Name</th><th>Module</th></tr></thead>
+          <tbody id="cloud-vp-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 UTILIKO -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <h2>Utiliko — Automation ETAs</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">35 sub-modules · ETA by 30th Jun 2026</div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-header">
+        <div class="tcard-title">Utiliko Admin Modules</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--pink-lt);color:var(--pink)">Prerana</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--teal-lt);color:var(--teal)">Vrudavan</span>
+          <span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--amber-lt);color:var(--amber)">Accounting & Reports — TBD</span>
+        </div>
+      </div>
+      <div class="search-bar">
+        <span class="si">🔍</span>
+        <input type="text" placeholder="Search modules…" oninput="filterTable('utiliko-tbody', this.value)">
+      </div>
+      <table class="dtable">
+        <thead><tr><th>#</th><th>Module</th><th>Sub-module</th><th>QA</th><th>ETA</th><th>Buffer</th></tr></thead>
+        <tbody id="utiliko-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 05 PBX -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <h2>PBX — Message Module</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">16 sub-modules · Pramila · Local only</div>
+    </div>
+    <div class="pbx-note">
+      ⚠️ <div><strong>Local Execution Only — Not CI.</strong> As discussed with @kartikVT, PBX will first complete Selenium → Playwright transition for local execution. Once productivity improvement is confirmed, CI/CD implementation will be initiated with Kiani.</div>
+    </div>
+    <div class="tcard">
+      <div class="tcard-header">
+        <div class="tcard-title">Message Module — Automation ETAs</div>
+        <span class="tcard-meta">Pramila · Apr 30 → May 31, 2026</span>
+      </div>
+      <table class="dtable">
+        <thead><tr><th>#</th><th>Module</th><th>Sub-module</th><th>QA</th><th>ETA</th><th>Buffer</th><th>Execution</th></tr></thead>
+        <tbody id="pbx-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 06 TARGET -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">06</div>
+      <h2>Quality Benchmarks & Final Outcomes</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow-sm)">
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px">🎯 Target Quality Benchmarks</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--sub)"><span style="font-size:22px;font-weight:800;color:var(--purple)">~90%</span>of test cases automated & executed on PR / Prod</div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--sub)"><span style="font-size:22px;font-weight:800;color:var(--green)">~0</span>failure expectation on PR / Prod runs</div>
+          <div style="font-size:12.5px;color:var(--sub);padding-top:8px;border-top:1px solid var(--pale)">Strong focus on code quality and stability. Move towards lightweight qa.md and reduce dependency on manual test cases.</div>
+        </div>
+      </div>
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow-sm)">
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px">✅ Final Output Files</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--blue-lt);border-radius:8px;padding:9px 12px"><code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue)">filename.spec.ts</code><span style="font-size:12px;color:var(--sub)">Cloud UI — Playwright</span></div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--indigo-lt);border-radius:8px;padding:9px 12px"><code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--indigo)">filename.api.spec.ts</code><span style="font-size:12px;color:var(--sub)">Cloud API — Playwright</span></div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--purple-lt);border-radius:8px;padding:9px 12px"><code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--purple)">FeatureNameUxTest.kt</code><span style="font-size:12px;color:var(--sub)">Android UI — Native</span></div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--teal-lt);border-radius:8px;padding:9px 12px"><code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--teal)">FeatureNameApiTest.kt</code><span style="font-size:12px;color:var(--sub)">Android API — Native</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-av">R</div>
+    <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
+  </div>
+  <span>Playwright Automation Roadmap · May 2026 · Draft</span>
+</div>
+
+<script>
+// ── CLOUD SUITES DATA ──
+const cloudSuites = [
+  // 1. Locations & Markets Details — Vaishanavi
+  {name:"e2e-manual-locationmarkets-locationdetailsview-mapmenu",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationdetailsview-mapmenu-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-onlineordering",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-oo-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-3pd",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-3pd-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-businesshours",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-businesshours-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-ow",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-ow-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-reservation",module:"1. Locations & Markets Details",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-reservation-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
+  // 2. Online Reservation — Pratik
+  {name:"e2e-manual-onlinereservation-selectslot",module:"2. Online Reservation",assignee:"P"},
+  {name:"e2e-manual-onlinereservation-selectslot-ui-indicator",module:"2. Online Reservation",assignee:"P"},
+  {name:"e2e-manual-onlinereservation-personalinfo",module:"2. Online Reservation",assignee:"P"},
+  {name:"e2e-manual-onlinereservation-personalinfo-ui-indicator",module:"2. Online Reservation",assignee:"P"},
+  {name:"e2e-manual-onlinereservation-thankyou",module:"2. Online Reservation",assignee:"P"},
+  {name:"e2e-manual-onlinereservation-thankyou-ui-indicator",module:"2. Online Reservation",assignee:"P"},
+  // 3. Waitlist — Pratik
+  {name:"e2e-manual-joinwaitlist-selectslot",module:"3. Waitlist",assignee:"P"},
+  {name:"e2e-manual-joinwaitlist-selectslot-ui-indicator",module:"3. Waitlist",assignee:"P"},
+  {name:"e2e-manual-joinwaitlist-thankyou",module:"3. Waitlist",assignee:"P"},
+  {name:"e2e-manual-joinwaitlist-thankyou-ui-indicator",module:"3. Waitlist",assignee:"P"},
+  // 4. Apps — Vaishanavi
+  {name:"e2e-manual-apps-homepage",module:"4. Apps",assignee:"V"},
+  {name:"e2e-manual-apps-setting",module:"4. Apps",assignee:"V"},
+  {name:"e2e-manual-apps-homepage-ui-indicator",module:"4. Apps",assignee:"V"},
+  {name:"e2e-manual-apps",module:"4. Apps",assignee:"V"},
+  {name:"e2e-manual-apps-ui-indicator",module:"4. Apps",assignee:"V"},
+  {name:"e2e-manual-apps-addnew",module:"4. Apps",assignee:"V"},
+  {name:"e2e-manual-apps-syncmenu",module:"4. Apps",assignee:"V"},
+  {name:"e2e-manual-apps-syncmenu-ui-indicator",module:"4. Apps",assignee:"V"},
+  // 5. Online Order — Pratik & Vaishanavi
+  {name:"e2e-manual-onlineorder-homepage",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-homepage-operations",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-homepage-ui-indicator",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-cartpage-operations",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-cartpage-ui-indicator",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-loginpage-operations",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-loginpage-ui-indicator",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-checkoutpage",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-checkoutpage-operations",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-checkoutpage-ui-indicator",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-trackpage",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-trackpage-operations",module:"5. Online Order",assignee:"VP"},
+  {name:"e2e-manual-onlineorder-trackpage-ui-indicator",module:"5. Online Order",assignee:"VP"},
+  // 6. Items & Categories — Pratik
+  {name:"e2e-manual-itemscategories-allitems-item",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-allitems-modifier",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-allitems-promocodes",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-allitems-options",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-allitems-servicecharge",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-allitems-nonmenuitem",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-allitems-ui-indicator",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-viewitemdetails",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-viewitemdetails-ui-indicator",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-allcategories",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-allcategories-ui-indicator",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-category-details",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-category-details-ui-indicator",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-newitem-item",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-newitem-modifier",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-newitem-promocodes",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-newitem-options",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-newitem-servicecharge",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-newitem-nonmenuitem",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-newcategory",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-modifiersgroup-allmodifiersgroup",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-modifiersgroup-allmodifiersgroup-ui-indicator",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-modifiersgroup-newmodifiersgroup",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-optionsgroup-alloptionsgroup",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-optionsgroup-alloptionsgroup-ui-indicator",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-optionsgroup-addoptionsgroup",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-pricegroup-allpricegroup",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-pricegroup-allpricegroup-ui-indicator",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-pricegroup-addpricegroup",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-import",module:"6. Items & Categories",assignee:"P"},
+  {name:"e2e-manual-itemscategories-import-ui-indicator",module:"6. Items & Categories",assignee:"P"},
+  // 7. HR — Vaishanavi
+  {name:"e2e-manual-hr-allemployee",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-allemployee-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-addemployee",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-dashboard",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-dashboarda-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-basicdetail",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-bankdetail-allbank",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-bankdetail-allbank-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-bankdetail-newbank",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-agreementlist",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-agreementlist-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-agreementdetail",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-agreementdetail-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-newagreement",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-newagreement-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-attachmentlist",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-attachmentlist-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-newattachment",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-workavailablity",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-workavailablity-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-kpis",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-employeedetail-kpis-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-department",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-department-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-newdepartment",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-attendance-timechangereq-self",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-attendance-timechangereq-self-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-attendance-timechangereq-team",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-attendance-timechangereq-team-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-attendance-timechangereq-addtimemanually",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-attendance-report",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-attendance-payrollreport",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-template",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-template-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-newtemplate",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-template-detail",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-kpidefination",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-kpidefination-ui-indicator",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-kpidefination-detail",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-newkpidefination",module:"7. HR",assignee:"V"},
+  {name:"e2e-manual-hr-kpi-performancemetrics",module:"7. HR",assignee:"V"},
+  // 8. Locations & Markets — Vaishanavi
+  {name:"e2e-manual-locationmarkets-locations",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-details",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-registernumber",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-devicemanager",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-floormapeditor",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-paymentsetting",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-loyaltygiftcard",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-settins",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-locationsdetailview-activities",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-markets",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-markets-marketsdetailview-details",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-newlocation",module:"8. Locations & Markets",assignee:"V"},
+  {name:"e2e-manual-locationmarkets-newmarket",module:"8. Locations & Markets",assignee:"V"},
+  // 9. SmartMenus — Vaishanavi
+  {name:"e2e-manual-smartmenu-menus",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-menus-details",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-filter",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-dashboard",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-dashboard-ui-indicator",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-menuspecial",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-menuspecial-ui-indicator",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-menuspecial-detail",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-newmenuspecial",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-receiptmanager",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-receiptmanager-ui-indicator",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-receiptmanager-details",module:"9. SmartMenus",assignee:"V"},
+  {name:"e2e-manual-smartmenu-newreceipt",module:"9. SmartMenus",assignee:"V"},
+  // 10. Account Settings — Vaishanavi
+  {name:"e2e-manual-smartpos-accountsetting",module:"10. Account Settings",assignee:"V"},
+  {name:"e2e-manual-smartpos-accountsetting-emailnotification",module:"10. Account Settings",assignee:"V"},
+  {name:"e2e-manual-smartpos-accountsetting-emailnotification-ui-indicator",module:"10. Account Settings",assignee:"V"},
+  {name:"e2e-manual-smartpos-accountsetting-receipt",module:"10. Account Settings",assignee:"V"},
+  {name:"e2e-manual-smartpos-accountsetting-receipt-ui-indicator",module:"10. Account Settings",assignee:"V"},
+  {name:"e2e-manual-smartpos-accountsetting-devices",module:"10. Account Settings",assignee:"V"},
+  {name:"e2e-manual-smartpos-accountsetting-devices-ui-indicator",module:"10. Account Settings",assignee:"V"},
+  // 11. Reports — Vaishanavi & Pratik
+  {name:"e2e-manual-smartpos-reports",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-salessummary-detailreport",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-salessummary-detailreport-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-salessummary-locationsales",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-salessummary-locationsales-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-empsales",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-empsales-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-promocode",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-promocode-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-promocode-details",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-promocode-details-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-voidcheck",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-voidcheck-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-voidcheck-receipt",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-voiditem",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-voiditem-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-voiditem-receipt",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-refund",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-refund-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-refund-receipt",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-cashdrawer",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-reports-cashdrawer-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-customizereport-filter",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-customizereports",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-smartpos-customizereports-ui-indicator",module:"11. Reports",assignee:"VP"},
+  {name:"e2e-manual-marketing-report",module:"11. Reports",assignee:"VP"},
+  // 12. Transactions — Pratik
+  {name:"e2e-manual-smartpos-transactions",module:"12. Transactions",assignee:"P"},
+  {name:"e2e-manual-smartpos-transactions-alltransactions",module:"12. Transactions",assignee:"P"},
+  {name:"e2e-manual-smartpos-transactions-alltransactions-ui-indicator",module:"12. Transactions",assignee:"P"},
+  {name:"e2e-manual-smartpos-transactions-alltransactions-receipt",module:"12. Transactions",assignee:"P"},
+  {name:"e2e-manual-smartpos-transactions-alltransactions-detail",module:"12. Transactions",assignee:"P"},
+];
+
+const utilikoData = [
+  {module:"Clients",sub:"—",qa:"Prerana",eta:"14/05/2026",buffer:"16/05/2026"},
+  {module:"Vendors",sub:"—",qa:"Vrudavan",eta:"15/05/2026",buffer:"18/05/2026"},
+  {module:"Tasks",sub:"—",qa:"Vrudavan",eta:"21/05/2026",buffer:"25/05/2026"},
+  {module:"Sales",sub:"Leads",qa:"Vrudavan",eta:"15/05/2026",buffer:"18/05/2026"},
+  {module:"Sales",sub:"Estimates",qa:"Vrudavan",eta:"15/05/2026",buffer:"18/05/2026"},
+  {module:"Sales",sub:"Opportunities",qa:"Vrudavan",eta:"21/05/2026",buffer:"25/05/2026"},
+  {module:"Sales",sub:"Proposals",qa:"Vrudavan",eta:"21/05/2026",buffer:"25/05/2026"},
+  {module:"Support",sub:"Tickets",qa:"Prerana",eta:"20/05/2026",buffer:"22/05/2026"},
+  {module:"Support",sub:"Projects",qa:"Prerana",eta:"27/05/2026",buffer:"30/05/2026"},
+  {module:"Support",sub:"BUG",qa:"Prerana",eta:"03/06/2026",buffer:"06/06/2026"},
+  {module:"Support",sub:"RMA (if enabled)",qa:"Prerana",eta:"08/06/2026",buffer:"10/06/2026"},
+  {module:"HR",sub:"Employees",qa:"Vrudavan",eta:"21/05/2026",buffer:"25/05/2026"},
+  {module:"HR",sub:"Departments",qa:"Vrudavan",eta:"28/05/2026",buffer:"01/06/2026"},
+  {module:"HR",sub:"Leave Management",qa:"Vrudavan",eta:"28/05/2026",buffer:"01/06/2026"},
+  {module:"Attendance",sub:"Timechange Requests",qa:"Vrudavan",eta:"28/05/2026",buffer:"01/06/2026"},
+  {module:"Attendance",sub:"Attendance Reports",qa:"Vrudavan",eta:"28/05/2026",buffer:"01/06/2026"},
+  {module:"Job Circulars",sub:"Jobs Posted",qa:"Vrudavan",eta:"04/06/2026",buffer:"08/06/2026"},
+  {module:"Job Circulars",sub:"Job Applications",qa:"Vrudavan",eta:"04/06/2026",buffer:"08/06/2026"},
+  {module:"Job Circulars",sub:"KPI's",qa:"Vrudavan",eta:"04/06/2026",buffer:"08/06/2026"},
+  {module:"Job Circulars",sub:"KPI Templates",qa:"Vrudavan",eta:"04/06/2026",buffer:"08/06/2026"},
+  {module:"Job Circulars",sub:"KPI Hub",qa:"Vrudavan",eta:"11/06/2026",buffer:"15/06/2026"},
+  {module:"Job Circulars",sub:"Performance Metrics",qa:"Vrudavan",eta:"11/06/2026",buffer:"15/06/2026"},
+  {module:"Utilities",sub:"Users",qa:"Vrudavan",eta:"11/06/2026",buffer:"15/06/2026"},
+  {module:"Utilities",sub:"Automations",qa:"Vrudavan",eta:"18/06/2026",buffer:"22/06/2026"},
+  {module:"Utilities",sub:"Knowledgebase",qa:"Vrudavan",eta:"18/06/2026",buffer:"22/06/2026"},
+  {module:"Utilities",sub:"File Manager",qa:"Vrudavan",eta:"18/06/2026",buffer:"22/06/2026"},
+  {module:"Utilities",sub:"Trash",qa:"Vrudavan",eta:"25/06/2026",buffer:"30/06/2026"},
+  {module:"Utilities",sub:"Policies & Roles",qa:"Vrudavan",eta:"25/06/2026",buffer:"30/06/2026"},
+  {module:"Utilities",sub:"Settings",qa:"Vrudavan",eta:"25/06/2026",buffer:"30/06/2026"},
+  {module:"Survey",sub:"Survey Dashboard",qa:"Prerana",eta:"14/06/2026",buffer:"17/06/2026"},
+  {module:"Survey",sub:"Survey Reports",qa:"Prerana",eta:"26/06/2026",buffer:"28/06/2026"},
+  {module:"Survey",sub:"Report Card",qa:"Prerana",eta:"22/06/2026",buffer:"24/06/2026"},
+  {module:"Survey",sub:"Surveys",qa:"Prerana",eta:"18/06/2026",buffer:"20/06/2026"},
+  {module:"Survey",sub:"Survey Templates",qa:"Prerana",eta:"14/06/2026",buffer:"17/06/2026"},
+  {module:"Subscription",sub:"—",qa:"Prerana",eta:"29/06/2026",buffer:"30/06/2026"},
+  {module:"Meetings",sub:"—",qa:"Prerana",eta:"10/06/2026",buffer:"16/06/2026"},
+];
+
+const pbxData = [
+  {sub:"Phone numbers",eta:"30/04/2026",buffer:"02/05/2026"},
+  {sub:"Filters",eta:"02/05/2026",buffer:"04/05/2026"},
+  {sub:"Email notification",eta:"04/05/2026",buffer:"06/05/2026"},
+  {sub:"Search-Global",eta:"06/05/2026",buffer:"08/05/2026"},
+  {sub:"Search-Local",eta:"08/05/2026",buffer:"10/05/2026"},
+  {sub:"Send new message",eta:"10/05/2026",buffer:"12/05/2026"},
+  {sub:"Contact popup",eta:"12/05/2026",buffer:"14/05/2026"},
+  {sub:"Message flows",eta:"14/05/2026",buffer:"16/05/2026"},
+  {sub:"Notes",eta:"16/05/2026",buffer:"18/05/2026"},
+  {sub:"Attachments",eta:"18/05/2026",buffer:"20/05/2026"},
+  {sub:"Templates",eta:"20/05/2026",buffer:"22/05/2026"},
+  {sub:"Schedule message",eta:"22/05/2026",buffer:"24/05/2026"},
+  {sub:"Actions-scheduled sms",eta:"24/05/2026",buffer:"26/05/2026"},
+  {sub:"Chat status",eta:"26/05/2026",buffer:"28/05/2026"},
+  {sub:"Draft",eta:"28/05/2026",buffer:"30/05/2026"},
+  {sub:"Group chat",eta:"30/05/2026",buffer:"31/05/2026"},
+];
+
+function asgnBadge(a){
+  if(a==='V') return '<span class="asgn asgn-v">Vaishanavi</span>';
+  if(a==='P') return '<span class="asgn asgn-p">Pratik</span>';
+  if(a==='VP') return '<span class="asgn asgn-vp">Vaishanavi & Pratik</span>';
+  if(a==='Prerana') return '<span class="asgn asgn-pre">Prerana</span>';
+  if(a==='Vrudavan') return '<span class="asgn asgn-vru">Vrudavan</span>';
+  if(a==='Pramila') return '<span class="asgn asgn-pra">Pramila</span>';
+  return a;
+}
+
+function etaClass(eta){
+  const [d,m,y]=eta.split('/').map(Number);
+  const date=new Date(y,m-1,d);
+  const now=new Date();
+  const diff=(date-now)/(1000*60*60*24);
+  if(diff<0) return 'eta-done';
+  if(diff<=7) return 'eta-soon';
+  return 'eta-future';
+}
+
+// Build cloud tables
+function buildCloudTable(tbodyId, filter){
+  const tb=document.getElementById(tbodyId);
+  let i=1;
+  cloudSuites.forEach(s=>{
+    if(filter && s.assignee!==filter) return;
+    const tr=document.createElement('tr');
+    tr.dataset.search=(s.name+s.module).toLowerCase();
+    const cols = tbodyId==='cloud-all-tbody'
+      ? `<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i).padStart(2,'0')}</td><td class="suite-name">${s.name}</td><td style="font-size:11.5px;color:var(--sub)">${s.module}</td><td>${asgnBadge(s.assignee)}</td>`
+      : `<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i).padStart(2,'0')}</td><td class="suite-name">${s.name}</td><td style="font-size:11.5px;color:var(--sub)">${s.module}</td>`;
+    tr.innerHTML=cols;
+    tb.appendChild(tr);
+    i++;
+  });
+}
+
+buildCloudTable('cloud-all-tbody',null);
+buildCloudTable('cloud-v-tbody','V');
+buildCloudTable('cloud-p-tbody','P');
+buildCloudTable('cloud-vp-tbody','VP');
+
+// Build Utiliko table
+const utb=document.getElementById('utiliko-tbody');
+utilikoData.forEach((r,i)=>{
+  const tr=document.createElement('tr');
+  tr.dataset.search=(r.module+r.sub+r.qa).toLowerCase();
+  tr.innerHTML=`
+    <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td>
+    <td style="font-weight:600;color:var(--text);font-size:13px">${r.module}</td>
+    <td style="font-size:12.5px;color:var(--sub)">${r.sub}</td>
+    <td>${asgnBadge(r.qa)}</td>
+    <td class="eta-cell ${etaClass(r.eta)}">${r.eta}</td>
+    <td class="eta-cell" style="color:var(--muted)">${r.buffer}</td>`;
+  utb.appendChild(tr);
+});
+
+// Build PBX table
+const ptb=document.getElementById('pbx-tbody');
+pbxData.forEach((r,i)=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`
+    <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td>
+    <td style="font-weight:600;color:var(--text);font-size:13px">Message</td>
+    <td style="font-size:12.5px;color:var(--sub)">${r.sub}</td>
+    <td>${asgnBadge('Pramila')}</td>
+    <td class="eta-cell ${etaClass(r.eta)}">${r.eta}</td>
+    <td class="eta-cell" style="color:var(--muted)">${r.buffer}</td>
+    <td><span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--amber-lt);color:var(--amber)">Local Only</span></td>`;
+  ptb.appendChild(tr);
+});
+
+function filterTable(id,q){
+  document.querySelectorAll(`#${id} tr`).forEach(tr=>{
+    if(!tr.dataset.search) return;
+    tr.classList.toggle('hidden-row',!tr.dataset.search.includes(q.toLowerCase()));
+  });
+}
+
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
+  document.getElementById(`panel-${name}`).classList.add('active');
+}
+</script>
+</body>
+</html>
