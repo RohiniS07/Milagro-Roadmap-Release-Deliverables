@@ -4,612 +4,797 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Milagro — Delivery Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --white:#fff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
-  --text:#0f1117;--sub:#5b6075;--muted:#9299af;
-  --blue:#2563eb;--blue-lt:#eff4ff;--blue-mid:#dbeafe;
-  --indigo:#4f46e5;--indigo-lt:#eef2ff;
-  --green:#059669;--green-lt:#ecfdf5;
-  --amber:#d97706;--amber-lt:#fffbeb;
-  --purple:#7c3aed;--purple-lt:#f5f3ff;
-  --teal:#0891b2;--teal-lt:#ecfeff;
-  --red:#dc2626;--red-lt:#fef2f2;
-  --orange:#ea580c;--orange-lt:#fff7ed;
-  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
-  --shadow:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
-  --shadow-lg:0 16px 48px rgba(0,0,0,.12);
-}
-html,body{width:100%;margin:0;padding:0}
-body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+  * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.5;
+  }
 
-/* HERO */
-.hero{background:linear-gradient(135deg,#08091a 0%,#0d1b3e 55%,#080f2a 100%);width:100%;padding:48px 5% 56px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(8,145,178,.22) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(5,150,105,.15) 0%,transparent 60%)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:44px 44px}
-.hero-inner{position:relative;width:100%;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:28px}
-.hero-left{flex:1;min-width:260px}
-.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:20px}
-.breadcrumb a{color:rgba(255,255,255,.55);text-decoration:none}.breadcrumb a:hover{color:#fff}
-.breadcrumb span{color:rgba(255,255,255,.2)}
-.hero h1{font-size:clamp(28px,4vw,46px);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:10px}
-.hero h1 em{font-style:normal;background:linear-gradient(90deg,#34d399,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-desc{font-size:14px;color:rgba(255,255,255,.42);font-weight:300;line-height:1.75}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex-shrink:0}
-@media(max-width:800px){.hero-inner{flex-direction:column;align-items:flex-start}.hero-stats{width:100%;grid-template-columns:repeat(2,1fr)}}
-.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:12px 16px;text-align:center}
-.hstat-val{font-size:22px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
-.hstat-label{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.04em}
-.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:5px 14px;font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.04em;margin-bottom:16px}
-.live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+  /* ─── DARK HEADER ZONE (top ~28%) ─── */
+  .header-zone {
+    background: #0c1535;
+    background-image:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 85% 30%, rgba(34,211,165,0.1) 0%, transparent 60%);
+  }
 
-/* PAGE */
-.page{flex:1;width:100%;padding:36px 5% 72px}
+  .breadcrumb {
+    padding: 18px 48px 0;
+    font-size: 12px; color: rgba(255,255,255,0.45);
+    display: flex; gap: 8px; align-items: center;
+  }
+  .breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color .15s; }
+  .breadcrumb a:hover { color: #22d3a5; }
+  .breadcrumb .sep { color: rgba(255,255,255,0.25); }
 
-/* TABS */
-.tab-bar{display:flex;gap:4px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:28px;box-shadow:var(--shadow-sm);flex-wrap:wrap;width:fit-content}
-.tab-btn{padding:9px 20px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--muted);border:none;background:none;white-space:nowrap;display:flex;align-items:center;gap:7px}
-.tab-btn:hover{color:var(--text);background:var(--off)}
-.tab-btn.active{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3)}
-.tab-count{font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:100px;background:rgba(255,255,255,.25)}
-.tab-btn:not(.active) .tab-count{background:var(--pale);color:var(--muted)}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
+  .hero {
+    padding: 24px 48px 40px;
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 40px;
+  }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+    color: #86efac; background: rgba(34,197,94,0.15);
+    border: 1px solid rgba(34,197,94,0.25); padding: 5px 12px; border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .live-badge .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #22c55e;
+    box-shadow: 0 0 8px #22c55e; animation: blink 2s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.35} }
+  .hero h1 {
+    font-size: 42px; font-weight: 800; letter-spacing: -.03em;
+    line-height: 1.05; margin-bottom: 12px; color: #f0f6ff;
+  }
+  .hero h1 em { font-style: normal; color: #22d3a5; }
+  .hero-sub { font-size: 13px; color: rgba(255,255,255,0.5); max-width: 420px; line-height: 1.6; }
 
-/* FILTER + SEARCH BAR */
-.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-.search-box{position:relative;flex:1;min-width:220px}
-.search-box input{width:100%;border:1px solid var(--border);border-radius:9px;background:var(--white);padding:8px 14px 8px 34px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;box-shadow:var(--shadow-sm)}
-.search-box input:focus{border-color:var(--blue)}
-.search-box input::placeholder{color:var(--muted)}
-.si{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px}
-.filter-btns{display:flex;gap:6px;flex-wrap:wrap}
-.fbtn{font-size:11.5px;font-weight:600;padding:6px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
-.fbtn:hover{border-color:var(--blue);color:var(--blue)}
-.fbtn.active{border-color:var(--blue);background:var(--blue-lt);color:var(--blue)}
-.fbtn.f-done.active{border-color:var(--green);background:var(--green-lt);color:var(--green)}
-.fbtn.f-rfqa.active{border-color:var(--blue);background:var(--blue-lt);color:var(--blue)}
-.fbtn.f-rev.active{border-color:var(--amber);background:var(--amber-lt);color:var(--amber)}
-.fbtn.f-indev.active{border-color:var(--purple);background:var(--purple-lt);color:var(--purple)}
-.fbtn.f-smartpos.active{border-color:var(--teal);background:var(--teal-lt);color:var(--teal)}
-.fbtn.f-milagro.active{border-color:var(--indigo);background:var(--indigo-lt);color:var(--indigo)}
+  .stats-row { display: flex; gap: 10px; flex-shrink: 0; align-items: flex-end; }
+  .stat-box {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 16px 22px; text-align: center; min-width: 90px;
+    backdrop-filter: blur(8px);
+  }
+  .stat-num { font-size: 28px; font-weight: 700; line-height: 1; font-family: 'JetBrains Mono', monospace; color: #fff; }
+  .stat-label { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 5px; }
+  .stat-box.s-ready .stat-num { color: #93c5fd; }
+  .stat-box.s-indev .stat-num { color: #c084fc; }
+  .stat-box.s-done  .stat-num { color: #86efac; }
 
-/* TABLE CARD */
-.tcard{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
-.dtable{width:100%;border-collapse:collapse}
-.dtable thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:11px 16px;text-align:left;background:var(--off);border-bottom:1px solid var(--border);white-space:nowrap}
-.dtable tbody tr{transition:background .1s;cursor:pointer}
-.dtable tbody tr:hover{background:var(--blue-lt)}
-.dtable tbody td{padding:12px 16px;border-bottom:1px solid var(--pale);font-size:13px;color:var(--sub);vertical-align:middle}
-.dtable tbody tr:last-child td{border-bottom:none}
-.hidden-row{display:none!important}
+  /* ─── TABS (sits between dark and white) ─── */
+  .tabs-bar {
+    display: flex; gap: 2px; padding: 0 48px;
+    background: #0c1535;
+    border-bottom: 3px solid #e2e8f0;
+  }
+  .tab {
+    padding: 14px 22px; cursor: pointer; white-space: nowrap;
+    font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.5);
+    border-bottom: 3px solid transparent; margin-bottom: -3px;
+    display: flex; align-items: center; gap: 8px; transition: color .15s;
+  }
+  .tab:hover { color: rgba(255,255,255,0.8); }
+  .tab.active { color: #fff; border-bottom-color: #22d3a5; }
+  .tab-count {
+    font-size: 11px; font-weight: 600; font-family: 'JetBrains Mono', monospace;
+    padding: 2px 8px; border-radius: 20px;
+    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5);
+  }
+  .tab.active .tab-count { background: rgba(34,211,165,0.2); color: #22d3a5; }
 
-/* TITLE CELL */
-.title-wrap{display:flex;flex-direction:column;gap:4px}
-.item-tags{display:flex;gap:4px;flex-wrap:wrap}
-.itag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em}
-.it-smartpos{background:var(--teal-lt);color:var(--teal)}
-.it-milagro{background:var(--indigo-lt);color:var(--indigo)}
-.it-bugfix{background:var(--red-lt);color:var(--red)}
-.it-enhancement{background:var(--green-lt);color:var(--green)}
-.item-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.4}
-.item-pr{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted)}
+  /* ─── WHITE CONTENT ZONE ─── */
+  .content { padding: 28px 48px 56px; background: #f8fafc; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
 
-/* STATUS PILLS */
-.status-pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 11px;border-radius:100px;white-space:nowrap}
-.s-done{background:var(--green-lt);color:var(--green)}
-.s-rfqa{background:var(--blue-lt);color:var(--blue)}
-.s-rev{background:var(--amber-lt);color:var(--amber)}
-.s-indev{background:var(--purple-lt);color:var(--purple)}
-.sdot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.sdot-done{background:var(--green)}.sdot-rfqa{background:var(--blue)}.sdot-rev{background:var(--amber)}.sdot-indev{background:var(--purple)}
+  /* ─── MINI STAT CARDS ─── */
+  .mini-stats { display: flex; gap: 12px; margin-bottom: 22px; }
+  .mcard {
+    flex: 1; background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 12px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  .mcard-icon { font-size: 22px; line-height: 1; }
+  .mcard-num { font-size: 26px; font-weight: 700; line-height: 1; font-family: 'JetBrains Mono', monospace; }
+  .mcard-label { font-size: 11px; color: #64748b; margin-top: 3px; font-weight: 500; }
+  .mc-done   .mcard-num { color: #16a34a; }
+  .mc-ready  .mcard-num { color: #2563eb; }
+  .mc-review .mcard-num { color: #d97706; }
+  .mc-indev  .mcard-num { color: #9333ea; }
+  .mc-rdev   .mcard-num { color: #0891b2; }
 
-/* DEVELOPER BADGE */
-.dev-badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500;color:var(--sub)}
-.dev-av{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:#fff;flex-shrink:0}
-.av-d{background:var(--teal)}.av-s{background:var(--green)}.av-sa{background:var(--amber)}.av-v{background:var(--blue)}
+  /* ─── FILTER BAR ─── */
+  .filter-bar { display: flex; gap: 7px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+  .search-box { position: relative; flex: 1; min-width: 180px; max-width: 360px; }
+  .search-box input {
+    width: 100%; background: #fff; border: 1.5px solid #e2e8f0;
+    border-radius: 10px; padding: 9px 12px 9px 34px;
+    color: #1e293b; font-size: 13px; font-family: 'Inter', sans-serif;
+    outline: none; transition: border-color .15s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .search-box input:focus { border-color: #3b82f6; }
+  .search-box input::placeholder { color: #94a3b8; }
+  .search-box svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
 
-/* DATE */
-.date-cell{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);white-space:nowrap}
-.date-range{display:flex;flex-direction:column;gap:1px}
-.date-end{color:var(--text);font-weight:600}
+  .pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 13px; border-radius: 20px; border: 1.5px solid #e2e8f0;
+    font-size: 12px; font-weight: 500; cursor: pointer; transition: all .15s;
+    font-family: 'Inter', sans-serif; background: #fff; color: #64748b;
+    white-space: nowrap; box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .pill:hover { border-color: #cbd5e1; color: #1e293b; }
+  .pill.active            { background: #1e293b; border-color: #1e293b; color: #fff; }
+  .pill-done.active       { background: #dcfce7; border-color: #86efac; color: #15803d; }
+  .pill-ready.active      { background: #dbeafe; border-color: #93c5fd; color: #1d4ed8; }
+  .pill-review.active     { background: #fef9c3; border-color: #fde047; color: #a16207; }
+  .pill-indev.active      { background: #f3e8ff; border-color: #d8b4fe; color: #7e22ce; }
+  .pill-spos.active       { background: #dbeafe; border-color: #93c5fd; color: #1d4ed8; }
+  .pill-mil.active        { background: #ffedd5; border-color: #fdba74; color: #c2410c; }
+  .pill-rdev.active       { background: #ccfbf1; border-color: #5eead4; color: #0f766e; }
+  .pdot { width: 7px; height: 7px; border-radius: 50%; }
+  .d-done   { background: #22c55e; }
+  .d-ready  { background: #3b82f6; }
+  .d-review { background: #f59e0b; }
+  .d-indev  { background: #a855f7; }
 
-/* PR LINK */
-.pr-link{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue);text-decoration:none;padding:3px 8px;border-radius:6px;background:var(--blue-lt);transition:background .15s}
-.pr-link:hover{background:var(--blue-mid)}
+  /* ─── TABLE ─── */
+  .table-wrap {
+    background: #fff; border: 1.5px solid #e2e8f0;
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .thead {
+    display: grid; padding: 11px 20px;
+    background: #f8fafc; border-bottom: 1.5px solid #e2e8f0;
+    font-size: 11px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: #94a3b8; gap: 12px;
+  }
+  .trow {
+    display: grid; padding: 15px 20px; border-bottom: 1px solid #f1f5f9;
+    align-items: center; gap: 12px; transition: background .1s;
+  }
+  .trow:last-child { border-bottom: none; }
+  .trow:hover { background: #f8fafc; }
 
-/* SECTION SUMMARY CARDS */
-.summary-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
-@media(max-width:700px){.summary-row{grid-template-columns:repeat(2,1fr)}}
-.sum-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:14px 18px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:12px}
-.sum-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.sum-val{font-size:22px;font-weight:800;line-height:1;margin-bottom:1px}
-.sum-label{font-size:11px;color:var(--muted)}
+  .g-dev      { grid-template-columns: 1fr 140px 130px 130px 140px 90px; }
+  .g-qa       { grid-template-columns: 1fr 140px 128px 128px 140px; }
+  .g-priority { grid-template-columns: 1fr 160px 130px 120px; }
 
-/* FOOTER */
-.footer{border-top:1px solid var(--border);padding:18px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
-.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
-.footer-left{display:flex;align-items:center;gap:9px}
-.footer-name{font-weight:600;color:var(--sub)}
+  .tc { display: flex; flex-direction: column; gap: 7px; }
+  .tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tag {
+    font-size: 10px; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 4px; line-height: 1.5;
+  }
+  .t-spos  { background: #dbeafe; color: #1d4ed8; }
+  .t-mil   { background: #ffedd5; color: #c2410c; }
+  .t-bug   { background: #fee2e2; color: #b91c1c; }
+  .t-enh   { background: #f3e8ff; color: #7e22ce; }
+  .t-wait  { background: #ccfbf1; color: #0f766e; }
+  .title-text { font-size: 13.5px; font-weight: 500; color: #1e293b; line-height: 1.4; }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.hero{animation:fadeUp .45s ease both}
-.page{animation:fadeUp .45s ease .06s both}
+  .devcell { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #475569; }
+  .av {
+    width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #fff;
+  }
+  .av-d  { background: #2563eb; }
+  .av-s  { background: #059669; }
+  .av-sa { background: #d97706; }
+  .av-v  { background: #7c3aed; }
+  .av-p  { background: #ea580c; }
+  .av-pr { background: #0891b2; }
+  .av-vi { background: #0369a1; }
+
+  .datecell { font-size: 12px; color: #64748b; font-family: 'JetBrains Mono', monospace; }
+  .prcell   { font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+  .prcell a { color: #2563eb; text-decoration: none; font-weight: 500; transition: color .15s; }
+  .prcell a:hover { color: #1d4ed8; text-decoration: underline; }
+
+  /* Status badges — light theme */
+  .sbadge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11.5px; font-weight: 600; padding: 5px 11px;
+    border-radius: 20px; white-space: nowrap;
+  }
+  .sbadge .sd { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .sb-done   { background: #dcfce7; color: #15803d; }
+  .sb-done   .sd { background: #22c55e; }
+  .sb-ready  { background: #dbeafe; color: #1d4ed8; }
+  .sb-ready  .sd { background: #3b82f6; }
+  .sb-review { background: #fef9c3; color: #a16207; }
+  .sb-review .sd { background: #eab308; }
+  .sb-indev  { background: #f3e8ff; color: #7e22ce; }
+  .sb-indev  .sd { background: #a855f7; }
+  .sb-rdev   { background: #ccfbf1; color: #0f766e; }
+  .sb-rdev   .sd { background: #14b8a6; }
+  .sb-rqa    { background: #dbeafe; color: #1d4ed8; }
+  .sb-rqa    .sd { background: #3b82f6; }
+
+  /* Priority badges */
+  .pbadge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 5px; }
+  .pb0 { background: #fee2e2; color: #b91c1c; }
+  .pb1 { background: #fef9c3; color: #a16207; }
+  .pb2 { background: #e0e7ff; color: #4338ca; }
+  .pb3 { background: #f1f5f9; color: #64748b; }
+  .pb-imp { background: #ccfbf1; color: #0f766e; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    padding: 22px 48px; border-top: 1.5px solid #e2e8f0;
+    background: #fff; display: flex;
+    justify-content: space-between; align-items: center;
+    font-size: 12px; color: #64748b;
+  }
+  .footer-left { display: flex; align-items: center; gap: 9px; }
+  .fav {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: linear-gradient(135deg, #22d3a5 0%, #3b82f6 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 800; color: #fff;
+  }
 </style>
 </head>
 <body>
 
+<div class="header-zone">
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="../">Portal</a>
+  <span class="sep">/</span>
+  <span>Delivery Tracker</span>
+</div>
+
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="breadcrumb"><a href="https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/">Portal</a><span>/</span><span>Delivery Tracker</span></div>
-      <div class="live-badge"><div class="live-dot"></div>Live · May 2026</div>
-      <h1>Delivery <em>Tracker</em></h1>
-      <p class="hero-desc">Real-time delivery pipeline across SmartPOS and Milagro Cloud — Dev Pipeline, Release QA and Priority tracking.</p>
+  <div>
+    <div class="live-badge"><span class="dot"></span>Live · May 2026</div>
+    <h1>Delivery <em>Tracker</em></h1>
+    <p class="hero-sub">Real-time delivery pipeline across SmartPOS and Milagro Cloud — Dev Pipeline, Release QA and Priority tracking.</p>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">49</div><div class="stat-label">Total Items</div></div>
+    <div class="stat-box s-ready"><div class="stat-num">11</div><div class="stat-label">Ready for QA</div></div>
+    <div class="stat-box s-indev"><div class="stat-num">3</div><div class="stat-label">In Development</div></div>
+    <div class="stat-box s-done"><div class="stat-num">5</div><div class="stat-label">Done</div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-bar">
+  <div class="tab active" onclick="switchTab('dev',this)">⚙️ Dev Pipeline <span class="tab-count">15</span></div>
+  <div class="tab" onclick="switchTab('qa',this)">🚀 Release Pipeline — QA <span class="tab-count">11</span></div>
+  <div class="tab" onclick="switchTab('priority',this)">🎯 Milagro Priority <span class="tab-count">23</span></div>
+</div>
+
+</div><!-- /header-zone -->
+
+<div class="content">
+
+<!-- ══════════════════════ DEV PIPELINE ══════════════════════ -->
+<div class="tab-panel active" id="panel-dev">
+  <div class="mini-stats">
+    <div class="mcard mc-done">  <div class="mcard-icon">✅</div><div><div class="mcard-num">5</div><div class="mcard-label">Done</div></div></div>
+    <div class="mcard mc-ready"> <div class="mcard-icon">🔵</div><div><div class="mcard-num">6</div><div class="mcard-label">Ready for QA</div></div></div>
+    <div class="mcard mc-review"><div class="mcard-icon">👁</div><div><div class="mcard-num">1</div><div class="mcard-label">In Review</div></div></div>
+    <div class="mcard mc-indev"> <div class="mcard-icon">⚡</div><div><div class="mcard-num">3</div><div class="mcard-label">In Development</div></div></div>
+  </div>
+
+  <div class="filter-bar" id="fb-dev">
+    <div class="search-box">
+      <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search PRs..." oninput="fsearch('dev',this.value)">
     </div>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-val">39</div><div class="hstat-label">Total Items</div></div>
-      <div class="hstat"><div class="hstat-val">5</div><div class="hstat-label">Ready for QA</div></div>
-      <div class="hstat"><div class="hstat-val">4</div><div class="hstat-label">In Development</div></div>
-      <div class="hstat"><div class="hstat-val">2</div><div class="hstat-label">Done</div></div>
+    <button class="pill active"         onclick="fstatus('dev','all',this)"><span class="pdot" style="background:#94a3b8"></span>All</button>
+    <button class="pill pill-done"      onclick="fstatus('dev','Done',this)"><span class="pdot d-done"></span>Done</button>
+    <button class="pill pill-ready"     onclick="fstatus('dev','Ready for QA',this)"><span class="pdot d-ready"></span>Ready for QA</button>
+    <button class="pill pill-review"    onclick="fstatus('dev','In Review',this)"><span class="pdot d-review"></span>In Review</button>
+    <button class="pill pill-indev"     onclick="fstatus('dev','In Development',this)"><span class="pdot d-indev"></span>In Dev</button>
+    <button class="pill pill-spos"      onclick="fprod('dev','SmartPOS',this)">SmartPOS</button>
+    <button class="pill pill-mil"       onclick="fprod('dev','Milagro',this)">Milagro</button>
+  </div>
+
+  <div class="table-wrap">
+    <div class="thead g-dev"><span>TITLE</span><span>DEVELOPER</span><span>START DATE</span><span>DEV ETA</span><span>STATUS</span><span>PR</span></div>
+    <div id="dev-rows">
+
+      <div class="trow g-dev" data-status="Done" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8681 Move table Issue for QSR Check</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <div class="datecell">May 6, 2026</div><div class="datecell">May 6, 2026</div>
+        <span class="sbadge sb-done"><span class="sd"></span>Done</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8885" target="_blank">#8885 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Done" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8686 Online Order Next Day Issue</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <div class="datecell">May 15, 2026</div><div class="datecell">May 15, 2026</div>
+        <span class="sbadge sb-done"><span class="sd"></span>Done</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8975" target="_blank">#8975 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Done" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8139 e2e Increase timeout</div></div>
+        <div class="devcell"><div class="av av-sa">Sa</div>satish</div>
+        <div class="datecell">May 22, 2026</div><div class="datecell">May 22, 2026</div>
+        <span class="sbadge sb-done"><span class="sd"></span>Done</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/9016" target="_blank">#9016 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Done" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8139 e2e improvements</div></div>
+        <div class="devcell"><div class="av av-s">S</div>sandeep</div>
+        <div class="datecell">May 20, 2026</div><div class="datecell">May 22, 2026</div>
+        <span class="sbadge sb-done"><span class="sd"></span>Done</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8999" target="_blank">#8999 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Done" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#9004 Cash Deposit Calculation Issue</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <div class="datecell">May 21, 2026</div><div class="datecell">May 21, 2026</div>
+        <span class="sbadge sb-done"><span class="sd"></span>Done</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/9008" target="_blank">#9008 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8681 Device Setting Sync to App</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <div class="datecell">May 5, 2026</div><div class="datecell">May 5, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8890" target="_blank">#8890 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#6823 Updated u220 lease time and improved print logging</div></div>
+        <div class="devcell"><div class="av av-s">S</div>sandeep</div>
+        <div class="datecell">May 4, 2026</div><div class="datecell">May 7, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8888" target="_blank">#8888 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Ready for QA" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8787 Online Order Page Performance Improvement</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <div class="datecell">May 4, 2026</div><div class="datecell">May 4, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8911" target="_blank">#8911 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8139 App update Improvements</div></div>
+        <div class="devcell"><div class="av av-s">S</div>sandeep</div>
+        <div class="datecell">May 11, 2026</div><div class="datecell">May 13, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8906" target="_blank">#8906 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8905 Device info validation changes</div></div>
+        <div class="devcell"><div class="av av-s">S</div>sandeep</div>
+        <div class="datecell">May 15, 2026</div><div class="datecell">May 19, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8962" target="_blank">#8962 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="Ready for QA" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8686 Cloud Regression Fixes</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <div class="datecell">May 13, 2026</div><div class="datecell">May 15, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8969" target="_blank">#8969 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="In Review" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8299 Report Fixes</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <div class="datecell">May 7, 2026</div><div class="datecell">May 8, 2026</div>
+        <span class="sbadge sb-review"><span class="sd"></span>In Review</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8913" target="_blank">#8913 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="In Development" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8139 E2E POC without CSV driven SmartPOS app</div></div>
+        <div class="devcell"><div class="av av-sa">Sa</div>satish</div>
+        <div class="datecell">May 8, 2026</div><div class="datecell">May 21, 2026</div>
+        <span class="sbadge sb-indev"><span class="sd"></span>In Development</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8956" target="_blank">#8956 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="In Development" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8682 Regression Issue Fixes Q2-2026</div></div>
+        <div class="devcell"><div class="av av-sa">Sa</div>satish</div>
+        <div class="datecell">May 14, 2026</div><div class="datecell">May 20, 2026</div>
+        <span class="sbadge sb-indev"><span class="sd"></span>In Development</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8972" target="_blank">#8972 ✓</a></div>
+      </div>
+
+      <div class="trow g-dev" data-status="In Development" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#6823 Fixed HttpGetRetryInterceptor error sink issue</div></div>
+        <div class="devcell"><div class="av av-sa">Sa</div>satish</div>
+        <div class="datecell">May 22, 2026</div><div class="datecell">May 25, 2026</div>
+        <span class="sbadge sb-indev"><span class="sd"></span>In Development</span>
+        <div class="prcell"><a href="https://github.com/Milagro-Corp/milagro-utiliko/pull/9020" target="_blank">#9020 ✓</a></div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<!-- PAGE -->
-<div class="page">
-
-  <!-- TABS -->
-  <div class="tab-bar">
-    <button class="tab-btn active" onclick="switchTab('dev')">⚙️ Dev Pipeline <span class="tab-count">11</span></button>
-    <button class="tab-btn" onclick="switchTab('qa')">🚀 Release Pipeline — QA <span class="tab-count">5</span></button>
-    <button class="tab-btn" onclick="switchTab('priority')">🎯 Milagro Priority <span class="tab-count">23</span></button>
+<!-- ══════════════════════ QA PIPELINE ══════════════════════ -->
+<div class="tab-panel" id="panel-qa">
+  <div class="mini-stats">
+    <div class="mcard mc-ready"> <div class="mcard-icon">🔵</div><div><div class="mcard-num">10</div><div class="mcard-label">Ready for QA</div></div></div>
+    <div class="mcard mc-review"><div class="mcard-icon">👁</div><div><div class="mcard-num">1</div><div class="mcard-label">In Review</div></div></div>
   </div>
 
-  <!-- ═══ TAB: DEV PIPELINE ═══ -->
-  <div class="tab-panel active" id="panel-dev">
-    <div class="summary-row">
-      <div class="sum-card" onclick="filterDev('Done')" style="cursor:pointer">
-        <div class="sum-icon" style="background:var(--green-lt)">✅</div>
-        <div><div class="sum-val" style="color:var(--green)">2</div><div class="sum-label">Done</div></div>
-      </div>
-      <div class="sum-card" onclick="filterDev('Ready for QA')" style="cursor:pointer">
-        <div class="sum-icon" style="background:var(--blue-lt)">🔵</div>
-        <div><div class="sum-val" style="color:var(--blue)">4</div><div class="sum-label">Ready for QA</div></div>
-      </div>
-      <div class="sum-card" onclick="filterDev('In Review')" style="cursor:pointer">
-        <div class="sum-icon" style="background:var(--amber-lt)">👁️</div>
-        <div><div class="sum-val" style="color:var(--amber)">1</div><div class="sum-label">In Review</div></div>
-      </div>
-      <div class="sum-card" onclick="filterDev('In Development')" style="cursor:pointer">
-        <div class="sum-icon" style="background:var(--purple-lt)">⚡</div>
-        <div><div class="sum-val" style="color:var(--purple)">4</div><div class="sum-label">In Development</div></div>
-      </div>
+  <div class="filter-bar" id="fb-qa">
+    <div class="search-box">
+      <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search PRs..." oninput="fsearch('qa',this.value)">
     </div>
-    <div class="toolbar">
-      <div class="search-box"><span class="si">🔍</span><input type="text" placeholder="Search PRs…" oninput="searchTable('dev-tbody',this.value)"></div>
-      <div class="filter-btns">
-        <button class="fbtn f-all active" onclick="filterDev('all',this)">All</button>
-        <button class="fbtn f-done" onclick="filterDev('Done',this)">✅ Done</button>
-        <button class="fbtn f-rfqa" onclick="filterDev('Ready for QA',this)">🔵 Ready for QA</button>
-        <button class="fbtn f-rev" onclick="filterDev('In Review',this)">👁️ In Review</button>
-        <button class="fbtn f-indev" onclick="filterDev('In Development',this)">⚡ In Dev</button>
-        <button class="fbtn f-smartpos" onclick="filterDev('smartpos',this)">SmartPOS</button>
-        <button class="fbtn f-milagro" onclick="filterDev('milagro',this)">Milagro</button>
-      </div>
-    </div>
-    <div class="tcard">
-      <table class="dtable">
-        <thead>
-          <tr>
-            <th style="width:44%">Title</th>
-            <th>Developer</th>
-            <th>Start Date</th>
-            <th>Dev ETA</th>
-            <th>Status</th>
-            <th>PR</th>
-          </tr>
-        </thead>
-        <tbody id="dev-tbody">
-
-          <tr data-status="done" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8885','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-bugfix">Bugfix</span></div><div class="item-title">#8681 Move table Issue for QSR Check</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-d">D</div>darshan</div></td>
-            <td><span class="date-cell">May 6, 2026</span></td>
-            <td><span class="date-cell date-end">May 6, 2026</span></td>
-            <td><span class="status-pill s-done"><span class="sdot sdot-done"></span>Done</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8885" target="_blank" onclick="event.stopPropagation()">#8885 ↗</a></td>
-          </tr>
-
-          <tr data-status="rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8890','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-bugfix">Bugfix</span></div><div class="item-title">#8681 Device Setting Sync to App</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-d">D</div>darshan</div></td>
-            <td><span class="date-cell">May 5, 2026</span></td>
-            <td><span class="date-cell date-end">May 5, 2026</span></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for QA</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8890" target="_blank" onclick="event.stopPropagation()">#8890 ↗</a></td>
-          </tr>
-
-          <tr data-status="rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8888','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-enhancement">Enhancement</span></div><div class="item-title">#6823 Updated u220 lease time and improved print logging</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-s">S</div>sandeep</div></td>
-            <td><span class="date-cell">May 4, 2026</span></td>
-            <td><span class="date-cell date-end">May 7, 2026</span></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for QA</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8888" target="_blank" onclick="event.stopPropagation()">#8888 ↗</a></td>
-          </tr>
-
-          <tr data-status="rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8911','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span><span class="itag it-enhancement">Enhancement</span></div><div class="item-title">#8787 Online Order Page Performance Improvement</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-d">D</div>darshan</div></td>
-            <td><span class="date-cell">May 4, 2026</span></td>
-            <td><span class="date-cell date-end">May 4, 2026</span></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for QA</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8911" target="_blank" onclick="event.stopPropagation()">#8911 ↗</a></td>
-          </tr>
-
-          <tr data-status="rev" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8913','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span><span class="itag it-bugfix">Bugfix</span></div><div class="item-title">#8299 Report Fixes</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-d">D</div>darshan</div></td>
-            <td><span class="date-cell">May 7, 2026</span></td>
-            <td><span class="date-cell date-end">May 8, 2026</span></td>
-            <td><span class="status-pill s-rev"><span class="sdot sdot-rev"></span>In Review</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8913" target="_blank" onclick="event.stopPropagation()">#8913 ↗</a></td>
-          </tr>
-
-          <tr data-status="rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8906','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-enhancement">Enhancement</span></div><div class="item-title">#8139 App update Improvements</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-s">S</div>sandeep</div></td>
-            <td><span class="date-cell">May 11, 2026</span></td>
-            <td><span class="date-cell date-end">May 13, 2026</span></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for QA</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8906" target="_blank" onclick="event.stopPropagation()">#8906 ↗</a></td>
-          </tr>
-
-          <tr data-status="indev" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8956','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-enhancement">Enhancement</span></div><div class="item-title">#8139 E2E POC without CSV driven SmartPOS app</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-sa">Sa</div>satish</div></td>
-            <td><span class="date-cell">May 8, 2026</span></td>
-            <td><span class="date-cell date-end">May 19, 2026</span></td>
-            <td><span class="status-pill s-indev"><span class="sdot sdot-indev"></span>In Development</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8956" target="_blank" onclick="event.stopPropagation()">#8956 ↗</a></td>
-          </tr>
-
-          <tr data-status="indev" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8962','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-enhancement">Enhancement</span></div><div class="item-title">#8905 Device info validation changes</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-s">S</div>sandeep</div></td>
-            <td><span class="date-cell">May 12, 2026</span></td>
-            <td><span class="date-cell date-end">May 14, 2026</span></td>
-            <td><span class="status-pill s-indev"><span class="sdot sdot-indev"></span>In Development</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8962" target="_blank" onclick="event.stopPropagation()">#8962 ↗</a></td>
-          </tr>
-
-          <tr data-status="indev" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8972','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-bugfix">Bugfix</span></div><div class="item-title">#8682 Regression Issue Fixes Q2-2026</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-sa">Sa</div>satish</div></td>
-            <td><span class="date-cell">May 14, 2026</span></td>
-            <td><span class="date-cell date-end">May 20, 2026</span></td>
-            <td><span class="status-pill s-indev"><span class="sdot sdot-indev"></span>In Development</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8972" target="_blank" onclick="event.stopPropagation()">#8972 ↗</a></td>
-          </tr>
-
-          <tr data-status="indev" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8969','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span><span class="itag it-bugfix">Bugfix</span></div><div class="item-title">#8686 Cloud Regression Fixes</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-d">D</div>darshan</div></td>
-            <td><span class="date-cell">May 13, 2026</span></td>
-            <td><span class="date-cell date-end">May 15, 2026</span></td>
-            <td><span class="status-pill s-indev"><span class="sdot sdot-indev"></span>In Development</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8969" target="_blank" onclick="event.stopPropagation()">#8969 ↗</a></td>
-          </tr>
-
-          <tr data-status="done" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8975','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span><span class="itag it-bugfix">Bugfix</span></div><div class="item-title">#8686 Online Order Next Day Issue</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-d">D</div>darshan</div></td>
-            <td><span class="date-cell">May 15, 2026</span></td>
-            <td><span class="date-cell date-end">May 15, 2026</span></td>
-            <td><span class="status-pill s-done"><span class="sdot sdot-done"></span>Done</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8975" target="_blank" onclick="event.stopPropagation()">#8975 ↗</a></td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
+    <button class="pill active"      onclick="fstatus('qa','all',this)"><span class="pdot" style="background:#94a3b8"></span>All</button>
+    <button class="pill pill-ready"  onclick="fstatus('qa','Ready for QA',this)"><span class="pdot d-ready"></span>Ready for QA</button>
+    <button class="pill pill-review" onclick="fstatus('qa','In Review',this)"><span class="pdot d-review"></span>In Review</button>
+    <button class="pill pill-spos"   onclick="fprod('qa','SmartPOS',this)">SmartPOS</button>
+    <button class="pill pill-mil"    onclick="fprod('qa','Milagro',this)">Milagro</button>
   </div>
 
-  <!-- ═══ TAB: RELEASE PIPELINE QA ═══ -->
-  <div class="tab-panel" id="panel-qa">
-    <div class="summary-row" style="grid-template-columns:repeat(3,1fr);max-width:600px">
-      <div class="sum-card">
-        <div class="sum-icon" style="background:var(--blue-lt)">🔵</div>
-        <div><div class="sum-val" style="color:var(--blue)">4</div><div class="sum-label">Ready for QA</div></div>
+  <div class="table-wrap">
+    <div class="thead g-qa"><span>TITLE</span><span>ASSIGNEE</span><span>QA START</span><span>QA END</span><span>STATUS</span></div>
+    <div id="qa-rows">
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8681 Device Setting Sync to App</div></div>
+        <div class="devcell"><div class="av av-v">V</div>vaishnavi</div>
+        <div class="datecell">May 27, 2026</div><div class="datecell">May 28, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
       </div>
-      <div class="sum-card">
-        <div class="sum-icon" style="background:var(--amber-lt)">👁️</div>
-        <div><div class="sum-val" style="color:var(--amber)">1</div><div class="sum-label">In Review</div></div>
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#6823 Updated u220 lease time and improved print logging</div></div>
+        <div class="devcell"><div class="av av-v">V</div>vaishnavi</div>
+        <div class="datecell">May 26, 2026</div><div class="datecell">May 26, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
       </div>
-      <div class="sum-card">
-        <div class="sum-icon" style="background:var(--blue-lt)">👤</div>
-        <div><div class="sum-val" style="color:var(--blue)">1</div><div class="sum-label">QA Assignee</div></div>
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8787 Online Order Page Performance Improvement</div></div>
+        <div class="devcell"><div class="av av-v">V</div>vaishnavi</div>
+        <div class="datecell">May 26, 2026</div><div class="datecell">May 26, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
       </div>
-    </div>
-    <div class="toolbar">
-      <div class="search-box"><span class="si">🔍</span><input type="text" placeholder="Search QA items…" oninput="searchTable('qa-tbody',this.value)"></div>
-    </div>
-    <div class="tcard">
-      <table class="dtable">
-        <thead>
-          <tr>
-            <th style="width:38%">Title</th>
-            <th>Assignee</th>
-            <th>QA Start</th>
-            <th>QA End</th>
-            <th>Status</th>
-            <th>PR</th>
-          </tr>
-        </thead>
-        <tbody id="qa-tbody">
 
-          <tr onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8890','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-bugfix">Bugfix</span></div><div class="item-title">#8681 Device Setting Sync to App</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-v">V</div>vaishnavi</div></td>
-            <td><span class="date-cell">May 25, 2026</span></td>
-            <td><span class="date-cell date-end">May 26, 2026</span></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for QA</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8890" target="_blank" onclick="event.stopPropagation()">#8890 ↗</a></td>
-          </tr>
-
-          <tr onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8888','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-enhancement">Enhancement</span></div><div class="item-title">#6823 Updated u220 lease time and improved print logging</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-v">V</div>vaishnavi</div></td>
-            <td><span class="date-cell">May 22, 2026</span></td>
-            <td><span class="date-cell date-end">May 22, 2026</span></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for QA</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8888" target="_blank" onclick="event.stopPropagation()">#8888 ↗</a></td>
-          </tr>
-
-          <tr onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8911','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span><span class="itag it-enhancement">Enhancement</span></div><div class="item-title">#8787 Online Order Page Performance Improvement</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-v">V</div>vaishnavi</div></td>
-            <td><span class="date-cell">May 27, 2026</span></td>
-            <td><span class="date-cell date-end">May 27, 2026</span></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for QA</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8911" target="_blank" onclick="event.stopPropagation()">#8911 ↗</a></td>
-          </tr>
-
-          <tr onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8913','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span><span class="itag it-bugfix">Bugfix</span></div><div class="item-title">#8299 Report Fixes</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-v">V</div>vaishnavi</div></td>
-            <td><span class="date-cell">May 19, 2026</span></td>
-            <td><span class="date-cell date-end">May 21, 2026</span></td>
-            <td><span class="status-pill s-rev"><span class="sdot sdot-rev"></span>In Review</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8913" target="_blank" onclick="event.stopPropagation()">#8913 ↗</a></td>
-          </tr>
-
-          <tr onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/pull/8906','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span><span class="itag it-enhancement">Enhancement</span></div><div class="item-title">#8139 App update Improvements</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-v">V</div>vaishnavi</div></td>
-            <td><span class="date-cell">May 28, 2026</span></td>
-            <td><span class="date-cell date-end">May 28, 2026</span></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for QA</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/pull/8906" target="_blank" onclick="event.stopPropagation()">#8906 ↗</a></td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- ═══ TAB: MILAGRO PRIORITY ═══ -->
-  <div class="tab-panel" id="panel-priority">
-    <div class="summary-row" style="grid-template-columns:repeat(3,1fr);max-width:600px">
-      <div class="sum-card">
-        <div class="sum-icon" style="background:var(--blue-lt)">🎯</div>
-        <div><div class="sum-val" style="color:var(--blue)">20</div><div class="sum-label">Ready for Dev</div></div>
+      <div class="trow g-qa" data-status="In Review" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8299 Report Fixes</div></div>
+        <div class="devcell"><div class="av av-v">V</div>vaishnavi</div>
+        <div class="datecell">May 19, 2026</div><div class="datecell">May 25, 2026</div>
+        <span class="sbadge sb-review"><span class="sd"></span>In Review</span>
       </div>
-      <div class="sum-card">
-        <div class="sum-icon" style="background:var(--purple-lt)">⚡</div>
-        <div><div class="sum-val" style="color:var(--purple)">2</div><div class="sum-label">In Development</div></div>
-      </div>
-      <div class="sum-card">
-        <div class="sum-icon" style="background:var(--amber-lt)">👁️</div>
-        <div><div class="sum-val" style="color:var(--amber)">1</div><div class="sum-label">In Review</div></div>
-      </div>
-    </div>
-    <div class="tcard">
-      <table class="dtable">
-        <thead><tr><th style="width:50%">Title</th><th>Assignee</th><th>Status · Priority</th><th>Issue</th></tr></thead>
-        <tbody>
 
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/1222','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt; Promo & Comps &gt; UI Update</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-sa" style="width:20px;height:20px;font-size:8px">S</div>Satishpa</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/1222" target="_blank" onclick="event.stopPropagation()">#1222 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/4985','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt; I&C &gt; Modifiers &gt; Search and Add Modifier - does n...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/4985" target="_blank" onclick="event.stopPropagation()">#4985 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/5838','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">Online ordering &gt; email order confirmation &gt; undefined modifiers</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/5838" target="_blank" onclick="event.stopPropagation()">#5838 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/6070','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">Cloud Reporting &gt; Payout &gt; Cash Status</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--pale);color:var(--muted);border:1px solid var(--border);margin-left:6px">P3</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/6070" target="_blank" onclick="event.stopPropagation()">#6070 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/6823','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt; Crashlytics |  Error Sink  &gt; Fix all the errors repor...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-s" style="width:20px;height:20px;font-size:8px">S</div><div class="dev-av av-sa" style="width:20px;height:20px;font-size:8px">S</div>sandeepc, Satishpa</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--orange-lt);color:var(--orange);margin-left:6px">P1</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/6823" target="_blank" onclick="event.stopPropagation()">#6823 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/7381','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt; APIS &gt; Modularization of API Files to Optimize PR Aff...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/7381" target="_blank" onclick="event.stopPropagation()">#7381 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/7775','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt; API &gt; Rewrite Proceed Payment API</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/7775" target="_blank" onclick="event.stopPropagation()">#7775 ↗</a></td>
-          </tr>
-          <tr data-status="s-indev" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8139','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">[milagro][smartpos] &gt; App Code Upgradation&gt; Deliverables in mile...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div><div class="dev-av av-s" style="width:20px;height:20px;font-size:8px">S</div>darshan, sandeepc</div></td>
-            <td><span class="status-pill s-indev"><span class="sdot sdot-indev"></span>In Development</span><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--orange-lt);color:var(--orange);margin-left:6px">P1</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8139" target="_blank" onclick="event.stopPropagation()">#8139 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8366','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">[milagro][online order][online reservation] &gt; Multipl issues record...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-p" style="width:20px;height:20px;font-size:8px">P</div>PramodPu</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--orange-lt);color:var(--orange);margin-left:6px">P1</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8366" target="_blank" onclick="event.stopPropagation()">#8366 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8299','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">[milagro][smartpos reports] - Tear down and Recreate whole SPOS Report...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--orange-lt);color:var(--orange);margin-left:6px">P1</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8299" target="_blank" onclick="event.stopPropagation()">#8299 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8685','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">Online order &gt;[Regression Testing -Q2-2026] &gt; Listed down all th...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8685" target="_blank" onclick="event.stopPropagation()">#8685 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8841','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">[smartpos][bug] - Seated table cannot be opened by assigned server</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-pk" style="width:20px;height:20px;font-size:8px">P</div><div class="dev-av av-b" style="width:20px;height:20px;font-size:8px">V</div>Preranam, vigneshS</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8841" target="_blank" onclick="event.stopPropagation()">#8841 ↗</a></td>
-          </tr>
-          <tr data-status="s-indev" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8681','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt;[Regression Testing -Q2-2026] &gt; Listed down all the is...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-indev"><span class="sdot sdot-indev"></span>In Development</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8681" target="_blank" onclick="event.stopPropagation()">#8681 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8905','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt; KDS &gt; Duplicate items</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-s" style="width:20px;height:20px;font-size:8px">S</div>sandeepc</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8905" target="_blank" onclick="event.stopPropagation()">#8905 ↗</a></td>
-          </tr>
-          <tr data-status="s-rev" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8930','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro" style="background:var(--teal-lt);color:var(--teal)">SmartWAIT</span></div><div class="item-title">SmartWAIT &gt; Google Waitlist Integration&gt; It was reported that wh...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-b" style="width:20px;height:20px;font-size:8px">V</div>vigneshS</div></td>
-            <td><span class="status-pill s-rev"><span class="sdot sdot-rev"></span>In Review</span><span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--red-lt);color:var(--red);margin-left:6px">P0</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8930" target="_blank" onclick="event.stopPropagation()">#8930 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8943','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">[milagro][online ordering] - Online Ordering SSR Implementation & UX I...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div><div class="dev-av av-p" style="width:20px;height:20px;font-size:8px">P</div>darshan, PramodPu</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8943" target="_blank" onclick="event.stopPropagation()">#8943 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8686','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">Cloud &gt;[Regression Testing -Q2-2026] &gt; Listed down all the issue...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8686" target="_blank" onclick="event.stopPropagation()">#8686 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8683','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt;[Regression Testing -Q2-2026] &gt; Listed down all the is...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-s" style="width:20px;height:20px;font-size:8px">S</div>sandeepc</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8683" target="_blank" onclick="event.stopPropagation()">#8683 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="smartpos" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8682','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-smartpos">SmartPOS</span></div><div class="item-title">SmartPOS &gt;[Regression Testing -Q2-2026] &gt; Listed down all the is...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-sa" style="width:20px;height:20px;font-size:8px">S</div>Satishpa</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8682" target="_blank" onclick="event.stopPropagation()">#8682 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/8687','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">Cloud &gt;[Regression Testing -Q2-2026] &gt; Listed down all the issue...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div><div class="dev-av av-p" style="width:20px;height:20px;font-size:8px">P</div>darshan, PramodPu</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/8687" target="_blank" onclick="event.stopPropagation()">#8687 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/2495','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">Milagro Cloud &gt; Payment Summary &gt; Gift Card Sale(s) - rename to ...</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/2495" target="_blank" onclick="event.stopPropagation()">#2495 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/4338','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">Milagro Cloud &gt; New Items &gt; Income Account - Default to Taxable </div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/4338" target="_blank" onclick="event.stopPropagation()">#4338 ↗</a></td>
-          </tr>
-          <tr data-status="s-rfqa" data-product="milagro" onclick="window.open('https://github.com/Milagro-Corp/milagro-utiliko/issues/6374','_blank')">
-            <td><div class="title-wrap"><div class="item-tags"><span class="itag it-milagro">Milagro</span></div><div class="item-title">Online Ordering - Remove Login / Continue as Guest page</div></div></td>
-            <td><div class="dev-badge"><div class="dev-av av-t" style="width:20px;height:20px;font-size:8px">D</div>darshan</div></td>
-            <td><span class="status-pill s-rfqa"><span class="sdot sdot-rfqa"></span>Ready for Dev</span></td>
-            <td><a class="pr-link" href="https://github.com/Milagro-Corp/milagro-utiliko/issues/6374" target="_blank" onclick="event.stopPropagation()">#6374 ↗</a></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8139 App update Improvements</div></div>
+        <div class="devcell"><div class="av av-p">P</div>pratik</div>
+        <div class="datecell">May 28, 2026</div><div class="datecell">May 28, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+      </div>
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="tags"><span class="tag t-spos">SmartPOS</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8905 Device info validation changes</div></div>
+        <div class="devcell"><div class="av av-p">P</div>pratik</div>
+        <div class="datecell">May 25, 2026</div><div class="datecell">May 25, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+      </div>
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#8686 Cloud Regression Fixes</div></div>
+        <div class="devcell"><div class="av av-p">P</div>pratik</div>
+        <div class="datecell">May 25, 2026</div><div class="datecell">May 25, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+      </div>
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#9001 SmartWAIT Detail Report total count data mismatch</div></div>
+        <div class="devcell"><div class="av av-pr">Pr</div>prerana</div>
+        <div class="datecell">May 21, 2026</div><div class="datecell">May 25, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+      </div>
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#5838 #6070 #2495 Online receipt modifiers, Server payout cash drawer</div></div>
+        <div class="devcell"><div class="av av-p">P</div>pratik</div>
+        <div class="datecell">May 26, 2026</div><div class="datecell">May 26, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+      </div>
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-bug">Bugfix</span></div><div class="title-text">#4338 #6374 #4985 Menu Builder search/tag layout, Item income default</div></div>
+        <div class="devcell"><div class="av av-p">P</div>pratik</div>
+        <div class="datecell">May 27, 2026</div><div class="datecell">May 27, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+      </div>
+
+      <div class="trow g-qa" data-status="Ready for QA" data-prod="Milagro">
+        <div class="tc"><div class="tags"><span class="tag t-mil">Milagro</span><span class="tag t-enh">Enhancement</span></div><div class="title-text">#8943 Loyalty program SSR and SEO</div></div>
+        <div class="devcell"><div class="av av-v">V</div>vaishnavi</div>
+        <div class="datecell">May 25, 2026</div><div class="datecell">May 25, 2026</div>
+        <span class="sbadge sb-ready"><span class="sd"></span>Ready for QA</span>
+      </div>
+
     </div>
   </div>
-
 </div>
 
-<!-- FOOTER -->
+<!-- ══════════════════════ PRIORITY ══════════════════════ -->
+<div class="tab-panel" id="panel-priority">
+  <div class="mini-stats">
+    <div class="mcard mc-rdev">  <div class="mcard-icon">🎯</div><div><div class="mcard-num">16</div><div class="mcard-label">Ready for Dev</div></div></div>
+    <div class="mcard mc-indev"> <div class="mcard-icon">⚡</div><div><div class="mcard-num">4</div><div class="mcard-label">In Development</div></div></div>
+    <div class="mcard mc-review"><div class="mcard-icon">👁</div><div><div class="mcard-num">2</div><div class="mcard-label">In Review / QA</div></div></div>
+    <div class="mcard" style="flex:1;background:var(--surface);border:1px solid var(--border2);border-radius:var(--r);padding:16px 20px;display:flex;align-items:center;gap:14px">
+      <div class="mcard-icon">🚨</div><div><div class="mcard-num" style="color:#f87171;font-size:24px;font-weight:700;font-family:'JetBrains Mono',monospace">1</div><div class="mcard-label" style="font-size:11px;color:var(--text-sub);margin-top:3px">P0 Blocker</div></div>
+    </div>
+  </div>
+
+  <div class="filter-bar" id="fb-priority">
+    <div class="search-box">
+      <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search items..." oninput="fsearch('priority',this.value)">
+    </div>
+    <button class="pill active"       onclick="fstatus('priority','all',this)"><span class="pdot" style="background:#94a3b8"></span>All</button>
+    <button class="pill pill-rdev"    onclick="fstatus('priority','Ready for Dev',this)"><span class="pdot" style="background:#14b8a6"></span>Ready for Dev</button>
+    <button class="pill pill-indev"   onclick="fstatus('priority','In Development',this)"><span class="pdot d-indev"></span>In Dev</button>
+    <button class="pill pill-review"  onclick="fstatus('priority','In Review',this)"><span class="pdot d-review"></span>In Review</button>
+    <button class="pill pill-ready"   onclick="fstatus('priority','Ready for QA',this)"><span class="pdot d-ready"></span>Ready for QA</button>
+  </div>
+
+  <div class="table-wrap">
+    <div class="thead g-priority"><span>TITLE</span><span>ASSIGNEE</span><span>STATUS</span><span>PRIORITY</span></div>
+    <div id="priority-rows">
+
+      <div class="trow g-priority" data-status="In Review" data-prod="Milagro">
+        <div class="tc"><div class="title-text">SmartWAIT > Google Waitlist Integration — Shows reservation instead of waitlist</div></div>
+        <div class="devcell"><div class="av av-vi">Vi</div>vignesh</div>
+        <span class="sbadge sb-review"><span class="sd"></span>In Review</span>
+        <span class="pbadge pb0">P0 · Blocker</span>
+      </div>
+
+      <div class="trow g-priority" data-status="In Development" data-prod="Milagro">
+        <div class="tc"><div class="title-text">[milagro][smartpos] App Code Upgradation — Deliverables in milestones</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan +2</div>
+        <span class="sbadge sb-indev"><span class="sd"></span>In Development</span>
+        <span class="pbadge pb1">P1 · Critical</span>
+      </div>
+
+      <div class="trow g-priority" data-status="In Development" data-prod="Milagro">
+        <div class="tc"><div class="title-text">[milagro][online ordering] Online Ordering SSR Implementation & UX Improvements (Phase 1)</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan +1</div>
+        <span class="sbadge sb-indev"><span class="sd"></span>In Development</span>
+        <span class="pbadge pb-imp">Imp 2</span>
+      </div>
+
+      <div class="trow g-priority" data-status="In Development" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > [Regression Q2-2026] — Issues at time of Regression Testing (Darshan)</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-indev"><span class="sd"></span>In Development</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="In Development" data-prod="Milagro">
+        <div class="tc"><div class="title-text">[Milagro Cloud] SmartWAIT Detail Report not showing seated parties from same date under total count</div></div>
+        <div class="devcell"><div class="av av-vi">Vi</div>vignesh</div>
+        <span class="sbadge sb-indev"><span class="sd"></span>In Development</span>
+        <span class="pbadge pb1">P1 · Critical</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for QA" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > KDS > Duplicate items</div></div>
+        <div class="devcell"><div class="av av-s">S</div>sandeep</div>
+        <span class="sbadge sb-rqa"><span class="sd"></span>Ready for QA</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > Crashlytics Error Sink — Fix all errors reported & memory issues</div></div>
+        <div class="devcell"><div class="av av-s">S</div>sandeep +1</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb1">P1 · Critical</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">[milagro][online order][reservation] Multiple issues recorded under clarity (12th Feb)</div></div>
+        <div class="devcell"><div class="av av-p">P</div>pramod</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb1">P1 · Critical</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">[milagro][smartpos reports] Tear down and Recreate whole SPOS Reports</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb1">P1 · Critical</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > Promo & Comps > UI Update</div></div>
+        <div class="devcell"><div class="av av-sa">Sa</div>satish</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > I&C > Modifiers > Search and Add Modifier does not add all modifiers</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">Online ordering > email order confirmation > undefined modifiers</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">Cloud Reporting > Payout > Cash Status</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb3">P3 · Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > APIS > Modularization of API Files to Optimize PR Affected Rules</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb-imp">Imp 3</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > API > Rewrite Proceed Payment API</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb-imp">Imp 3</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > [Regression Q2-2026] — Issues at Regression Testing (Sandeep)</div></div>
+        <div class="devcell"><div class="av av-s">S</div>sandeep</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > [Regression Q2-2026] — Issues at Regression Testing (Satish)</div></div>
+        <div class="devcell"><div class="av av-sa">Sa</div>satish</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">Cloud > [Regression Q2-2026] — Issues at Regression Testing (Darshan)</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">Cloud > [Regression Q2-2026] — Issues at Regression Testing (Pramod)</div></div>
+        <div class="devcell"><div class="av av-p">P</div>pramod</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">Online Order > [Regression Q2-2026] — Issues at Regression Testing (Darshan)</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="SmartPOS">
+        <div class="tc"><div class="title-text">SmartPOS > [Bug] Seated table cannot be opened by assigned server</div></div>
+        <div class="devcell"><div class="av av-pr">Pr</div>prerana +1</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb2">Medium</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">Milagro Cloud > Payment Summary > Gift Card Sale(s) rename to Gift Card Redemption</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb3">Low</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">Milagro Cloud > New Items > Income Account - Default to Taxable Sales</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb3">Low</span>
+      </div>
+
+      <div class="trow g-priority" data-status="Ready for Dev" data-prod="Milagro">
+        <div class="tc"><div class="title-text">Online Ordering — Remove Login / Continue as Guest page</div></div>
+        <div class="devcell"><div class="av av-d">D</div>darshan</div>
+        <span class="sbadge sb-rdev"><span class="sd"></span>Ready for Dev</span>
+        <span class="pbadge pb3">Low</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
 <div class="footer">
   <div class="footer-left">
-    <div class="footer-av">R</div>
-    <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
+    <div class="fav">R</div>
+    <span>Maintained by <strong>Rohini Sujith</strong> · Product Manager</span>
   </div>
   <span>Delivery Tracker · Milagro · May 2026</span>
 </div>
 
 <script>
-function switchTab(name){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
-  document.getElementById(`panel-${name}`).classList.add('active');
+const state = {
+  dev:      { status: 'all', prod: 'all', q: '' },
+  qa:       { status: 'all', prod: 'all', q: '' },
+  priority: { status: 'all', prod: 'all', q: '' },
+};
+
+function switchTab(tab, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-' + tab).classList.add('active');
 }
 
-function searchTable(tbodyId, q){
-  const term = q.toLowerCase();
-  document.querySelectorAll(`#${tbodyId} tr`).forEach(tr=>{
-    tr.classList.toggle('hidden-row', !tr.textContent.toLowerCase().includes(term));
+function render(tab) {
+  const s = state[tab];
+  document.querySelectorAll(`#${tab}-rows .trow`).forEach(row => {
+    const statusOk = s.status === 'all' || row.dataset.status === s.status;
+    const prodOk   = s.prod   === 'all' || row.dataset.prod   === s.prod;
+    const qOk      = !s.q     || row.textContent.toLowerCase().includes(s.q.toLowerCase());
+    row.style.display = (statusOk && prodOk && qOk) ? '' : 'none';
   });
 }
 
-let devActiveFilter = 'all';
-function filterDev(filter, btn){
-  devActiveFilter = filter;
-  document.querySelectorAll('#panel-dev .fbtn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  document.querySelectorAll('#dev-tbody tr').forEach(tr=>{
-    if(filter==='all'){tr.classList.remove('hidden-row');return;}
-    const status = tr.dataset.status;
-    const product = tr.dataset.product;
-    const statusMap = {'Done':'done','Ready for QA':'rfqa','In Review':'rev','In Development':'indev'};
-    if(statusMap[filter]){
-      tr.classList.toggle('hidden-row', status !== statusMap[filter]);
-    } else {
-      tr.classList.toggle('hidden-row', product !== filter);
-    }
-  });
+function fstatus(tab, val, btn) {
+  state[tab].status = val;
+  state[tab].prod = 'all';
+  btn.closest('.filter-bar').querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render(tab);
+}
+
+function fprod(tab, val, btn) {
+  if (state[tab].prod === val) {
+    state[tab].prod = 'all';
+    btn.classList.remove('active');
+  } else {
+    state[tab].prod = val;
+    btn.closest('.filter-bar').querySelectorAll('[onclick*="fprod"]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  render(tab);
+}
+
+function fsearch(tab, val) {
+  state[tab].q = val;
+  render(tab);
 }
 </script>
 </body>
