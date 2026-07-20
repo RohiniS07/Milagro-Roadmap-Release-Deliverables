@@ -193,13 +193,13 @@ section{margin-bottom:52px}
             <div class="author-role">Product Manager</div>
           </div>
         </div>
-        <div class="live-badge"><div class="live-dot"></div>May 2026</div>
+        <div class="live-badge"><div class="live-dot"></div>Jul 2026</div>
       </div>
     </div>
     <h1>Playwright <em>Automation</em><br>Roadmap</h1>
     <div class="hero-sub">UTILIKO &nbsp;·&nbsp; MILAGRO CLOUD &nbsp;·&nbsp; PBX</div>
     <p class="hero-desc">Convert all qa.md manual test cases into automated tests using Playwright and Android native frameworks, executed via CI pipelines.</p>
-    <div class="draft-banner">✏️ Draft — Pending Finalization</div>
+    <div class="draft-banner" style="background:rgba(5,150,105,.15);border:1px solid rgba(5,150,105,.3);color:#34d399">✅ Live — Jul 2026</div>
     <div class="hero-stats">
       <div class="hstat"><div class="hstat-val">3</div><div class="hstat-label">Milestones</div></div>
       <div class="hstat"><div class="hstat-val">3</div><div class="hstat-label">Tracks</div></div>
@@ -327,7 +327,7 @@ section{margin-bottom:52px}
         <div class="track-pills">
           <span class="tpill">Playwright (Local)</span>
           <span class="tpill">16 Sub-modules</span>
-          <span class="tpill">Message Module</span>
+          <span class="tpill">6 Modules</span><span class="tpill">37 Sub-modules</span>
           <span class="tpill">No CI yet</span>
         </div>
         <div class="track-members">
@@ -438,7 +438,7 @@ section{margin-bottom:52px}
       <div class="sec-num">05</div>
       <h2>PBX — Message Module</h2>
       <div class="sec-line"></div>
-      <div class="sec-meta">16 sub-modules · Pramila · Local only</div>
+      <div class="sec-meta">37 sub-modules · 6 modules · Pramila · Jun 2 → Oct 26, 2026</div>
     </div>
     <div class="pbx-note">
       ⚠️ <div><strong>Local Execution Only — Not CI.</strong> As discussed with @kartikVT, PBX will first complete Selenium → Playwright transition for local execution. Once productivity improvement is confirmed, CI/CD implementation will be initiated with Kiani.</div>
@@ -446,10 +446,10 @@ section{margin-bottom:52px}
     <div class="tcard">
       <div class="tcard-header">
         <div class="tcard-title">Message Module — Automation ETAs</div>
-        <span class="tcard-meta">Pramila · Apr 30 → May 31, 2026</span>
+        <span class="tcard-meta">Pramila · Jun 2, 2026 → Oct 26, 2026</span>
       </div>
       <table class="dtable">
-        <thead><tr><th>#</th><th>Module</th><th>Sub-module</th><th>QA</th><th>ETA</th><th>Buffer</th><th>Execution</th></tr></thead>
+        <thead><tr><th>#</th><th>Module</th><th>Sub-module</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
         <tbody id="pbx-tbody"></tbody>
       </table>
     </div>
@@ -490,7 +490,7 @@ section{margin-bottom:52px}
     <div class="footer-av">R</div>
     <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
   </div>
-  <span>Playwright Automation Roadmap · May 2026 · Draft</span>
+  <span>Playwright Automation Roadmap · Jul 2026 · Draft</span>
 </div>
 
 <script>
@@ -730,22 +730,43 @@ const utilikoData = [
 ];
 
 const pbxData = [
-  {sub:"Phone numbers",eta:"30/04/2026",buffer:"02/05/2026"},
-  {sub:"Filters",eta:"02/05/2026",buffer:"04/05/2026"},
-  {sub:"Email notification",eta:"04/05/2026",buffer:"06/05/2026"},
-  {sub:"Search-Global",eta:"06/05/2026",buffer:"08/05/2026"},
-  {sub:"Search-Local",eta:"08/05/2026",buffer:"10/05/2026"},
-  {sub:"Send new message",eta:"10/05/2026",buffer:"12/05/2026"},
-  {sub:"Contact popup",eta:"12/05/2026",buffer:"14/05/2026"},
-  {sub:"Message flows",eta:"14/05/2026",buffer:"16/05/2026"},
-  {sub:"Notes",eta:"16/05/2026",buffer:"18/05/2026"},
-  {sub:"Attachments",eta:"18/05/2026",buffer:"20/05/2026"},
-  {sub:"Templates",eta:"20/05/2026",buffer:"22/05/2026"},
-  {sub:"Schedule message",eta:"22/05/2026",buffer:"24/05/2026"},
-  {sub:"Actions-scheduled sms",eta:"24/05/2026",buffer:"26/05/2026"},
-  {sub:"Chat status",eta:"26/05/2026",buffer:"28/05/2026"},
-  {sub:"Draft",eta:"28/05/2026",buffer:"30/05/2026"},
-  {sub:"Group chat",eta:"30/05/2026",buffer:"31/05/2026"},
+  {module:"Messages",sub:"Filters",start:"2/6/2026",end:"4/6/2026",status:"Completed"},
+  {module:"Messages",sub:"Email notification",start:"4/6/2026",end:"6/6/2026",status:"Completed"},
+  {module:"Messages",sub:"Search-Global",start:"6/6/2026",end:"8/6/2026",status:"Completed"},
+  {module:"Messages",sub:"Search-Local",start:"8/6/2026",end:"10/6/2026",status:"Completed"},
+  {module:"Messages",sub:"Send new message",start:"10/6/2026",end:"12/6/2026",status:"Completed"},
+  {module:"Messages",sub:"Contact popup",start:"12/6/2026",end:"14/6/2026",status:"Completed"},
+  {module:"Messages",sub:"Message flows",start:"9/7/2026",end:"13/7/2026",status:"Completed"},
+  {module:"Messages",sub:"Notes",start:"13/7/2026",end:"16/7/2026",status:"In Progress"},
+  {module:"Messages",sub:"Attachments",start:"16/7/2026",end:"20/7/2026",status:"In Progress"},
+  {module:"Messages",sub:"Templates",start:"20/7/2026",end:"23/7/2026",status:"In Progress"},
+  {module:"Messages",sub:"Schedule message",start:"23/7/2026",end:"27/7/2026",status:"In Progress"},
+  {module:"Messages",sub:"Actions-scheduled sms",start:"27/7/2026",end:"30/7/2026",status:"Not Started"},
+  {module:"Messages",sub:"Chat status",start:"30/7/2026",end:"3/8/2026",status:"Not Started"},
+  {module:"Messages",sub:"Draft",start:"3/8/2026",end:"6/8/2026",status:"Not Started"},
+  {module:"Messages",sub:"Group chat",start:"6/8/2026",end:"10/8/2026",status:"Not Started"},
+  {module:"Contacts",sub:"User: Add/edit contact",start:"10/8/2026",end:"13/8/2026",status:"Not Started"},
+  {module:"Contacts",sub:"Company: Add/edit contact",start:"13/8/2026",end:"17/8/2026",status:"Not Started"},
+  {module:"Contacts",sub:"Search",start:"17/8/2026",end:"20/8/2026",status:"Not Started"},
+  {module:"Contacts",sub:"Actions-Contact",start:"20/8/2026",end:"24/8/2026",status:"Not Started"},
+  {module:"Voicemails",sub:"Actions-Voicemails",start:"24/8/2026",end:"27/8/2026",status:"Not Started"},
+  {module:"Call History",sub:"Filters",start:"27/8/2026",end:"31/8/2026",status:"Not Started"},
+  {module:"Call History",sub:"Search",start:"31/8/2026",end:"3/9/2026",status:"Not Started"},
+  {module:"Call History",sub:"Actions-Message",start:"3/9/2026",end:"7/9/2026",status:"Not Started"},
+  {module:"Call History",sub:"Actions-Call",start:"7/9/2026",end:"10/9/2026",status:"Not Started"},
+  {module:"Call History",sub:"Actions-Contact",start:"10/9/2026",end:"14/9/2026",status:"Not Started"},
+  {module:"Dashboard",sub:"UI and Date filters",start:"14/9/2026",end:"17/9/2026",status:"Not Started"},
+  {module:"Dashboard",sub:"Call statistics",start:"17/9/2026",end:"21/9/2026",status:"Not Started"},
+  {module:"Dashboard",sub:"Call status",start:"21/9/2026",end:"24/9/2026",status:"Not Started"},
+  {module:"Dashboard",sub:"Generate stats",start:"24/9/2026",end:"28/9/2026",status:"Not Started"},
+  {module:"Dashboard",sub:"Voicemails",start:"28/9/2026",end:"1/10/2026",status:"Not Started"},
+  {module:"Settings",sub:"Navigations",start:"1/10/2026",end:"5/10/2026",status:"Not Started"},
+  {module:"Settings",sub:"Profile",start:"5/10/2026",end:"8/10/2026",status:"Not Started"},
+  {module:"Settings",sub:"Never miss a call",start:"8/10/2026",end:"12/10/2026",status:"Not Started"},
+  {module:"Settings",sub:"Voicemail",start:"12/10/2026",end:"15/10/2026",status:"Not Started"},
+  {module:"Settings",sub:"Devices",start:"15/10/2026",end:"19/10/2026",status:"Not Started"},
+  {module:"Settings",sub:"Feature Codes",start:"19/10/2026",end:"22/10/2026",status:"Not Started"},
+  {module:"Settings",sub:"Integrations",start:"22/10/2026",end:"26/10/2026",status:"Not Started"}
 ];
 
 function asgnBadge(a){
@@ -808,17 +829,17 @@ utilikoData.forEach((r,i)=>{
 // Build PBX table
 const ptb=document.getElementById('pbx-tbody');
 pbxData.forEach((r,i)=>{
-  const tr=document.createElement('tr');
-  tr.innerHTML=`
-    <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td>
-    <td style="font-weight:600;color:var(--text);font-size:13px">Message</td>
-    <td style="font-size:12.5px;color:var(--sub)">${r.sub}</td>
-    <td>${asgnBadge('Pramila')}</td>
-    <td class="eta-cell ${etaClass(r.eta)}">${r.eta}</td>
-    <td class="eta-cell" style="color:var(--muted)">${r.buffer}</td>
-    <td><span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--amber-lt);color:var(--amber)">Local Only</span></td>`;
-  ptb.appendChild(tr);
-});
+    const tr=document.createElement('tr');
+    tr.dataset.search=(r.module+r.sub).toLowerCase();
+    const statusClass = r.status==='Completed' ? 'eta-done' : r.status==='In Progress' ? 'eta-soon' : 'eta-future';
+    const statusLabel = r.status==='Completed'
+      ? '<span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--green-lt);color:var(--green)">✅ Done</span>'
+      : r.status==='In Progress'
+      ? '<span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--amber-lt);color:var(--amber)">⚡ In Progress</span>'
+      : '<span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--pale);color:var(--muted)">— Not Started</span>';
+    tr.innerHTML=`<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td><td style="font-size:11.5px;font-weight:600;color:var(--sub)">${r.module}</td><td class="suite-name">${r.sub}</td><td style="font-size:11.5px;font-family:'JetBrains Mono',monospace;color:var(--sub)">${r.start}</td><td style="font-size:11.5px;font-family:'JetBrains Mono',monospace;color:var(--sub)">${r.end}</td><td>${statusLabel}</td>`;
+    document.getElementById('pbx-tbody').appendChild(tr);
+  });
 
 function filterTable(id,q){
   document.querySelectorAll(`#${id} tr`).forEach(tr=>{
