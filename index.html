@@ -61,7 +61,7 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
 section{margin-bottom:52px}
 
 /* CARDS GRID */
-.cards-row{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.cards-row{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 @media(max-width:1100px){.cards-row{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.cards-row{grid-template-columns:1fr}}
 
@@ -181,18 +181,17 @@ section{margin-bottom:52px}
             <div class="author-role">Product Manager · Portal Owner</div>
           </div>
         </div>
-        <div class="live-badge"><div class="live-dot"></div>Milagro · May 2026</div>
+        <div class="live-badge"><div class="live-dot"></div>Milagro · Jul 2026</div>
       </div>
       <h1>Milagro Engineering<br><em>Roadmap Portal</em></h1>
-      <p class="hero-desc">One place for all product roadmaps, E2E test coverage, delivery pipelines, release tracking and backlog management across SmartPOS and Milagro Cloud.</p>
     </div>
     <div class="hero-right">
       <div class="hero-stats">
-        <div class="hstat"><div class="hstat-val">4</div><div class="hstat-label">Sections</div></div>
-        <div class="hstat"><div class="hstat-val">5</div><div class="hstat-label">Live Pages</div></div>
+        <div class="hstat"><div class="hstat-val">2</div><div class="hstat-label">Sections</div></div>
+        <div class="hstat"><div class="hstat-val">3</div><div class="hstat-label">Live Pages</div></div>
         <div class="hstat"><div class="hstat-val">5</div><div class="hstat-label">Engineers</div></div>
-        <div class="hstat"><div class="hstat-val">2,436</div><div class="hstat-label">E2E Verif.</div></div>
-        <div class="hstat"><div class="hstat-val">92</div><div class="hstat-label">Backlog</div></div>
+        <div class="hstat"><div class="hstat-val">2,992</div><div class="hstat-label">E2E TCs</div></div>
+        <div class="hstat"><div class="hstat-val">Sep 30</div><div class="hstat-label">Final ETA</div></div>
       </div>
     </div>
   </div>
@@ -207,7 +206,7 @@ section{margin-bottom:52px}
       <div class="sec-num">01</div>
       <h2>All Sections</h2>
       <div class="sec-line"></div>
-      <div class="sec-count">4 sections · 5 live</div>
+      <div class="sec-count">2 sections · 3 live</div>
     </div>
 
     <div class="cards-row">
@@ -227,16 +226,16 @@ section{margin-bottom:52px}
             <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/e2e/'">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--blue-lt)">🧪</div>
-                <div><div class="sub-name">E2E Test Roadmap</div><div class="sub-meta">5 engineers · 2,436 verification TCs</div></div>
+                <div><div class="sub-name">E2E Test Roadmap</div><div class="sub-meta">Satish · Sandeep · Darshan · 2,992 TCs · ETA Sep 30</div></div>
               </div>
-              <div class="sub-right"><span class="sub-tag st-draft">✏️ Draft</span><span class="sub-arrow">→</span></div>
+              <div class="sub-right"><span class="sub-tag st-active">✅ Active</span><span class="sub-arrow">→</span></div>
             </div>
             <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/jetcompose/'">
               <div class="sub-left">
                 <div class="sub-icon" style="background:var(--green-lt)">🎨</div>
-                <div><div class="sub-name">Jet Compose Roadmap</div><div class="sub-meta">Satish & Sandeep · Jun 25 → Aug 17</div></div>
+                <div><div class="sub-name">Jet Compose Roadmap</div><div class="sub-meta">Satish & Sandeep · Sep 15 → Nov 30, 2026</div></div>
               </div>
-              <div class="sub-right"><span class="sub-tag st-draft">✏️ Draft</span><span class="sub-arrow">→</span></div>
+              <div class="sub-right"><span class="sub-tag st-upcoming">⏳ Upcoming</span><span class="sub-arrow">→</span></div>
             </div>
           </div>
           <div class="team-row">
@@ -260,7 +259,7 @@ section{margin-bottom:52px}
         <div class="card-body">
           <div class="card-top">
             <div class="card-icon" style="background:var(--purple-lt)">🎭</div>
-            <div class="pill pill-purple"><div class="pdot pdot-p"></div>Draft</div>
+            <div class="pill pill-green"><div class="pdot pdot-g"></div>Live</div>
           </div>
           <div class="card-tag">Automation · Utiliko | Milagro | PBX</div>
           <div class="card-title">Playwright</div>
@@ -291,82 +290,7 @@ section{margin-bottom:52px}
         </div>
       </div>
 
-      <!-- Delivery Tracker -->
-      <div class="card" onclick="location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/delivery-tracker/'">
-        <div class="card-stripe s-teal"></div>
-        <div class="card-body">
-          <div class="card-top">
-            <div class="card-icon" style="background:var(--teal-lt)">📊</div>
-            <div class="pill pill-teal"><div class="pdot pdot-t"></div>Live</div>
           </div>
-          <div class="card-tag">Milagro · SmartPOS + Cloud</div>
-          <div class="card-title">Delivery Tracker</div>
-          <div class="card-desc">Live delivery dashboard — Priority, QA Pipeline and Dev Pipeline across Milagro.</div>
-          <div class="card-stats">
-            <div class="cstat"><div class="cstat-val" style="color:var(--blue)">15</div><div class="cstat-label">Priority</div></div>
-            <div class="cstat"><div class="cstat-val" style="color:var(--teal)">6</div><div class="cstat-label">In QA</div></div>
-            <div class="cstat"><div class="cstat-val" style="color:var(--amber)">9</div><div class="cstat-label">Dev Pipeline</div></div>
-          </div>
-          <div class="sub-list">
-            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/delivery-tracker/'">
-              <div class="sub-left"><div class="sub-icon" style="background:var(--blue-lt)">🎯</div><div><div class="sub-name">Milagro Priority</div><div class="sub-meta">13 Ready for Dev · 2 In Development</div></div></div>
-              <span class="sub-arrow">→</span>
-            </div>
-            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/delivery-tracker/'">
-              <div class="sub-left"><div class="sub-icon" style="background:var(--teal-lt)">🚀</div><div><div class="sub-name">Release Pipeline — QA</div><div class="sub-meta">4 Ready for QA · 2 In Review</div></div></div>
-              <span class="sub-arrow">→</span>
-            </div>
-            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/delivery-tracker/'">
-              <div class="sub-left"><div class="sub-icon" style="background:var(--amber-lt)">⚙️</div><div><div class="sub-name">Dev Pipeline</div><div class="sub-meta">4 In Dev · 2 Ready for QA · 1 Done</div></div></div>
-              <span class="sub-arrow">→</span>
-            </div>
-          </div>
-        </div>
-        <div class="card-foot">
-          <span class="cf-label">View Delivery Tracker</span>
-          <div class="cf-arr">→</div>
-        </div>
-      </div>
-
-      <!-- Backlog -->
-      <div class="card" onclick="location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/backlog/'">
-        <div class="card-stripe s-red"></div>
-        <div class="card-body">
-          <div class="card-top">
-            <div class="card-icon" style="background:var(--red-lt)">📋</div>
-            <div class="pill pill-red"><div class="pdot pdot-r"></div>Live</div>
-          </div>
-          <div class="card-tag">Milagro · SmartPOS + Cloud</div>
-          <div class="card-title">Backlog</div>
-          <div class="card-desc">Full backlog across SmartPOS, Milagro Cloud, SmartWAIT — filterable by priority, status and assignee.</div>
-          <div class="card-stats">
-            <div class="cstat"><div class="cstat-val" style="color:var(--red)">92</div><div class="cstat-label">Total</div></div>
-            <div class="cstat"><div class="cstat-val" style="color:var(--sub)">66</div><div class="cstat-label">Backlog</div></div>
-            <div class="cstat"><div class="cstat-val" style="color:var(--purple)">26</div><div class="cstat-label">Prerequisite</div></div>
-          </div>
-          <div class="scope-tags">
-            <span class="stag">P0 Blocker</span><span class="stag">P1 Critical</span>
-            <span class="stag">P2–P4</span><span class="stag">SmartPOS</span>
-            <span class="stag">Cloud</span><span class="stag">SmartWAIT</span>
-          </div>
-          <div class="sub-list">
-            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/backlog/'">
-              <div class="sub-left"><div class="sub-icon" style="background:var(--red-lt)">🔴</div><div><div class="sub-name">P0 · P1 Priority Items</div><div class="sub-meta">Highest priority backlog</div></div></div>
-              <span class="sub-arrow">→</span>
-            </div>
-            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/backlog/'">
-              <div class="sub-left"><div class="sub-icon" style="background:var(--pale)">👥</div><div><div class="sub-name">Per Assignee Workload</div><div class="sub-meta">Filter by team member</div></div></div>
-              <span class="sub-arrow">→</span>
-            </div>
-          </div>
-        </div>
-        <div class="card-foot">
-          <span class="cf-label">View Backlog</span>
-          <div class="cf-arr">→</div>
-        </div>
-      </div>
-
-    </div>
   </section>
 
   <!-- 02 QUICK LINKS -->
@@ -382,7 +306,7 @@ section{margin-bottom:52px}
       <div class="ql-grid">
         <a href="https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/e2e/" class="ql-item">
           <div class="ql-left"><span class="ql-icon">🧪</span><div><div class="ql-name">SmartPOS E2E Roadmap</div><div class="ql-url">/smartpos/e2e/</div></div></div>
-          <span class="ql-badge ql-draft">✏️ Draft</span>
+          <span class="ql-badge ql-active">✅ Active</span>
         </a>
         <a href="https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/jetcompose/" class="ql-item">
           <div class="ql-left"><span class="ql-icon">🎨</span><div><div class="ql-name">Jet Compose Roadmap</div><div class="ql-url">/smartpos/jetcompose/</div></div></div>
@@ -392,14 +316,8 @@ section{margin-bottom:52px}
           <div class="ql-left"><span class="ql-icon">🎭</span><div><div class="ql-name">Playwright (Utiliko | Milagro | PBX)</div><div class="ql-url">/playwright/</div></div></div>
           <span class="ql-badge ql-draft">✏️ Draft</span>
         </a>
-        <a href="https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/delivery-tracker/" class="ql-item">
-          <div class="ql-left"><span class="ql-icon">📊</span><div><div class="ql-name">Delivery Tracker</div><div class="ql-url">/delivery-tracker/</div></div></div>
-          <span class="ql-badge ql-active">✅ Live</span>
-        </a>
-        <a href="https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/backlog/" class="ql-item">
-          <div class="ql-left"><span class="ql-icon">📋</span><div><div class="ql-name">Backlog</div><div class="ql-url">/backlog/</div></div></div>
-          <span class="ql-badge ql-active">✅ Live</span>
-        </a>
+        
+        
       </div>
     </div>
   </section>
@@ -419,11 +337,9 @@ section{margin-bottom:52px}
         <div class="howto-code">
           Milagro-Roadmap-Release-Deliverables/<br>
           ├── index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← this portal ✅<br>
-          ├── smartpos/e2e/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← E2E roadmap ✅ Draft<br>
-          ├── smartpos/jetcompose/index.html &nbsp;← Jet Compose ✅ Draft<br>
-          ├── playwright/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Playwright ✅ Draft<br>
-          ├── delivery-tracker/index.html &nbsp;&nbsp;&nbsp;&nbsp;← Delivery Tracker ✅ Live<br>
-          └── backlog/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Backlog ✅ Live
+          ├── smartpos/e2e/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← E2E roadmap ✅ Active<br>
+          ├── smartpos/jetcompose/index.html &nbsp;← Jet Compose ⏳ Upcoming<br>
+          ├── playwright/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Playwright ✅ Live<br>
         </div>
       </div>
     </div>
@@ -437,7 +353,7 @@ section{margin-bottom:52px}
     <div class="footer-av">R</div>
     <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
   </div>
-  <span>Milagro Engineering Portal · May 2026</span>
+  <span>Milagro Engineering Portal · Jul 2026</span>
 </div>
 
 </body>
