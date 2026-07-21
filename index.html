@@ -61,8 +61,8 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
 section{margin-bottom:52px}
 
 /* CARDS GRID */
-.cards-row{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-@media(max-width:1100px){.cards-row{grid-template-columns:repeat(2,1fr)}}
+.cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:1100px){.cards-row{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:560px){.cards-row{grid-template-columns:1fr}}
 
 /* CARD — uses div, navigates via onclick on footer */
@@ -71,6 +71,7 @@ section{margin-bottom:52px}
 .card-stripe{height:4px;flex-shrink:0}
 .s-blue{background:linear-gradient(90deg,var(--blue),var(--indigo))}
 .s-purple{background:linear-gradient(90deg,var(--purple),#db2777)}
+.s-api{background:linear-gradient(90deg,#7c3aed,#2563eb)}
 .s-teal{background:linear-gradient(90deg,var(--teal),var(--green))}
 .s-red{background:linear-gradient(90deg,var(--red),var(--amber))}
 .card-body{padding:20px 22px;flex:1;display:flex;flex-direction:column}
@@ -206,7 +207,7 @@ section{margin-bottom:52px}
       <div class="sec-num">01</div>
       <h2>All Sections</h2>
       <div class="sec-line"></div>
-      <div class="sec-count">2 sections · 3 live</div>
+      <div class="sec-count">3 sections · 4 live</div>
     </div>
 
     <div class="cards-row">
@@ -288,7 +289,51 @@ section{margin-bottom:52px}
           <span class="cf-label">View Playwright Roadmap</span>
           <div class="cf-arr">→</div>
         </div>
-      </div>
+      </div
+
+      <!-- API OPTIMIZATION -->
+      <div class="card" onclick="location.href='api-optimization/'">
+        <div class="card-stripe s-api"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon" style="background:rgba(124,58,237,.14)">⚡</div>
+            <div class="pill pill-blue"><div class="pdot pdot-b"></div>Active</div>
+          </div>
+          <div class="card-tag">Backend · milagro-pos · Darshan</div>
+          <div class="card-title">API Optimization</div>
+          <div class="card-desc">Migrate 261 SmartPOS APIs off the LoopBack monolith into milagro-pos — a modern, modular microservice. Two phases, 12 milestones, zero big-bang cutover.</div>
+          <div class="card-stats">
+            <div class="cstat"><div class="cstat-val" style="color:var(--blue)">261</div><div class="cstat-label">Total APIs</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--purple)">12</div><div class="cstat-label">Milestones</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--indigo)">~6-8 mo</div><div class="cstat-label">Timeline</div></div>
+          </div>
+          <div class="sub-list">
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='api-optimization/'">
+              <div class="sub-left">
+                <div class="sub-icon" style="background:var(--blue-lt)">🔷</div>
+                <div><div class="sub-name">Phase 1 — Core POS Terminal</div><div class="sub-meta">Transactions · Payments · Floor · Catalog · Day Mgmt · ~3-4 mo</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag st-active">Active</span><span class="sub-arrow">→</span></div>
+            </div>
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='api-optimization/'">
+              <div class="sub-left">
+                <div class="sub-icon" style="background:var(--purple-lt)">🔹</div>
+                <div><div class="sub-name">Phase 2 — Back-office &amp; External</div><div class="sub-meta">Reports · OLO · 3PD · Attendance · Identity · ~2-4 mo</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag st-upcoming">Upcoming</span><span class="sub-arrow">→</span></div>
+            </div>
+          </div>
+          <div class="team-row">
+            <span class="tm-lbl">Team</span>
+            <div class="av-stack"><div class="av" style="background:#2563eb;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;border:2px solid var(--bg,#07091a)">D</div></div>
+            <span class="tm-names">Darshan · TypeScript · Prisma · Node LTS</span>
+          </div>
+        </div>
+        <div class="card-foot" onclick="event.stopPropagation();location.href='api-optimization/'">
+          <span class="cf-label">View API Optimization</span>
+          <div class="cf-arr">→</div>
+        </div>
+      </div>>
 
           </div>
   </section>
@@ -316,6 +361,10 @@ section{margin-bottom:52px}
           <div class="ql-left"><span class="ql-icon">🎭</span><div><div class="ql-name">Playwright (Utiliko | Milagro | PBX)</div><div class="ql-url">/playwright/</div></div></div>
           <span class="ql-badge ql-draft">✏️ Draft</span>
         </a>
+        <a href="api-optimization/" class="ql-item">
+          <div class="ql-left"><span class="ql-icon">⚡</span><div><div class="ql-name">API Optimization</div><div class="ql-url">/api-optimization/</div></div></div>
+          <span class="ql-badge ql-active">✅ Active</span>
+        </a>
         
         
       </div>
@@ -340,6 +389,7 @@ section{margin-bottom:52px}
           ├── smartpos/e2e/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← E2E roadmap ✅ Active<br>
           ├── smartpos/jetcompose/index.html &nbsp;← Jet Compose ⏳ Upcoming<br>
           ├── playwright/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Playwright ✅ Live<br>
+          └── api-optimization/index.html &nbsp;&nbsp;&nbsp;← API Optimization ✅ Active<br>
         </div>
       </div>
     </div>
