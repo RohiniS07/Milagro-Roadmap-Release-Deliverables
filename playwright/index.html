@@ -171,6 +171,15 @@ section{margin-bottom:52px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .hero{animation:fadeUp .5s ease both}
 .page{animation:fadeUp .5s ease .07s both}
+
+.asgn-done{background:var(--green-lt);color:var(--green)}
+.asgn-prog{background:var(--amber-lt);color:var(--amber)}
+.asgn-hold{background:var(--pale);color:var(--muted)}
+.asgn-api{background:var(--blue-lt);color:var(--blue)}
+.asgn-dep{background:var(--orange-lt);color:var(--orange)}
+.asgn-nr{background:var(--red-lt);color:var(--red)}
+.asgn-re{background:var(--purple-lt);color:var(--purple)}
+.asgn-ns{background:var(--pale);color:var(--muted)}
 </style>
 </head>
 <body>
@@ -282,7 +291,7 @@ section{margin-bottom:52px}
           <span class="tpill">filename.spec.ts</span>
           <span class="tpill">filename.api.spec.ts</span>
           <span class="tpill">CI via Playwright</span>
-          <span class="tpill">12 Modules</span>
+          <span class="tpill">12 modules</span>
         </div>
         <div class="track-members">
           <span class="tm-lbl">QA</span>
@@ -353,7 +362,7 @@ section{margin-bottom:52px}
       <button class="tab active" onclick="switchTab('cloud-all')">All Suites</button>
       <button class="tab" onclick="switchTab('cloud-v')">Vaishanavi</button>
       <button class="tab" onclick="switchTab('cloud-p')">Pratik</button>
-      <button class="tab" onclick="switchTab('cloud-vp')">Shared</button>
+      <button class="tab" onclick="switchTab('cloud-vp')">Prerana</button>
     </div>
     <div class="tab-panel active" id="panel-cloud-all">
       <div class="tcard">
@@ -370,7 +379,7 @@ section{margin-bottom:52px}
           <input type="text" placeholder="Search suites…" oninput="filterTable('cloud-all-tbody', this.value)">
         </div>
         <table class="dtable">
-          <thead><tr><th>#</th><th>Suite Name</th><th>Module</th><th>Assignee</th></tr></thead>
+          <thead><tr><th>#</th><th>QA</th><th>Module</th><th>Sub-module</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
           <tbody id="cloud-all-tbody"></tbody>
         </table>
       </div>
@@ -410,7 +419,7 @@ section{margin-bottom:52px}
       <div class="sec-num">04</div>
       <h2>Utiliko — Automation ETAs</h2>
       <div class="sec-line"></div>
-      <div class="sec-meta">35 sub-modules · ETA by 30th Jun 2026</div>
+      <div class="sec-meta">77 sub-modules</div>
     </div>
     <div class="tcard">
       <div class="tcard-header">
@@ -426,7 +435,7 @@ section{margin-bottom:52px}
         <input type="text" placeholder="Search modules…" oninput="filterTable('utiliko-tbody', this.value)">
       </div>
       <table class="dtable">
-        <thead><tr><th>#</th><th>Module</th><th>Sub-module</th><th>QA</th><th>ETA</th><th>Buffer</th></tr></thead>
+        <thead><tr><th>#</th><th>QA</th><th>Module</th><th>Sub-module</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
         <tbody id="utiliko-tbody"></tbody>
       </table>
     </div>
@@ -490,243 +499,168 @@ section{margin-bottom:52px}
     <div class="footer-av">R</div>
     <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
   </div>
-  <span>Playwright Automation Roadmap · Jul 2026 · Draft</span>
+  <span>Playwright Automation Roadmap · Jul 2026 · Live</span>
 </div>
 
 <script>
 // ── CLOUD SUITES DATA ──
 const cloudSuites = [
-  // 1. Locations & Markets Details — Vaishanavi
-  {name:"e2e-manual-locationmarkets-locationdetailsview-mapmenu",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationdetailsview-mapmenu-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-onlineordering",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-oo-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-3pd",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-3pd-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-businesshours",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-businesshours-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-ow",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-ow-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-reservation",module:"1. Locations & Markets Details",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-reservation-ui-indicator",module:"1. Locations & Markets Details",assignee:"V"},
-  // 2. Online Reservation — Pratik
-  {name:"e2e-manual-onlinereservation-selectslot",module:"2. Online Reservation",assignee:"P"},
-  {name:"e2e-manual-onlinereservation-selectslot-ui-indicator",module:"2. Online Reservation",assignee:"P"},
-  {name:"e2e-manual-onlinereservation-personalinfo",module:"2. Online Reservation",assignee:"P"},
-  {name:"e2e-manual-onlinereservation-personalinfo-ui-indicator",module:"2. Online Reservation",assignee:"P"},
-  {name:"e2e-manual-onlinereservation-thankyou",module:"2. Online Reservation",assignee:"P"},
-  {name:"e2e-manual-onlinereservation-thankyou-ui-indicator",module:"2. Online Reservation",assignee:"P"},
-  // 3. Waitlist — Pratik
-  {name:"e2e-manual-joinwaitlist-selectslot",module:"3. Waitlist",assignee:"P"},
-  {name:"e2e-manual-joinwaitlist-selectslot-ui-indicator",module:"3. Waitlist",assignee:"P"},
-  {name:"e2e-manual-joinwaitlist-thankyou",module:"3. Waitlist",assignee:"P"},
-  {name:"e2e-manual-joinwaitlist-thankyou-ui-indicator",module:"3. Waitlist",assignee:"P"},
-  // 4. Apps — Vaishanavi
-  {name:"e2e-manual-apps-homepage",module:"4. Apps",assignee:"V"},
-  {name:"e2e-manual-apps-setting",module:"4. Apps",assignee:"V"},
-  {name:"e2e-manual-apps-homepage-ui-indicator",module:"4. Apps",assignee:"V"},
-  {name:"e2e-manual-apps",module:"4. Apps",assignee:"V"},
-  {name:"e2e-manual-apps-ui-indicator",module:"4. Apps",assignee:"V"},
-  {name:"e2e-manual-apps-addnew",module:"4. Apps",assignee:"V"},
-  {name:"e2e-manual-apps-syncmenu",module:"4. Apps",assignee:"V"},
-  {name:"e2e-manual-apps-syncmenu-ui-indicator",module:"4. Apps",assignee:"V"},
-  // 5. Online Order — Pratik & Vaishanavi
-  {name:"e2e-manual-onlineorder-homepage",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-homepage-operations",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-homepage-ui-indicator",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-cartpage-operations",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-cartpage-ui-indicator",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-loginpage-operations",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-loginpage-ui-indicator",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-checkoutpage",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-checkoutpage-operations",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-checkoutpage-ui-indicator",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-trackpage",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-trackpage-operations",module:"5. Online Order",assignee:"VP"},
-  {name:"e2e-manual-onlineorder-trackpage-ui-indicator",module:"5. Online Order",assignee:"VP"},
-  // 6. Items & Categories — Pratik
-  {name:"e2e-manual-itemscategories-allitems-item",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-allitems-modifier",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-allitems-promocodes",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-allitems-options",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-allitems-servicecharge",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-allitems-nonmenuitem",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-allitems-ui-indicator",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-viewitemdetails",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-viewitemdetails-ui-indicator",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-allcategories",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-allcategories-ui-indicator",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-category-details",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-category-details-ui-indicator",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-newitem-item",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-newitem-modifier",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-newitem-promocodes",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-newitem-options",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-newitem-servicecharge",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-newitem-nonmenuitem",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-newcategory",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-modifiersgroup-allmodifiersgroup",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-modifiersgroup-allmodifiersgroup-ui-indicator",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-modifiersgroup-newmodifiersgroup",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-optionsgroup-alloptionsgroup",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-optionsgroup-alloptionsgroup-ui-indicator",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-optionsgroup-addoptionsgroup",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-pricegroup-allpricegroup",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-pricegroup-allpricegroup-ui-indicator",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-pricegroup-addpricegroup",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-import",module:"6. Items & Categories",assignee:"P"},
-  {name:"e2e-manual-itemscategories-import-ui-indicator",module:"6. Items & Categories",assignee:"P"},
-  // 7. HR — Vaishanavi
-  {name:"e2e-manual-hr-allemployee",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-allemployee-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-addemployee",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-dashboard",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-dashboarda-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-basicdetail",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-bankdetail-allbank",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-bankdetail-allbank-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-bankdetail-newbank",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-agreementlist",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-agreementlist-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-agreementdetail",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-agreementdetail-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-newagreement",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-newagreement-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-attachmentlist",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-attachmentlist-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-newattachment",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-workavailablity",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-workavailablity-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-kpis",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-employeedetail-kpis-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-department",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-department-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-newdepartment",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-attendance-timechangereq-self",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-attendance-timechangereq-self-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-attendance-timechangereq-team",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-attendance-timechangereq-team-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-attendance-timechangereq-addtimemanually",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-attendance-report",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-attendance-payrollreport",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-template",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-template-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-newtemplate",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-template-detail",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-kpidefination",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-kpidefination-ui-indicator",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-kpidefination-detail",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-newkpidefination",module:"7. HR",assignee:"V"},
-  {name:"e2e-manual-hr-kpi-performancemetrics",module:"7. HR",assignee:"V"},
-  // 8. Locations & Markets — Vaishanavi
-  {name:"e2e-manual-locationmarkets-locations",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-details",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-registernumber",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-devicemanager",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-floormapeditor",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-paymentsetting",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-loyaltygiftcard",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-settins",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-locationsdetailview-activities",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-markets",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-markets-marketsdetailview-details",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-newlocation",module:"8. Locations & Markets",assignee:"V"},
-  {name:"e2e-manual-locationmarkets-newmarket",module:"8. Locations & Markets",assignee:"V"},
-  // 9. SmartMenus — Vaishanavi
-  {name:"e2e-manual-smartmenu-menus",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-menus-details",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-filter",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-dashboard",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-dashboard-ui-indicator",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-menuspecial",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-menuspecial-ui-indicator",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-menuspecial-detail",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-newmenuspecial",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-receiptmanager",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-receiptmanager-ui-indicator",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-receiptmanager-details",module:"9. SmartMenus",assignee:"V"},
-  {name:"e2e-manual-smartmenu-newreceipt",module:"9. SmartMenus",assignee:"V"},
-  // 10. Account Settings — Vaishanavi
-  {name:"e2e-manual-smartpos-accountsetting",module:"10. Account Settings",assignee:"V"},
-  {name:"e2e-manual-smartpos-accountsetting-emailnotification",module:"10. Account Settings",assignee:"V"},
-  {name:"e2e-manual-smartpos-accountsetting-emailnotification-ui-indicator",module:"10. Account Settings",assignee:"V"},
-  {name:"e2e-manual-smartpos-accountsetting-receipt",module:"10. Account Settings",assignee:"V"},
-  {name:"e2e-manual-smartpos-accountsetting-receipt-ui-indicator",module:"10. Account Settings",assignee:"V"},
-  {name:"e2e-manual-smartpos-accountsetting-devices",module:"10. Account Settings",assignee:"V"},
-  {name:"e2e-manual-smartpos-accountsetting-devices-ui-indicator",module:"10. Account Settings",assignee:"V"},
-  // 11. Reports — Vaishanavi & Pratik
-  {name:"e2e-manual-smartpos-reports",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-salessummary-detailreport",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-salessummary-detailreport-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-salessummary-locationsales",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-salessummary-locationsales-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-empsales",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-empsales-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-promocode",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-promocode-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-promocode-details",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-promocode-details-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-voidcheck",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-voidcheck-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-voidcheck-receipt",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-voiditem",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-voiditem-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-voiditem-receipt",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-refund",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-refund-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-refund-receipt",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-cashdrawer",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-reports-cashdrawer-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-customizereport-filter",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-customizereports",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-smartpos-customizereports-ui-indicator",module:"11. Reports",assignee:"VP"},
-  {name:"e2e-manual-marketing-report",module:"11. Reports",assignee:"VP"},
-  // 12. Transactions — Pratik
-  {name:"e2e-manual-smartpos-transactions",module:"12. Transactions",assignee:"P"},
-  {name:"e2e-manual-smartpos-transactions-alltransactions",module:"12. Transactions",assignee:"P"},
-  {name:"e2e-manual-smartpos-transactions-alltransactions-ui-indicator",module:"12. Transactions",assignee:"P"},
-  {name:"e2e-manual-smartpos-transactions-alltransactions-receipt",module:"12. Transactions",assignee:"P"},
-  {name:"e2e-manual-smartpos-transactions-alltransactions-detail",module:"12. Transactions",assignee:"P"},
+  {qa:"Pratik",module:"Items & Category",sub:"—",start:"24/04/2026",end:"07/05/2026",status:"Completed"},
+  {qa:"Pratik",module:"Menu Builder",sub:"ForMenuBuilder",start:"24/04/2026",end:"07/05/2026",status:"Completed"},
+  {qa:"Pratik",module:"Menu Builder",sub:"MenuBuilder",start:"24/04/2026",end:"07/05/2026",status:"Completed"},
+  {qa:"Pratik",module:"Reports",sub:"—",start:"—",end:"—",status:"API Support"},
+  {qa:"Pratik",module:"Transactions",sub:"—",start:"—",end:"—",status:"API Support"},
+  {qa:"Pratik",module:"Utilities",sub:"Settings › system settings & printer",start:"16/06/2026",end:"03/07/2026",status:"Completed"},
+  {qa:"Pratik",module:"Utilities",sub:"Settings › Item class, loyalty, virtual GC",start:"07/06/2026",end:"22/07/2026",status:"In Progress"},
+  {qa:"Pratik",module:"Utilities",sub:"Settings › Loyalty UI & comparison on POS",start:"—",end:"—",status:"POS UI automator Dependency"},
+  {qa:"Pratik",module:"SmartWAIT",sub:"All missing testcases (broken on selenium)",start:"01/07/2026",end:"31/07/2026",status:"In Progress"},
+  {qa:"Pratik",module:"Online Reservation",sub:"—",start:"11/06/2026",end:"12/06/2026",status:"On Hold"},
+  {qa:"Pratik",module:"SmartWait Cloud",sub:"—",start:"05/05/2026",end:"12/05/2026",status:"On Hold"},
+  {qa:"Pratik",module:"WaitList",sub:"—",start:"—",end:"—",status:"On Hold"},
+  {qa:"Pratik",module:"Apps",sub:"UI",start:"—",end:"—",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Locations & Markets",sub:"Location creation & detail view sidebar",start:"06/05/2026",end:"10/06/2026",status:"Completed"},
+  {qa:"Vaishnavi",module:"Locations & Markets",sub:"Market creation & sidebar functionality",start:"06/05/2026",end:"10/06/2026",status:"Completed"},
+  {qa:"Vaishnavi",module:"Locations & Markets",sub:"3PD — cover only UI sidebar part",start:"06/05/2026",end:"10/06/2026",status:"Completed"},
+  {qa:"Vaishnavi",module:"Utilities",sub:"Policy and roles 1",start:"22/06/2026",end:"30/06/2026",status:"Completed"},
+  {qa:"Vaishnavi",module:"Locations & Markets",sub:"Online order — landing page, cart, setup",start:"—",end:"—",status:"Completed"},
+  {qa:"Vaishnavi",module:"Locations & Markets",sub:"Online order 2",start:"02/07/2026",end:"17/07/2026",status:"In Progress"},
+  {qa:"Vaishnavi",module:"Utiliko › Calendar",sub:"Utiliko and Milagro",start:"—",end:"—",status:"Not Started"},
+  {qa:"Vaishnavi",module:"SmartPOS (Cloud)",sub:"Account settings › UI level 6",start:"—",end:"—",status:"API Support"},
+  {qa:"Vaishnavi",module:"SmartPOS",sub:"Reports › revenue summary 3",start:"16/07/2026",end:"23/07/2026",status:"API Support"},
+  {qa:"Vaishnavi",module:"SmartPOS",sub:"Reports › tabs 4",start:"23/07/2026",end:"03/08/2026",status:"API Support"},
+  {qa:"Vaishnavi",module:"Utilities",sub:"Settings › void reasons",start:"—",end:"—",status:"POS UI automator Dependency"},
+  {qa:"Vaishnavi",module:"Utilities",sub:"Settings › Payroll Settings",start:"—",end:"—",status:"POS UI automator Dependency"},
+  {qa:"Vaishnavi",module:"SmartPOS",sub:"Account settings › POS integration",start:"—",end:"—",status:"POS UI automator Dependency"},
+  {qa:"Vaishnavi",module:"Coupon Management",sub:"Coupon management functionality POS (dynamic coupon)",start:"—",end:"—",status:"POS UI automator Dependency"},
+  {qa:"Vaishnavi",module:"SmartPOS",sub:"Customization report 5",start:"—",end:"—",status:"API Support"},
+  {qa:"Vaishnavi",module:"HR",sub:"Payroll report — functionality",start:"—",end:"—",status:"POS UI automator Dependency"},
+  {qa:"Vaishnavi",module:"Customers Module",sub:"Playwright — UI level test cases",start:"—",end:"—",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Coupon Management",sub:"Coupon management UI",start:"—",end:"—",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Coupon Management",sub:"Coupon management functionality OO",start:"—",end:"—",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Customers Module",sub:"Playwright POS + OO + Chowly flows",start:"—",end:"—",status:"POS UI automator Dependency"},
+  {qa:"Vaishnavi",module:"Customers Module",sub:"Creating & modifying — E2E manual testcase",start:"17/06/2026",end:"19/06/2026",status:"Completed"},
+  {qa:"Vaishnavi",module:"Scheduler",sub:"—",start:"26/08/2026",end:"04/09/2026",status:"On Hold"},
+  {qa:"Prerana",module:"Support",sub:"Tickets",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Support",sub:"BUG",start:"16/09/2026",end:"19/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Clients",sub:"—",start:"02/11/2026",end:"03/11/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Support",sub:"Projects",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Support",sub:"RMA (if enabled)",start:"16/09/2026",end:"19/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Survey",sub:"Survey Templates",start:"09/10/2026",end:"13/10/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Survey",sub:"Surveys",start:"14/10/2026",end:"17/10/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Subscription",sub:"—",start:"19/10/2026",end:"23/10/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Meetings",sub:"—",start:"26/10/2026",end:"28/10/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Invoices",start:"04/11/2026",end:"06/11/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Purchase Orders",start:"28/10/2026",end:"31/10/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Items",start:"28/10/2026",end:"31/10/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Received Payments",start:"23/07/2026",end:"27/07/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Chart Of Accounts",start:"28/07/2026",end:"01/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Bank & Cash",start:"12/08/2026",end:"15/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Bills",start:"03/08/2026",end:"05/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Pay Bills",start:"17/08/2026",end:"20/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Write Checks",start:"21/08/2026",end:"25/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Journal Entries",start:"26/08/2026",end:"29/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Reports",sub:"Ticket Reports",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Reports",sub:"Project Reports",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Reports",sub:"Custom Field",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Reports",sub:"Task Reports",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"HR",sub:"Leave Management",start:"21/09/2026",end:"24/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Attendance",sub:"Leave Management",start:"21/09/2026",end:"26/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Attendance",sub:"Attendance Reports",start:"28/09/2026",end:"02/10/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Utilities",sub:"Knowledgebase",start:"05/10/2026",end:"08/10/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Trial Balance",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Reports",sub:"Comparison Reports",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Reports",sub:"Aging Reports",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Job Circular",sub:"Jobs Posted",start:"05/11/2026",end:"09/11/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Survey",sub:"Survey Reports",start:"10/11/2026",end:"13/11/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Survey",sub:"Survey Dashboard",start:"16/11/2026",end:"20/11/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Survey",sub:"Report Card",start:"23/11/2026",end:"26/11/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Sales",sub:"Estimates",start:"07/09/2026",end:"09/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Sales",sub:"Proposals",start:"08/09/2026",end:"10/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"HR",sub:"Employee",start:"10/09/2026",end:"12/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Vendors",sub:"—",start:"02/09/2026",end:"04/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Task",sub:"—",start:"14/09/2026",end:"16/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Lead",sub:"—",start:"—",end:"—",status:"Not ready for automation"},
+  {qa:"Prerana",module:"Opportunity",sub:"—",start:"—",end:"—",status:"Not ready for automation"}
 ];
 
 const utilikoData = [
-  {module:"Clients",sub:"—",qa:"Prerana",eta:"14/05/2026",buffer:"16/05/2026"},
-  {module:"Vendors",sub:"—",qa:"Vrudavan",eta:"15/05/2026",buffer:"18/05/2026"},
-  {module:"Tasks",sub:"—",qa:"Vrudavan",eta:"21/05/2026",buffer:"25/05/2026"},
-  {module:"Sales",sub:"Leads",qa:"Vrudavan",eta:"15/05/2026",buffer:"18/05/2026"},
-  {module:"Sales",sub:"Estimates",qa:"Vrudavan",eta:"15/05/2026",buffer:"18/05/2026"},
-  {module:"Sales",sub:"Opportunities",qa:"Vrudavan",eta:"21/05/2026",buffer:"25/05/2026"},
-  {module:"Sales",sub:"Proposals",qa:"Vrudavan",eta:"21/05/2026",buffer:"25/05/2026"},
-  {module:"Support",sub:"Tickets",qa:"Prerana",eta:"20/05/2026",buffer:"22/05/2026"},
-  {module:"Support",sub:"Projects",qa:"Prerana",eta:"27/05/2026",buffer:"30/05/2026"},
-  {module:"Support",sub:"BUG",qa:"Prerana",eta:"03/06/2026",buffer:"06/06/2026"},
-  {module:"Support",sub:"RMA (if enabled)",qa:"Prerana",eta:"08/06/2026",buffer:"10/06/2026"},
-  {module:"HR",sub:"Employees",qa:"Vrudavan",eta:"21/05/2026",buffer:"25/05/2026"},
-  {module:"HR",sub:"Departments",qa:"Vrudavan",eta:"28/05/2026",buffer:"01/06/2026"},
-  {module:"HR",sub:"Leave Management",qa:"Vrudavan",eta:"28/05/2026",buffer:"01/06/2026"},
-  {module:"Attendance",sub:"Timechange Requests",qa:"Vrudavan",eta:"28/05/2026",buffer:"01/06/2026"},
-  {module:"Attendance",sub:"Attendance Reports",qa:"Vrudavan",eta:"28/05/2026",buffer:"01/06/2026"},
-  {module:"Job Circulars",sub:"Jobs Posted",qa:"Vrudavan",eta:"04/06/2026",buffer:"08/06/2026"},
-  {module:"Job Circulars",sub:"Job Applications",qa:"Vrudavan",eta:"04/06/2026",buffer:"08/06/2026"},
-  {module:"Job Circulars",sub:"KPI's",qa:"Vrudavan",eta:"04/06/2026",buffer:"08/06/2026"},
-  {module:"Job Circulars",sub:"KPI Templates",qa:"Vrudavan",eta:"04/06/2026",buffer:"08/06/2026"},
-  {module:"Job Circulars",sub:"KPI Hub",qa:"Vrudavan",eta:"11/06/2026",buffer:"15/06/2026"},
-  {module:"Job Circulars",sub:"Performance Metrics",qa:"Vrudavan",eta:"11/06/2026",buffer:"15/06/2026"},
-  {module:"Utilities",sub:"Users",qa:"Vrudavan",eta:"11/06/2026",buffer:"15/06/2026"},
-  {module:"Utilities",sub:"Automations",qa:"Vrudavan",eta:"18/06/2026",buffer:"22/06/2026"},
-  {module:"Utilities",sub:"Knowledgebase",qa:"Vrudavan",eta:"18/06/2026",buffer:"22/06/2026"},
-  {module:"Utilities",sub:"File Manager",qa:"Vrudavan",eta:"18/06/2026",buffer:"22/06/2026"},
-  {module:"Utilities",sub:"Trash",qa:"Vrudavan",eta:"25/06/2026",buffer:"30/06/2026"},
-  {module:"Utilities",sub:"Policies & Roles",qa:"Vrudavan",eta:"25/06/2026",buffer:"30/06/2026"},
-  {module:"Utilities",sub:"Settings",qa:"Vrudavan",eta:"25/06/2026",buffer:"30/06/2026"},
-  {module:"Survey",sub:"Survey Dashboard",qa:"Prerana",eta:"14/06/2026",buffer:"17/06/2026"},
-  {module:"Survey",sub:"Survey Reports",qa:"Prerana",eta:"26/06/2026",buffer:"28/06/2026"},
-  {module:"Survey",sub:"Report Card",qa:"Prerana",eta:"22/06/2026",buffer:"24/06/2026"},
-  {module:"Survey",sub:"Surveys",qa:"Prerana",eta:"18/06/2026",buffer:"20/06/2026"},
-  {module:"Survey",sub:"Survey Templates",qa:"Prerana",eta:"14/06/2026",buffer:"17/06/2026"},
-  {module:"Subscription",sub:"—",qa:"Prerana",eta:"29/06/2026",buffer:"30/06/2026"},
-  {module:"Meetings",sub:"—",qa:"Prerana",eta:"10/06/2026",buffer:"16/06/2026"},
+  {qa:"Pramila",module:"Messages",sub:"Filters",start:"02/06/2026",end:"04/06/2026",status:"Completed"},
+  {qa:"Pramila",module:"Messages",sub:"Email notification",start:"04/06/2026",end:"06/06/2026",status:"Manual"},
+  {qa:"Pramila",module:"Messages",sub:"Search-Global",start:"06/06/2026",end:"08/06/2026",status:"Completed"},
+  {qa:"Pramila",module:"Messages",sub:"Search-Local",start:"08/06/2026",end:"10/06/2026",status:"Completed"},
+  {qa:"Pramila",module:"Messages",sub:"Send new message",start:"10/06/2026",end:"12/06/2026",status:"In Progress"},
+  {qa:"Pramila",module:"Messages",sub:"Contact popup",start:"12/06/2026",end:"14/06/2026",status:"In Progress"},
+  {qa:"Pramila",module:"Messages",sub:"Message flows",start:"14/06/2026",end:"16/06/2026",status:"In Progress"},
+  {qa:"Pramila",module:"Messages",sub:"Notes",start:"16/06/2026",end:"18/06/2026",status:"Not Started"},
+  {qa:"Pramila",module:"Messages",sub:"Attachments",start:"18/06/2026",end:"20/06/2026",status:"Not Started"},
+  {qa:"Pramila",module:"Messages",sub:"Templates",start:"20/06/2026",end:"22/06/2026",status:"Not Started"},
+  {qa:"Pramila",module:"Messages",sub:"Schedule message",start:"22/06/2026",end:"24/06/2026",status:"In Progress"},
+  {qa:"Pramila",module:"Messages",sub:"Actions-scheduled sms",start:"24/06/2026",end:"26/06/2026",status:"Not Started"},
+  {qa:"Pramila",module:"Messages",sub:"Chat status",start:"26/06/2026",end:"28/06/2026",status:"Not Started"},
+  {qa:"Pramila",module:"Messages",sub:"Draft",start:"28/06/2026",end:"30/06/2026",status:"Not Started"},
+  {qa:"Pramila",module:"Messages",sub:"Group chat",start:"30/06/2026",end:"02/07/2026",status:"Not Started"},
+  {qa:"Pratik",module:"Utilities",sub:"Settings",start:"27/07/2026",end:"31/07/2026",status:"Not Started"},
+  {qa:"Pratik",module:"Utilities",sub:"Users",start:"27/07/2026",end:"31/07/2026",status:"Not Started"},
+  {qa:"Pratik",module:"Utilities",sub:"Automation",start:"03/08/2026",end:"07/08/2026",status:"Not Started"},
+  {qa:"Pratik",module:"Utilities",sub:"File Manager",start:"10/08/2026",end:"14/08/2026",status:"Not Started"},
+  {qa:"Pratik",module:"Utilities",sub:"Trash",start:"17/08/2026",end:"21/08/2026",status:"Not Started"},
+  {qa:"Pratik",module:"Accounting",sub:"Credit Notes",start:"24/08/2026",end:"28/08/2026",status:"Not Started"},
+  {qa:"Pratik",module:"Accounting",sub:"Transaction Reports",start:"01/09/2026",end:"07/09/2026",status:"Not Started"},
+  {qa:"Pratik",module:"KPI Hub",sub:"KPI\'s",start:"07/09/2026",end:"11/09/2026",status:"Not Started"},
+  {qa:"Pratik",module:"KPI Hub",sub:"KPI Templates",start:"14/09/2026",end:"16/09/2026",status:"Not Started"},
+  {qa:"Pratik",module:"KPI Hub",sub:"Performance Metrics",start:"17/09/2026",end:"21/09/2026",status:"Not Started"},
+  {qa:"Pratik",module:"KPI Hub",sub:"KPI Hub",start:"22/09/2026",end:"25/09/2026",status:"Not Started"},
+  {qa:"Pratik",module:"Apps",sub:"—",start:"28/09/2026",end:"01/10/2026",status:"Not Started"},
+  {qa:"Pratik",module:"SmartWAIT",sub:"All missing/broken testcases",start:"29/06/2026",end:"07/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Support",sub:"Tickets",start:"01/06/2026",end:"07/06/2026",status:"Completed"},
+  {qa:"Prerana",module:"Support",sub:"BUG",start:"01/06/2026",end:"14/06/2026",status:"Completed"},
+  {qa:"Prerana",module:"Clients",sub:"—",start:"24/05/2026",end:"02/06/2026",status:"Completed"},
+  {qa:"Prerana",module:"Support",sub:"Projects",start:"13/07/2026",end:"16/07/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Support",sub:"RMA (if enabled)",start:"04/06/2026",end:"14/06/2026",status:"Completed"},
+  {qa:"Prerana",module:"Survey",sub:"Survey Templates",start:"12/06/2026",end:"15/06/2026",status:"Completed"},
+  {qa:"Prerana",module:"Survey",sub:"Surveys",start:"08/07/2026",end:"13/07/2026",status:"Completed"},
+  {qa:"Prerana",module:"Subscription",sub:"—",start:"16/07/2026",end:"16/07/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Meetings",sub:"—",start:"09/07/2026",end:"13/07/2026",status:"Completed"},
+  {qa:"Prerana",module:"Accounting",sub:"Invoices",start:"17/07/2026",end:"20/07/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Purchase Orders",start:"20/07/2026",end:"22/07/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Items",start:"17/07/2026",end:"20/07/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Received Payments",start:"23/07/2026",end:"27/07/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Chart Of Accounts",start:"28/07/2026",end:"01/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Bank & Cash",start:"12/08/2026",end:"15/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Bills",start:"03/08/2026",end:"05/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Pay Bills",start:"17/08/2026",end:"20/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Write Checks",start:"21/08/2026",end:"25/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Accounting",sub:"Journal Entries",start:"26/08/2026",end:"29/08/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Reports",sub:"Ticket Reports",start:"31/08/2026",end:"03/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Reports",sub:"Project Reports",start:"04/09/2026",end:"07/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Reports",sub:"Custom Field",start:"09/09/2026",end:"11/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Reports",sub:"Task Reports",start:"15/09/2026",end:"18/09/2026",status:"Not Started"},
+  {qa:"Prerana",module:"HR",sub:"Leave Management",start:"21/09/2026",end:"24/09/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Attendance",sub:"Leave Management",start:"21/09/2026",end:"26/09/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Attendance",sub:"Attendance Reports",start:"28/09/2026",end:"02/10/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Utilities",sub:"Knowledgebase",start:"05/10/2026",end:"08/10/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Accounting",sub:"Autopay Reports",start:"09/10/2026",end:"13/10/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Accounting",sub:"Invoice Reports",start:"14/10/2026",end:"17/10/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Accounting",sub:"Trial Balance",start:"19/10/2026",end:"22/10/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Reports",sub:"Comparison Reports",start:"26/10/2026",end:"29/10/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Reports",sub:"Aging Reports",start:"30/10/2026",end:"04/11/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Job Circular",sub:"Jobs Posted",start:"05/11/2026",end:"09/11/2026",status:"Reassigned to Prerana"},
+  {qa:"Prerana",module:"Survey",sub:"Survey Reports",start:"10/11/2026",end:"13/11/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Survey",sub:"Survey Dashboard",start:"16/11/2026",end:"20/11/2026",status:"Not Started"},
+  {qa:"Prerana",module:"Survey",sub:"Report Card",start:"23/11/2026",end:"26/11/2026",status:"Not Started"},
+  {qa:"Vaishnavi",module:"HR",sub:"Department",start:"10/09/2026",end:"18/09/2026",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Reports",sub:"Profit Loss",start:"21/09/2026",end:"02/10/2026",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Reports",sub:"Balance Sheet",start:"05/10/2026",end:"15/10/2026",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Job Circular",sub:"Job Applications",start:"01/09/2026",end:"10/09/2026",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Dashboard",sub:"—",start:"04/08/2026",end:"15/08/2026",status:"Not Started"},
+  {qa:"Vaishnavi",module:"Calendar",sub:"—",start:"15/08/2026",end:"31/08/2026",status:"Not Started"},
+  {qa:"Vrundavan",module:"Sales",sub:"Leads",start:"15/05/2026",end:"18/05/2026",status:"Completed"},
+  {qa:"Vrundavan",module:"Sales",sub:"Estimates",start:"15/05/2026",end:"18/05/2026",status:"Completed"},
+  {qa:"Vrundavan",module:"Sales",sub:"Opportunities",start:"28/05/2026",end:"12/06/2026",status:"Completed"},
+  {qa:"Vrundavan",module:"Sales",sub:"Proposals",start:"22/05/2026",end:"12/06/2026",status:"Completed"},
+  {qa:"Vrundavan",module:"HR",sub:"Employee",start:"10/06/2026",end:"16/06/2026",status:"Completed"},
+  {qa:"Vrundavan",module:"Vendors",sub:"—",start:"Done",end:"Done",status:"Completed"},
+  {qa:"Vrundavan",module:"Task",sub:"—",start:"Done",end:"Done",status:"Completed"}
 ];
 
 const pbxData = [
@@ -776,6 +710,9 @@ function asgnBadge(a){
   if(a==='Prerana') return '<span class="asgn asgn-pre">Prerana</span>';
   if(a==='Vrudavan') return '<span class="asgn asgn-vru">Vrudavan</span>';
   if(a==='Pramila') return '<span class="asgn asgn-pra">Pramila</span>';
+  if(a==='Vrundavan') return '<span class="asgn asgn-vru">Vrundavan</span>';
+  if(a==='Pratik') return '<span class="asgn asgn-p">Pratik</span>';
+  if(a==='Vaishnavi') return '<span class="asgn asgn-v">Vaishnavi</span>';
   return a;
 }
 
@@ -794,59 +731,37 @@ function buildCloudTable(tbodyId, filter){
   const tb=document.getElementById(tbodyId);
   let i=1;
   cloudSuites.forEach(s=>{
-    if(filter && s.assignee!==filter) return;
+    if(filter && s.qa!==filter) return;
     const tr=document.createElement('tr');
-    tr.dataset.search=(s.name+s.module).toLowerCase();
-    const cols = tbodyId==='cloud-all-tbody'
-      ? `<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i).padStart(2,'0')}</td><td class="suite-name">${s.name}</td><td style="font-size:11.5px;color:var(--sub)">${s.module}</td><td>${asgnBadge(s.assignee)}</td>`
-      : `<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i).padStart(2,'0')}</td><td class="suite-name">${s.name}</td><td style="font-size:11.5px;color:var(--sub)">${s.module}</td>`;
-    tr.innerHTML=cols;
+    tr.dataset.search=(s.qa+s.module+s.sub).toLowerCase();
+    const sc = s.status==='Completed' ? 'eta-done'
+              : s.status==='In Progress' ? 'eta-soon'
+              : s.status==='On Hold' ? 'eta-hold'
+              : s.status==='API Support' ? 'eta-api'
+              : s.status.includes('Dependency') ? 'eta-dep'
+              : s.status.includes('not ready') || s.status.includes('Not ready') ? 'eta-nr'
+              : 'eta-future';
+    const sl = s.status==='Completed'
+      ? '<span class="asgn asgn-done">✅ Done</span>'
+      : s.status==='In Progress'
+      ? '<span class="asgn asgn-prog">⚡ In Progress</span>'
+      : s.status==='On Hold'
+      ? '<span class="asgn asgn-hold">⏸ On Hold</span>'
+      : s.status==='API Support'
+      ? '<span class="asgn asgn-api">🔗 API Support</span>'
+      : s.status.includes('Dependency')
+      ? '<span class="asgn asgn-dep">⛓ Dependency</span>'
+      : s.status.includes('not ready') || s.status.includes('Not ready')
+      ? '<span class="asgn asgn-nr">⛔ Not Ready</span>'
+      : s.status.includes('Reassigned')
+      ? '<span class="asgn asgn-re">🔄 Reassigned</span>'
+      : '<span class="asgn asgn-ns">— Not Started</span>';
+    tr.innerHTML=`<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i).padStart(2,'0')}</td><td>${asgnBadge(s.qa)}</td><td style="font-size:12px;font-weight:600;color:var(--sub)">${s.module}</td><td class="suite-name">${s.sub}</td><td style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted)">${s.start}</td><td style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted)">${s.end}</td><td>${sl}</td>`;
     tb.appendChild(tr);
     i++;
   });
 }
 
-buildCloudTable('cloud-all-tbody',null);
-buildCloudTable('cloud-v-tbody','V');
-buildCloudTable('cloud-p-tbody','P');
-buildCloudTable('cloud-vp-tbody','VP');
-
-// Build Utiliko table
-const utb=document.getElementById('utiliko-tbody');
-utilikoData.forEach((r,i)=>{
-  const tr=document.createElement('tr');
-  tr.dataset.search=(r.module+r.sub+r.qa).toLowerCase();
-  tr.innerHTML=`
-    <td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td>
-    <td style="font-weight:600;color:var(--text);font-size:13px">${r.module}</td>
-    <td style="font-size:12.5px;color:var(--sub)">${r.sub}</td>
-    <td>${asgnBadge(r.qa)}</td>
-    <td class="eta-cell ${etaClass(r.eta)}">${r.eta}</td>
-    <td class="eta-cell" style="color:var(--muted)">${r.buffer}</td>`;
-  utb.appendChild(tr);
-});
-
-// Build PBX table
-const ptb=document.getElementById('pbx-tbody');
-pbxData.forEach((r,i)=>{
-    const tr=document.createElement('tr');
-    tr.dataset.search=(r.module+r.sub).toLowerCase();
-    const statusClass = r.status==='Completed' ? 'eta-done' : r.status==='In Progress' ? 'eta-soon' : 'eta-future';
-    const statusLabel = r.status==='Completed'
-      ? '<span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--green-lt);color:var(--green)">✅ Done</span>'
-      : r.status==='In Progress'
-      ? '<span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--amber-lt);color:var(--amber)">⚡ In Progress</span>'
-      : '<span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;background:var(--pale);color:var(--muted)">— Not Started</span>';
-    tr.innerHTML=`<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td><td style="font-size:11.5px;font-weight:600;color:var(--sub)">${r.module}</td><td class="suite-name">${r.sub}</td><td style="font-size:11.5px;font-family:'JetBrains Mono',monospace;color:var(--sub)">${r.start}</td><td style="font-size:11.5px;font-family:'JetBrains Mono',monospace;color:var(--sub)">${r.end}</td><td>${statusLabel}</td>`;
-    document.getElementById('pbx-tbody').appendChild(tr);
-  });
-
-function filterTable(id,q){
-  document.querySelectorAll(`#${id} tr`).forEach(tr=>{
-    if(!tr.dataset.search) return;
-    tr.classList.toggle('hidden-row',!tr.dataset.search.includes(q.toLowerCase()));
-  });
-}
 
 function switchTab(name){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -854,6 +769,47 @@ function switchTab(name){
   document.querySelector(`[onclick="switchTab('${name}')"]`).classList.add('active');
   document.getElementById(`panel-${name}`).classList.add('active');
 }
+
+
+// Build utiliko table
+utilikoData.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.dataset.search=(r.qa+r.module+r.sub).toLowerCase();
+    const sl = r.status==='Completed'
+      ? '<span class="asgn asgn-done">✅ Done</span>'
+      : r.status==='In Progress'
+      ? '<span class="asgn asgn-prog">⚡ In Progress</span>'
+      : r.status==='Manual'
+      ? '<span class="asgn asgn-hold">📋 Manual</span>'
+      : r.status==='On Hold'
+      ? '<span class="asgn asgn-hold">⏸ On Hold</span>'
+      : r.status.includes('Reassigned')
+      ? '<span class="asgn asgn-re">🔄 Reassigned</span>'
+      : '<span class="asgn asgn-ns">— Not Started</span>';
+    tr.innerHTML=`<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td><td>${asgnBadge(r.qa)}</td><td style="font-size:12px;font-weight:600;color:var(--sub)">${r.module}</td><td class="suite-name">${r.sub}</td><td style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted)">${r.start}</td><td style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--muted)">${r.end}</td><td>${sl}</td>`;
+    document.getElementById('utiliko-tbody').appendChild(tr);
+  });
+
+
+// Build PBX table
+pbxData.forEach((r,i)=>{
+  const tr=document.createElement('tr');
+  tr.dataset.search=(r.module+r.sub).toLowerCase();
+  const statusClass = r.status==='Completed' ? 'eta-done' : r.status==='In Progress' ? 'eta-soon' : 'eta-future';
+  const statusLabel = r.status==='Completed'
+    ? '<span class="asgn asgn-done">✅ Done</span>'
+    : r.status==='In Progress'
+    ? '<span class="asgn asgn-prog">⚡ In Progress</span>'
+    : '<span class="asgn asgn-ns">— Not Started</span>';
+  tr.innerHTML=`<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:10.5px">${String(i+1).padStart(2,'0')}</td><td style="font-size:11.5px;font-weight:600;color:var(--sub)">${r.module}</td><td class="suite-name">${r.sub}</td><td style="font-size:11.5px;font-family:'JetBrains Mono',monospace;color:var(--sub)">${r.start}</td><td style="font-size:11.5px;font-family:'JetBrains Mono',monospace;color:var(--sub)">${r.end}</td><td>${statusLabel}</td>`;
+  document.getElementById('pbx-tbody').appendChild(tr);
+});
+
+// Build cloud tables
+buildCloudTable('cloud-all-tbody', null);
+buildCloudTable('cloud-v-tbody', 'Vaishnavi');
+buildCloudTable('cloud-p-tbody', 'Pratik');
+buildCloudTable('cloud-vp-tbody', 'Prerana');
 </script>
 </body>
 </html>
