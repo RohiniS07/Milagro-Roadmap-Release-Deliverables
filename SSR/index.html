@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSR — SSR Implementation</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--off:#f7f8fc;--pale:#eef0f7;--border:#e2e5ef;
+  --text:#0f1117;--sub:#5b6075;--muted:#9299af;
+  --blue:#2563eb;--blue-lt:#eff4ff;--blue-mid:#dbeafe;
+  --indigo:#4f46e5;--indigo-lt:#eef2ff;
+  --green:#059669;--green-lt:#ecfdf5;
+  --amber:#d97706;--amber-lt:#fffbeb;
+  --purple:#7c3aed;--purple-lt:#f5f3ff;
+  --teal:#0891b2;--teal-lt:#ecfeff;
+  --red:#dc2626;--red-lt:#fef2f2;
+  --orange:#ea580c;--orange-lt:#fff7ed;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06);
+  --shadow:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+}
+html{scroll-behavior:smooth}
+body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#07091a 0%,#0f1f2a 55%,#081a20 100%);padding:52px 48px 60px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(8,145,178,.2) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(34,211,165,.12) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto}
+.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.4)}
+.breadcrumb a{color:rgba(255,255,255,.5);text-decoration:none}.breadcrumb a:hover{color:#fff}
+.breadcrumb span{color:rgba(255,255,255,.2)}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:6px 14px;font-size:11px;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:uppercase}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#22d3a5;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.active-banner{display:inline-flex;align-items:center;gap:8px;background:rgba(217,119,6,.15);border:1px solid rgba(217,119,6,.3);border-radius:100px;padding:5px 14px;font-size:11.5px;font-weight:600;color:#fbbf24;margin-bottom:20px}
+.hero h1{font-size:clamp(28px,4vw,48px);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:8px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#22d3a5,#60a5fa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:12px;font-family:'JetBrains Mono',monospace;color:rgba(255,255,255,.35);margin-bottom:14px;letter-spacing:.06em}
+.hero-desc{font-size:14px;color:rgba(255,255,255,.45);max-width:640px;margin-bottom:22px;font-weight:300;line-height:1.8}
+.stack-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.stack-pill{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 12px;color:rgba(255,255,255,.55)}
+.stack-pill strong{color:rgba(255,255,255,.75);font-weight:600}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 20px;min-width:100px}
+.hstat-val{font-size:22px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
+.hstat-label{font-size:10.5px;color:rgba(255,255,255,.38)}
+.hstat.h-teal .hstat-val{color:#5eead4}
+.hstat.h-blue .hstat-val{color:#93c5fd}
+.hstat.h-amber .hstat-val{color:#fcd34d}
+
+/* PAGE */
+.page{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:44px 32px 80px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.sec-num{width:28px;height:28px;border-radius:7px;color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sn-teal{background:var(--teal)}
+.sn-blue{background:var(--blue)}
+.sn-purple{background:var(--purple)}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.sec-line{flex:1;height:1px;background:var(--border)}
+.sec-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px;white-space:nowrap}
+section{margin-bottom:52px}
+
+/* CHECKLIST CARD */
+.checklist-card{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+.cc-header{padding:14px 20px;background:var(--off);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.cc-title{font-size:14px;font-weight:700}
+.cc-env{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+.env-local{background:var(--blue-lt);color:var(--blue)}
+.env-prod{background:var(--green-lt);color:var(--green)}
+.env-pending{background:var(--amber-lt);color:var(--amber)}
+.cc-body{padding:16px 20px;display:flex;flex-direction:column;gap:8px}
+.check-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--off);border:1px solid var(--border)}
+.check-item.done{background:var(--green-lt);border-color:rgba(5,150,105,.2)}
+.check-item.pending{background:var(--amber-lt);border-color:rgba(217,119,6,.2)}
+.check-item.blocked{background:var(--pale);border-color:var(--border)}
+.ci-icon{font-size:15px;flex-shrink:0;width:22px;text-align:center}
+.ci-label{font-size:13px;font-weight:500;color:var(--text)}
+.check-item.done .ci-label{color:var(--green)}
+.check-item.pending .ci-label{color:var(--amber)}
+.check-item.blocked .ci-label{color:var(--muted)}
+
+/* NOTICE */
+.notice{border-radius:10px;padding:12px 18px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6}
+.notice.info{background:var(--blue-lt);border:1px solid var(--blue-mid);color:#1e40af}
+.notice.warn{background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);color:#92400e}
+.notice.success{background:var(--green-lt);border:1px solid rgba(5,150,105,.2);color:#065f46}
+.notice.teal{background:var(--teal-lt);border:1px solid rgba(8,145,178,.2);color:#155e75}
+.ni{font-size:16px;flex-shrink:0;margin-top:1px}
+
+/* MILESTONE CARDS */
+.milestone-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:700px){.milestone-grid{grid-template-columns:1fr}}
+.ms-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.ms-stripe{height:4px}
+.ms-s-red{background:linear-gradient(90deg,#dc2626,#f59e0b)}
+.ms-s-blue{background:linear-gradient(90deg,#2563eb,#0891b2)}
+.ms-s-teal{background:linear-gradient(90deg,#0891b2,#059669)}
+.ms-s-purple{background:linear-gradient(90deg,#7c3aed,#2563eb)}
+.ms-body{padding:20px 22px}
+.ms-num{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.ms-title{font-size:16px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.ms-eta{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted);margin-bottom:14px}
+.ms-impact{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;margin-bottom:14px}
+.imp-high{background:var(--red-lt);color:var(--red)}
+.imp-med{background:var(--amber-lt);color:var(--amber)}
+.ms-items{display:flex;flex-direction:column;gap:6px}
+.ms-item{font-size:12.5px;color:var(--sub);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.ms-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:7px;background:var(--teal)}
+
+/* PHASE 3 CARD */
+.phase3-card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:var(--shadow)}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--border);padding:18px 32px;max-width:1200px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
+.footer-left{display:flex;align-items:center;gap:9px}
+.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#22d3a5,#3b82f6);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#020617}
+.footer-name{font-weight:600;color:var(--sub)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hero{animation:fadeUp .5s ease both}
+.page{animation:fadeUp .5s ease .07s both}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="top-bar">
+      <div class="breadcrumb">
+        <a href="../">Portal</a><span>/</span>
+        <span>SSR</span>
+      </div>
+      <div class="live-badge"><div class="live-dot"></div>Milagro · Jul 2026</div>
+    </div>
+    <div class="active-banner">🔧 In Progress — Phase 1 started Jul 13, 2026</div>
+    <h1>SSR<br><em>SSR Implementation</em></h1>
+    <div class="hero-sub">ANGULAR · SSR · TAILWIND CSS · ANGULAR MATERIAL</div>
+    <p class="hero-desc">Migrating customer-facing Milagro modules to a new SSR-based Angular application. Replacing Bootstrap with Tailwind CSS, eliminating unnecessary third-party dependencies, and improving performance, SEO readiness, and maintainability.</p>
+    <div class="stack-row">
+      <span class="stack-pill"><strong>Framework</strong> Angular + SSR</span>
+      <span class="stack-pill"><strong>Styles</strong> Tailwind CSS + Angular Material</span>
+      <span class="stack-pill"><strong>Infra</strong> GCP · Docker · CI/CD</span>
+      <span class="stack-pill"><strong>Started</strong> Jul 13, 2026</span>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat h-teal"><div class="hstat-val">3</div><div class="hstat-label">Phases</div></div>
+      <div class="hstat"><div class="hstat-val">4</div><div class="hstat-label">Milestones</div></div>
+      <div class="hstat h-blue"><div class="hstat-val">5</div><div class="hstat-label">Modules</div></div>
+      <div class="hstat h-amber"><div class="hstat-val">In Progress</div><div class="hstat-label">Phase 1</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 01 PHASE 1 — SSR FOUNDATION -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num sn-teal">01</div>
+      <h2>Phase 1 — SSR Foundation</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">Started Jul 13, 2026 · Loyalty page</div>
+    </div>
+
+    <div class="notice warn">
+      <span class="ni">🔧</span>
+      <div><strong>Phase 1 in progress.</strong> Local setup and CICD exploration are done. Production deployment ready — Kartik needs to fire two commands. E2E and Performance improvements are also part of Phase 1.</div>
+    </div>
+
+    <div class="checklist-card">
+      <div class="cc-header">
+        <div class="cc-title">Local Setup</div>
+        <span class="cc-env env-local">Local</span>
+      </div>
+      <div class="cc-body">
+        <div class="check-item done"><span class="ci-icon">✅</span><span class="ci-label">Project structure</span></div>
+        <div class="check-item done"><span class="ci-icon">✅</span><span class="ci-label">Dark mode</span></div>
+        <div class="check-item done"><span class="ci-icon">✅</span><span class="ci-label">Dockerization</span></div>
+        <div class="check-item done"><span class="ci-icon">✅</span><span class="ci-label">Skeleton loader</span></div>
+      </div>
+    </div>
+
+    <div class="checklist-card">
+      <div class="cc-header">
+        <div class="cc-title">Production</div>
+        <span class="cc-env env-prod">Prod</span>
+      </div>
+      <div class="cc-body">
+        <div class="check-item done"><span class="ci-icon">✅</span><span class="ci-label">Exploration of CICD (GCP Logs)</span></div>
+        <div class="check-item done"><span class="ci-icon">✅</span><span class="ci-label">Set for production deployment — awaiting Kartik's two commands</span></div>
+      </div>
+    </div>
+
+    <div class="checklist-card">
+      <div class="cc-header">
+        <div class="cc-title">Phase 1 — Remaining</div>
+        <span class="cc-env env-pending">In Progress</span>
+      </div>
+      <div class="cc-body">
+        <div class="check-item pending"><span class="ci-icon">⏳</span><span class="ci-label">E2E tests</span></div>
+        <div class="check-item pending"><span class="ci-icon">⏳</span><span class="ci-label">Performance improvements</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PHASE 2 — CUSTOMER MODULES -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num sn-blue">02</div>
+      <h2>Phase 2 — Customer-Facing Modules</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">4 milestones · ~13–15 working days</div>
+    </div>
+
+    <div class="notice info">
+      <span class="ni">🎯</span>
+      <div><strong>Primary objective:</strong> Reduce dependency on Bootstrap and unnecessary third-party libraries while improving performance, maintainability, UI consistency, and long-term scalability.</div>
+    </div>
+
+    <div class="milestone-grid">
+
+      <div class="ms-card">
+        <div class="ms-stripe ms-s-red"></div>
+        <div class="ms-body">
+          <div class="ms-num">Milestone 1 · Phase 2</div>
+          <div class="ms-title">Core Customer Modules</div>
+          <div class="ms-eta">⏱ 7–8 days (with improvements) · 3–4 days (direct migration)</div>
+          <span class="ms-impact imp-high">🔴 High Impact</span>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Modules included</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">
+            <span style="font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:20px;background:var(--blue-lt);color:var(--blue)">Online Ordering</span>
+            <span style="font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:20px;background:var(--blue-lt);color:var(--blue)">Customer Login</span>
+            <span style="font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:20px;background:var(--blue-lt);color:var(--blue)">Menu</span>
+            <span style="font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:20px;background:var(--blue-lt);color:var(--blue)">Customer Reviews</span>
+            <span style="font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:20px;background:var(--blue-lt);color:var(--blue)">Gift Cards Purchase</span>
+          </div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Scope of work</div>
+          <div class="ms-items">
+            <div class="ms-item"><div class="ms-dot"></div>Move modules to new customer-facing application</div>
+            <div class="ms-item"><div class="ms-dot"></div>Replace Bootstrap with Tailwind CSS</div>
+            <div class="ms-item"><div class="ms-dot"></div>Replace ng-select &amp; third-party form controls with Angular Material</div>
+            <div class="ms-item"><div class="ms-dot"></div>Implement payment-setting and TSYS script changes</div>
+            <div class="ms-item"><div class="ms-dot"></div>Configure and verify socket connections</div>
+            <div class="ms-item"><div class="ms-dot"></div>Replace third-party slider libraries with custom carousel</div>
+            <div class="ms-item"><div class="ms-dot"></div>Validate routing, API integrations, responsiveness, customer workflows</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms-card">
+        <div class="ms-stripe ms-s-blue"></div>
+        <div class="ms-body">
+          <div class="ms-num">Milestone 2 · Phase 2</div>
+          <div class="ms-title">Online Reservation Migration</div>
+          <div class="ms-eta">⏱ 2–3 working days</div>
+          <span class="ms-impact imp-med">🟡 Medium Impact</span>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Scope of work</div>
+          <div class="ms-items">
+            <div class="ms-item"><div class="ms-dot" style="background:var(--blue)"></div>Move online reservation module to customer-facing application</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--blue)"></div>Migrate UI to Tailwind CSS and Angular Material</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--blue)"></div>Verify form validation, API integration, confirmation flows</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--blue)"></div>Ensure responsive behaviour across supported devices</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms-card">
+        <div class="ms-stripe ms-s-teal"></div>
+        <div class="ms-body">
+          <div class="ms-num">Milestone 3 · Phase 2</div>
+          <div class="ms-title">Online Waitlist Migration</div>
+          <div class="ms-eta">⏱ 2 working days</div>
+          <span class="ms-impact imp-med">🟡 Medium Impact</span>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Scope of work</div>
+          <div class="ms-items">
+            <div class="ms-item"><div class="ms-dot" style="background:var(--teal)"></div>Move online waitlist module to customer-facing application</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--teal)"></div>Verify customer registration, waitlist status, notifications</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--teal)"></div>Real-time updates and responsive behaviour</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--teal)"></div>Compatibility across all supported devices</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ms-card">
+        <div class="ms-stripe ms-s-purple"></div>
+        <div class="ms-body">
+          <div class="ms-num">Milestone 4 · Phase 2</div>
+          <div class="ms-title">Publish Scheduler Migration</div>
+          <div class="ms-eta">⏱ 2 working days</div>
+          <span class="ms-impact imp-med">🟡 Medium Impact</span>
+          <div style="font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Scope of work</div>
+          <div class="ms-items">
+            <div class="ms-item"><div class="ms-dot" style="background:var(--purple)"></div>Move publish scheduler to new application architecture</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--purple)"></div>Verify scheduling, publishing, date &amp; time handling</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--purple)"></div>Verify related API integrations</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--purple)"></div>Ensure compatibility with all customer-facing modules</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 03 PHASE 3 — MBM PUBLIC PAGES -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num sn-purple">03</div>
+      <h2>Phase 3 — MBM Public Pages</h2>
+      <div class="sec-line"></div>
+      <div class="sec-meta">Timeline TBD · follows Phase 2</div>
+    </div>
+
+    <div class="notice warn">
+      <span class="ni">📋</span>
+      <div><strong>Timeline pending.</strong> Final list of MBM public pages and their dependencies must be reviewed before estimation can begin.</div>
+    </div>
+
+    <div class="phase3-card">
+      <div style="font-size:15px;font-weight:700;margin-bottom:16px">MBM Public Pages Migration</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px">Scope</div>
+          <div class="ms-items">
+            <div class="ms-item"><div class="ms-dot" style="background:var(--purple)"></div>Migrate MBM public-facing pages to new customer application</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--purple)"></div>Standardize using Tailwind CSS and Angular Material</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--purple)"></div>Remove unnecessary third-party dependencies</div>
+            <div class="ms-item"><div class="ms-dot" style="background:var(--purple)"></div>Improve responsiveness, performance, SEO readiness, and maintainability</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:10px">Timeline estimate</div>
+          <div style="background:var(--pale);border:2px dashed var(--border);border-radius:10px;padding:20px;text-align:center">
+            <div style="font-size:24px;font-weight:800;color:var(--muted);margin-bottom:6px">TBD</div>
+            <div style="font-size:12px;color:var(--muted)">To be estimated after final MBM public pages list and dependencies are reviewed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 SUMMARY TIMELINE -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num sn-teal">04</div>
+      <h2>Summary Timeline</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)">
+      <div style="padding:12px 20px;background:var(--off);border-bottom:1px solid var(--border);display:grid;grid-template-columns:160px 1fr 160px 100px;gap:16px;font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)">
+        <span>Phase / Milestone</span><span>Description</span><span>Timeline</span><span>Status</span>
+      </div>
+      <div style="padding:14px 20px;border-bottom:1px solid var(--pale);display:grid;grid-template-columns:160px 1fr 160px 100px;gap:16px;align-items:center">
+        <span style="font-size:12.5px;font-weight:700;color:var(--teal)">Phase 1</span>
+        <span style="font-size:13px;color:var(--sub)">SSR Foundation — Loyalty page, Docker, CICD, Dark mode</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted)">Jul 13, 2026</span>
+        <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--amber-lt);color:var(--amber);display:inline-block">🔧 In Progress</span>
+      </div>
+      <div style="padding:14px 20px;border-bottom:1px solid var(--pale);display:grid;grid-template-columns:160px 1fr 160px 100px;gap:16px;align-items:center">
+        <span style="font-size:12.5px;font-weight:700;color:var(--blue)">P2 · M1</span>
+        <span style="font-size:13px;color:var(--sub)">Core modules — OLO, Login, Menu, Reviews, Gift Cards</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted)">3–8 working days</span>
+        <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--pale);color:var(--muted);display:inline-block">⏳ Upcoming</span>
+      </div>
+      <div style="padding:14px 20px;border-bottom:1px solid var(--pale);display:grid;grid-template-columns:160px 1fr 160px 100px;gap:16px;align-items:center">
+        <span style="font-size:12.5px;font-weight:700;color:var(--blue)">P2 · M2</span>
+        <span style="font-size:13px;color:var(--sub)">Online Reservation migration</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted)">2–3 working days</span>
+        <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--pale);color:var(--muted);display:inline-block">⏳ Upcoming</span>
+      </div>
+      <div style="padding:14px 20px;border-bottom:1px solid var(--pale);display:grid;grid-template-columns:160px 1fr 160px 100px;gap:16px;align-items:center">
+        <span style="font-size:12.5px;font-weight:700;color:var(--teal)">P2 · M3</span>
+        <span style="font-size:13px;color:var(--sub)">Online Waitlist migration</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted)">2 working days</span>
+        <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--pale);color:var(--muted);display:inline-block">⏳ Upcoming</span>
+      </div>
+      <div style="padding:14px 20px;border-bottom:1px solid var(--pale);display:grid;grid-template-columns:160px 1fr 160px 100px;gap:16px;align-items:center">
+        <span style="font-size:12.5px;font-weight:700;color:var(--purple)">P2 · M4</span>
+        <span style="font-size:13px;color:var(--sub)">Publish Scheduler migration</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted)">2 working days</span>
+        <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--pale);color:var(--muted);display:inline-block">⏳ Upcoming</span>
+      </div>
+      <div style="padding:14px 20px;display:grid;grid-template-columns:160px 1fr 160px 100px;gap:16px;align-items:center">
+        <span style="font-size:12.5px;font-weight:700;color:var(--purple)">Phase 3</span>
+        <span style="font-size:13px;color:var(--sub)">MBM Public Pages migration</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--muted)">TBD</span>
+        <span style="font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--pale);color:var(--muted);display:inline-block">⏳ TBD</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  <div class="footer-left"><div class="footer-av">R</div><span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span></div>
+  <div style="display:inline-flex;align-items:center;gap:6px;background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);border-radius:100px;padding:3px 12px;font-size:11.5px;font-weight:600;color:var(--amber)">🔧 In Progress · Phase 1 · Jul 2026</div>
+  <span>SSR · Jul 2026</span>
+</div>
+
+</body>
+</html>
