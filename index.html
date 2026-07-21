@@ -61,8 +61,8 @@ body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;fon
 section{margin-bottom:52px}
 
 /* CARDS GRID */
-.cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media(max-width:1100px){.cards-row{grid-template-columns:repeat(3,1fr)}}
+.cards-row{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:800px){.cards-row{grid-template-columns:1fr}}
 @media(max-width:560px){.cards-row{grid-template-columns:1fr}}
 
 /* CARD — uses div, navigates via onclick on footer */
@@ -329,7 +329,7 @@ section{margin-bottom:52px}
       </div>
 
       <!-- SSR -->
-      <div class="card" onclick="location.href='ssr/'">
+      <div class="card" onclick="location.href='SSR/'">
         <div class="card-stripe s-ssr"></div>
         <div class="card-body">
           <div class="card-top">
@@ -340,16 +340,16 @@ section{margin-bottom:52px}
           <div class="card-title">SSR</div>
           <div class="card-desc">Migrating customer-facing Milagro modules to a new SSR Angular app. Replacing Bootstrap with Tailwind CSS, improving performance and SEO readiness.</div>
           <div class="card-stats">
-            <div class="cstat"><div class="cstat-val" style="color:var(--teal)">P1 Live</div><div class="cstat-label">Phase 1</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--amber)">In Progress</div><div class="cstat-label">Phase 1</div></div>
             <div class="cstat"><div class="cstat-val" style="color:var(--blue)">4</div><div class="cstat-label">Milestones</div></div>
             <div class="cstat"><div class="cstat-val" style="color:var(--green)">Jul 13</div><div class="cstat-label">Started</div></div>
           </div>
           <div class="sub-list">
-            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='ssr/'">
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='SSR/'">
               <div class="sub-left"><div class="sub-icon" style="background:var(--teal-lt)">🚀</div><div><div class="sub-name">Phase 1 — SSR Foundation</div><div class="sub-meta">Docker · CICD · Dark mode · Skeleton loader · Loyalty page</div></div></div>
-              <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag st-active">Active</span><span class="sub-arrow">→</span></div>
+              <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag" style="background:var(--amber-lt);color:var(--amber);font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px">🔧 In Progress</span><span class="sub-arrow">→</span></div>
             </div>
-            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='ssr/'">
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='SSR/'">
               <div class="sub-left"><div class="sub-icon" style="background:var(--blue-lt)">📦</div><div><div class="sub-name">Phase 2 — Customer Modules</div><div class="sub-meta">OLO · Login · Menu · Reviews · Gift Cards · Reservation · Waitlist</div></div></div>
               <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag st-upcoming">Upcoming</span><span class="sub-arrow">→</span></div>
             </div>
@@ -359,13 +359,11 @@ section{margin-bottom:52px}
             <span class="tm-names">Angular · SSR · Tailwind CSS · Angular Material · GCP</span>
           </div>
         </div>
-        <div class="card-foot" onclick="event.stopPropagation();location.href='ssr/'">
+        <div class="card-foot" onclick="event.stopPropagation();location.href='SSR/'">
           <span class="cf-label">View SSR</span>
           <div class="cf-arr">→</div>
         </div>
       </div>
-    >
-
           </div>
   </section>
 
@@ -396,8 +394,8 @@ section{margin-bottom:52px}
           <div class="ql-left"><span class="ql-icon">⚡</span><div><div class="ql-name">API Optimization</div><div class="ql-url">/smartpos/api-optimization/</div></div></div>
           <span class="ql-badge ql-active">✅ Active</span>
         </a>
-        <a href="ssr/" class="ql-item">
-          <div class="ql-left"><span class="ql-icon">🌐</span><div><div class="ql-name">SSR</div><div class="ql-url">/ssr/</div></div></div>
+        <a href="SSR/" class="ql-item">
+          <div class="ql-left"><span class="ql-icon">🌐</span><div><div class="ql-name">SSR</div><div class="ql-url">/SSR/</div></div></div>
           <span class="ql-badge ql-active">✅ Active</span>
         </a>
         
@@ -425,7 +423,7 @@ section{margin-bottom:52px}
           ├── smartpos/jetcompose/index.html &nbsp;← Jet Compose ⏳ Upcoming<br>
           ├── playwright/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Playwright ✅ Live<br>
           ├── smartpos/api-optimization/index.html &nbsp;← API Optimization ✅ Active<br>
-          └── ssr/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← SSR ✅ Active<br>
+          └── SSR/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← SSR ✅ Active<br>
         </div>
       </div>
     </div>
