@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>API Optimization — milagro-pos Architecture & Build Plan</title>
+<title>Milagro — Engineering Roadmap Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -17,991 +17,430 @@
   --purple:#7c3aed;--purple-lt:#f5f3ff;
   --teal:#0891b2;--teal-lt:#ecfeff;
   --red:#dc2626;--red-lt:#fef2f2;
-  --orange:#ea580c;--orange-lt:#fff7ed;
   --shadow-sm:0 1px 3px rgba(0,0,0,.06);
   --shadow:0 4px 16px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+  --shadow-lg:0 20px 60px rgba(0,0,0,.13);
 }
-html{scroll-behavior:smooth}
+html,body{width:100%;margin:0;padding:0}
 body{background:var(--off);color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
 
 /* HERO */
-.hero{background:linear-gradient(135deg,#07091a 0%,#0a1428 55%,#0d1535 100%);padding:52px 48px 60px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 40%,rgba(37,99,235,.18) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 80%,rgba(79,70,229,.12) 0%,transparent 60%)}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:44px 44px}
-.hero-inner{position:relative;max-width:1200px;margin:0 auto}
-.top-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
-.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.4)}
-.breadcrumb a{color:rgba(255,255,255,.5);text-decoration:none}.breadcrumb a:hover{color:#fff}
-.breadcrumb span{color:rgba(255,255,255,.2)}
-.author-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:6px 16px 6px 6px}
-.author-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
-.author-info{display:flex;flex-direction:column;line-height:1.25}
-.author-name{font-size:13px;font-weight:600;color:#fff}
-.author-role{font-size:11px;color:rgba(255,255,255,.4)}
-.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:500;color:rgba(255,255,255,.5);letter-spacing:.04em;text-transform:uppercase}
-.live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
-.repo-badge{font-family:'JetBrains Mono',monospace;font-size:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:3px 10px;color:rgba(255,255,255,.5)}
-.hero h1{font-size:clamp(28px,4vw,50px);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:8px}
+.hero{background:linear-gradient(135deg,#05061a 0%,#0c1a40 50%,#07102a 100%);width:100%;padding:56px 5% 64px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 90% 40%,rgba(37,99,235,.2) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 5% 85%,rgba(124,58,237,.15) 0%,transparent 55%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:48px 48px}
+.hero-inner{position:relative;width:100%;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:32px}
+.hero-left{flex:1;min-width:280px}
+.hero-right{flex-shrink:0}
+.top-meta{display:flex;align-items:center;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+.author-chip{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);border-radius:100px;padding:6px 16px 6px 7px}
+.author-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.author-name{font-size:12.5px;font-weight:600;color:#fff}
+.author-role{font-size:10.5px;color:rgba(255,255,255,.4)}
+.author-info{line-height:1.2}
+.live-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:500;color:rgba(255,255,255,.5);letter-spacing:.05em;text-transform:uppercase}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#34d399;flex-shrink:0;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.5)}}
+.hero h1{font-size:clamp(32px,4.5vw,58px);font-weight:800;color:#fff;line-height:1.05;letter-spacing:-.03em;margin-bottom:14px}
 .hero h1 em{font-style:normal;background:linear-gradient(90deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-desc{font-size:14px;color:rgba(255,255,255,.45);max-width:680px;margin-bottom:20px;font-weight:300;line-height:1.8}
-.stack-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.stack-pill{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 12px;color:rgba(255,255,255,.55)}
-.stack-pill strong{color:rgba(255,255,255,.75);font-weight:600}
-.hero-stats{display:flex;flex-wrap:wrap;gap:10px}
-.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:12px 20px;min-width:100px}
-.hstat-val{font-size:22px;font-weight:800;color:#fff;line-height:1;margin-bottom:2px}
-.hstat-label{font-size:10.5px;color:rgba(255,255,255,.38)}
-.hstat.h-green .hstat-val{color:#34d399}
-.hstat.h-blue  .hstat-val{color:#93c5fd}
-.hstat.h-amber .hstat-val{color:#fcd34d}
+.hero-desc{font-size:15px;color:rgba(255,255,255,.42);font-weight:300;line-height:1.8}
+.hero-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:900px){.hero-inner{flex-direction:column;align-items:flex-start}.hero-stats{grid-template-columns:repeat(3,1fr);width:100%}}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;text-align:center}
+.hstat-val{font-size:20px;font-weight:800;color:#fff;line-height:1;margin-bottom:3px}
+.hstat-label{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.04em;text-transform:uppercase}
 
 /* PAGE */
-.page{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:44px 32px 80px}
-.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.page{flex:1;width:100%;padding:44px 5% 80px}
+
+/* SEC HEAD */
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:24px}
 .sec-num{width:28px;height:28px;border-radius:7px;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.sec-head h2{font-size:17px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
 .sec-line{flex:1;height:1px;background:var(--border)}
-.sec-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px;white-space:nowrap}
+.sec-count{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);background:var(--pale);border:1px solid var(--border);padding:3px 10px;border-radius:100px;white-space:nowrap}
 section{margin-bottom:52px}
 
-/* LABEL CHIP */
-.label-chip{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:1px solid;padding:2px 8px;border-radius:4px;margin-right:6px}
-.lc-blue{background:var(--blue-lt);color:var(--blue);border-color:var(--blue-mid)}
-.lc-green{background:var(--green-lt);color:var(--green);border-color:rgba(5,150,105,.2)}
-.lc-amber{background:var(--amber-lt);color:var(--amber);border-color:rgba(217,119,6,.2)}
-.lc-purple{background:var(--purple-lt);color:var(--purple);border-color:rgba(124,58,237,.2)}
-.lc-red{background:var(--red-lt);color:var(--red);border-color:rgba(220,38,38,.2)}
+/* CARDS GRID */
+.cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:1100px){.cards-row{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:560px){.cards-row{grid-template-columns:1fr}}
 
-/* SUMMARY CARDS */
-.glance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
-@media(max-width:800px){.glance-grid{grid-template-columns:1fr 1fr}}
-.glance-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow-sm)}
-.glance-val{font-size:28px;font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1;margin-bottom:4px}
-.glance-title{font-size:13.5px;font-weight:700;margin-bottom:6px}
-.glance-desc{font-size:12px;color:var(--sub);line-height:1.5}
+/* CARD — uses div, navigates via onclick on footer */
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .22s,box-shadow .22s;cursor:pointer}
+.card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.card-stripe{height:4px;flex-shrink:0}
+.s-blue{background:linear-gradient(90deg,var(--blue),var(--indigo))}
+.s-purple{background:linear-gradient(90deg,var(--purple),#db2777)}
+.s-ssr{background:linear-gradient(90deg,#0891b2,#22d3a5)}
+.s-teal{background:linear-gradient(90deg,var(--teal),var(--green))}
+.s-red{background:linear-gradient(90deg,var(--red),var(--amber))}
+.card-body{padding:20px 22px;flex:1;display:flex;flex-direction:column}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:8px}
+.card-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;padding:3px 10px;border-radius:100px;white-space:nowrap}
+.pill-green{background:var(--green-lt);color:var(--green)}
+.pill-teal{background:var(--teal-lt);color:var(--teal)}
+.pill-red{background:var(--red-lt);color:var(--red)}
+.pill-purple{background:var(--purple-lt);color:var(--purple)}
+.pdot{width:4px;height:4px;border-radius:50%;flex-shrink:0;animation:pulse 2s infinite}
+.pdot-g{background:var(--green)}.pdot-t{background:var(--teal)}.pdot-r{background:var(--red)}.pdot-p{background:var(--purple)}
+.card-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:4px}
+.card-title{font-size:20px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px;line-height:1.2}
+.card-desc{font-size:12.5px;color:var(--sub);line-height:1.65;margin-bottom:16px}
 
-/* OUTCOME BOX */
-.outcome-box{background:var(--blue-lt);border:1px solid var(--blue-mid);border-radius:10px;padding:16px 20px;font-size:13.5px;color:var(--sub);line-height:1.7;margin-bottom:0}
-.outcome-box strong{color:var(--blue)}
+/* SUB ROWS — all divs, no nested anchors */
+.sub-list{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.sub-row{display:flex;align-items:center;justify-content:space-between;background:var(--off);border:1px solid var(--border);border-radius:9px;padding:9px 12px;transition:background .15s,border-color .15s;gap:8px}
+.sub-row.clickable{cursor:pointer}
+.sub-row.clickable:hover{background:var(--blue-lt);border-color:var(--blue-mid)}
+.sub-row.disabled{opacity:.6}
+.sub-left{display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.sub-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.sub-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub-meta{font-size:10.5px;color:var(--muted)}
+.sub-right{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.sub-tag{font-size:9.5px;font-weight:600;padding:2px 8px;border-radius:100px;white-space:nowrap}
+.st-draft{background:var(--amber-lt);color:var(--amber)}
+.st-live{background:var(--green-lt);color:var(--green)}
+.st-soon{background:var(--pale);color:var(--muted);border:1px solid var(--border)}
+.sub-arrow{font-size:12px;color:var(--muted)}
+.sub-row.clickable:hover .sub-arrow{color:var(--blue)}
 
-/* PRINCIPLES */
-.principles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:800px){.principles-grid{grid-template-columns:repeat(2,1fr)}}
-.principle-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow-sm)}
-.p-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:4px}
-.p-title{font-size:14px;font-weight:700;margin-bottom:6px}
-.p-desc{font-size:12.5px;color:var(--sub);line-height:1.5}
+/* CARD STATS */
+.card-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:9px;overflow:hidden;margin-bottom:14px}
+.cstat{background:var(--white);padding:9px 10px;text-align:center}
+.cstat-val{font-size:15px;font-weight:800;line-height:1;margin-bottom:2px}
+.cstat-label{font-size:9.5px;color:var(--muted)}
 
-/* ARCH DIAGRAM */
-.arch-box{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:28px;box-shadow:var(--shadow);margin-bottom:16px}
-.arch-title{font-size:13px;font-weight:700;margin-bottom:18px;color:var(--sub)}
-.arch-clients{display:flex;justify-content:center;gap:16px;margin-bottom:10px;flex-wrap:wrap}
-.arch-client{background:var(--pale);border:1px solid var(--border);border-radius:8px;padding:6px 18px;font-size:12px;font-weight:500;color:var(--sub)}
-.arch-arrow{text-align:center;color:var(--muted);font-size:18px;line-height:1;margin:6px 0}
-.arch-arrow-label{font-size:11px;color:var(--muted);text-align:center;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
-.arch-service{background:linear-gradient(135deg,var(--blue-lt),var(--indigo-lt));border:2px solid var(--blue-mid);border-radius:12px;padding:12px 24px;text-align:center;margin:0 auto;width:fit-content;margin-bottom:14px}
-.arch-service-name{font-size:14px;font-weight:700;color:var(--blue)}
-.arch-service-sub{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
-.arch-modules-label{text-align:center;font-size:11.5px;color:var(--muted);margin-bottom:10px}
-.arch-modules{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:14px}
-@media(max-width:700px){.arch-modules{grid-template-columns:repeat(3,1fr)}}
-.arch-mod{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:8px 10px;text-align:center}
-.arch-mod-name{font-size:12px;font-weight:600;color:var(--text)}
-.arch-mod-sub{font-size:10px;color:var(--muted);margin-top:2px}
-.arch-db{background:var(--pale);border:1px solid var(--border);border-radius:8px;padding:8px 24px;text-align:center;width:fit-content;margin:0 auto;font-size:12px;color:var(--sub)}
+/* SCOPE TAGS */
+.scope-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.stag{font-size:11px;font-weight:500;padding:2px 9px;border-radius:100px;background:var(--pale);border:1px solid var(--border);color:var(--muted)}
 
-/* COMPAT BOX */
-.compat-box{background:var(--indigo-lt);border:1px solid rgba(79,70,229,.2);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--indigo);margin-top:14px;line-height:1.6}
+/* TEAM */
+.team-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px solid var(--pale)}
+.team-lbl{font-size:10.5px;color:var(--muted)}
+.avs{display:flex;align-items:center}
+.av{width:22px;height:22px;border-radius:50%;border:2px solid var(--white);display:flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:700;color:#fff;margin-left:-5px}
+.avs .av:first-child{margin-left:0}
+.av-b{background:var(--blue)}.av-i{background:var(--indigo)}.av-g{background:var(--green)}.av-a{background:var(--amber)}.av-p{background:var(--purple)}.av-t{background:var(--teal)}
+.team-names{font-size:10.5px;font-weight:500;color:var(--sub)}
 
-/* MODULE TABLE */
-.tcard{background:var(--white);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
-.tcard-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;background:var(--off)}
-.tcard-title{font-size:14px;font-weight:700}
-.tcard-meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted)}
-.dtable{width:100%;border-collapse:collapse}
-.dtable thead th{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 16px;text-align:left;background:var(--off);border-bottom:1px solid var(--border);white-space:nowrap}
-.dtable tbody tr:hover{background:var(--off)}
-.dtable tbody td{padding:11px 16px;border-bottom:1px solid var(--pale);font-size:12.5px;color:var(--sub);vertical-align:top}
-.dtable tbody td.td-name{color:var(--text);font-weight:600;font-size:13px}
-.dtable tbody tr:last-child td{border-bottom:none}
-.total-row td{background:var(--blue-lt)!important;font-weight:700!important;color:var(--blue)!important;border-top:2px solid var(--blue-mid)!important;border-bottom:none!important}
-.phase-tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px}
-.ph1{background:var(--blue-lt);color:var(--blue)}
-.ph2{background:var(--purple-lt);color:var(--purple)}
-.api-count{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--text)}
+/* CARD FOOT */
+.card-foot{padding:11px 18px;background:var(--off);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:12px;flex-shrink:0}
+.cf-label{font-weight:600;color:var(--blue)}
+.cf-arr{width:26px;height:26px;border-radius:7px;background:var(--blue-lt);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:13px;transition:background .15s,transform .15s}
+.card:hover .cf-arr{background:var(--blue);color:#fff;transform:translateX(3px)}
+.cf-lock{font-size:11px;color:var(--muted)}
 
-/* MILESTONES */
-.phase-bar{background:var(--pale);border:1px solid var(--border);border-radius:8px;padding:10px 16px;font-size:12px;color:var(--sub);margin-bottom:16px;font-family:'JetBrains Mono',monospace}
-.phase-bar strong{color:var(--text)}
-.milestone{background:var(--white);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow-sm)}
-.ms-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;gap:12px;cursor:pointer;transition:background .1s}
-.ms-header:hover{background:var(--off)}
-.ms-left{display:flex;align-items:center;gap:10px}
-.ms-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mb-done{background:var(--green-lt);color:var(--green)}
-.mb-p1{background:var(--blue-lt);color:var(--blue)}
-.mb-p2{background:var(--purple-lt);color:var(--purple)}
-.ms-title{font-size:14px;font-weight:700}
-.ms-desc{font-size:12px;color:var(--muted);margin-top:2px}
-.ms-effort{font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:6px;background:var(--pale);border:1px solid var(--border);color:var(--sub);white-space:nowrap}
-.ms-body{padding:0 18px 14px;display:none}
-.ms-body.open{display:block}
-.ms-detail{background:var(--off);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:12px;line-height:1.7}
-.ms-detail strong{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
-.ms-apis{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-.api-pill{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;padding:2px 8px;border-radius:4px;background:var(--pale);border:1px solid var(--border);color:var(--sub)}
-.api-pill.get{background:var(--green-lt);color:var(--green);border-color:rgba(5,150,105,.2)}
-.api-pill.post{background:var(--blue-lt);color:var(--blue);border-color:var(--blue-mid)}
-.api-pill.put{background:var(--amber-lt);color:var(--amber);border-color:rgba(217,119,6,.2)}
-.api-pill.del{background:var(--red-lt);color:var(--red);border-color:rgba(220,38,38,.2)}
+/* QUICK LINKS */
+.ql-wrap{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px 28px;box-shadow:var(--shadow-sm);margin-bottom:52px}
+.ql-title{font-size:15px;font-weight:700;margin-bottom:18px}
+.ql-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.ql-item{display:flex;align-items:center;justify-content:space-between;background:var(--off);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-decoration:none;color:inherit;transition:background .15s,border-color .15s;gap:12px}
+.ql-item:hover{background:var(--blue-lt);border-color:var(--blue-mid)}
+.ql-item.disabled{opacity:.45;pointer-events:none}
+.ql-left{display:flex;align-items:center;gap:10px}
+.ql-icon{font-size:15px}
+.ql-name{font-size:13px;font-weight:600;color:var(--text)}
+.ql-url{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);margin-top:1px}
+.ql-badge{font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.ql-active{background:var(--green-lt);color:var(--green)}
+.ql-draft{background:var(--amber-lt);color:var(--amber)}
+.ql-soon{background:var(--pale);color:var(--muted);border:1px solid var(--border)}
 
-/* CONTRACT */
-.contract-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:700px){.contract-grid{grid-template-columns:1fr}}
-.contract-card{background:var(--white);border:1px solid var(--border);border-radius:11px;padding:16px 18px;box-shadow:var(--shadow-sm)}
-.cc-num{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.cc-title{font-size:13.5px;font-weight:700;margin-bottom:6px}
-.cc-desc{font-size:12px;color:var(--sub);line-height:1.5}
-
-/* ROLLOUT */
-.rollout-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:700px){.rollout-grid{grid-template-columns:1fr}}
-
-/* NAMING TABLE */
-.naming-table{width:100%;border-collapse:collapse}
-.naming-table thead th{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:8px 14px;background:var(--off);border-bottom:1px solid var(--border);text-align:left}
-.naming-table tbody td{padding:9px 14px;border-bottom:1px solid var(--pale);font-family:'JetBrains Mono',monospace;font-size:11.5px;vertical-align:middle}
-.naming-table tbody td.old{color:var(--muted);text-decoration:line-through}
-.naming-table tbody td.new{color:var(--blue);font-weight:500}
-.naming-table tbody tr:last-child td{border-bottom:none}
-
-/* RISKS */
-.risk-list{display:flex;flex-direction:column;gap:10px}
-.risk-item{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--amber);border-radius:0 10px 10px 0;padding:12px 16px;box-shadow:var(--shadow-sm)}
-.risk-title{font-size:13px;font-weight:700;margin-bottom:4px}
-.risk-desc{font-size:12px;color:var(--sub);line-height:1.5}
-.risk-item.safe{border-left-color:var(--green)}
-.risk-item.safe .risk-title{color:var(--green)}
-
-/* CODE BLOCK */
-.code-block{background:#0d1117;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:18px 22px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.9;color:#8b949e;overflow-x:auto;margin:12px 0}
-.code-block .c-dir{color:#79c0ff}
-.code-block .c-cmt{color:#6e7681}
-.code-block .c-str{color:#a5d6ff}
-.code-block .c-key{color:#ff7b72}
+/* HOW TO */
+.howto{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px 28px;box-shadow:var(--shadow-sm);display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap}
+.howto-icon{width:36px;height:36px;border-radius:10px;background:var(--blue-lt);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;margin-top:2px}
+.howto-body{flex:1;min-width:220px}
+.howto-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.howto-text{font-size:13px;color:var(--sub);line-height:1.65;margin-bottom:12px}
+.howto-code{background:var(--text);color:#a5f3fc;font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:16px 18px;border-radius:10px;line-height:2}
 
 /* FOOTER */
-.footer{border-top:1px solid var(--border);padding:18px 32px;max-width:1200px;margin:0 auto;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
-.footer-left{display:flex;align-items:center;gap:9px}
-.footer-av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+.footer{border-top:1px solid var(--border);padding:20px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12.5px;color:var(--muted)}
+.footer-left{display:flex;align-items:center;gap:10px}
+.footer-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#be185d);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
 .footer-name{font-weight:600;color:var(--sub)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 .hero{animation:fadeUp .5s ease both}
-.page{animation:fadeUp .5s ease .07s both}
-
-/* ── MILESTONE EXPLORER ── */
-.ms-explorer { background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
-.ms-explorer-header { padding: 16px 22px; background: var(--off); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-.ms-explorer-title { font-size: 14px; font-weight: 700; }
-.ms-explorer-legend { display: flex; gap: 14px; flex-wrap: wrap; }
-.ms-leg { display: flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--sub); }
-.ms-leg-dot { width: 10px; height: 10px; border-radius: 3px; }
-
-/* milestone grid */
-.ms-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-bottom: 1px solid var(--border); }
-@media(max-width: 900px) { .ms-grid { grid-template-columns: repeat(2, 1fr); } }
-@media(max-width: 500px) { .ms-grid { grid-template-columns: 1fr; } }
-
-.ms-tile {
-  padding: 14px 16px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  cursor: pointer; transition: background .12s; position: relative; overflow: hidden;
-  display: flex; flex-direction: column; gap: 6px;
-}
-.ms-tile:hover { background: var(--off); }
-.ms-tile.active { background: var(--blue-lt); }
-.ms-tile.active.ph2 { background: var(--purple-lt); }
-.ms-tile.active.ph-done { background: var(--green-lt); }
-.ms-tile::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
-.ms-tile.ph-done::before { background: var(--green); }
-.ms-tile.ph1::before { background: var(--blue); }
-.ms-tile.ph2::before { background: var(--purple); }
-.ms-tile-top { display: flex; align-items: center; justify-content: space-between; }
-.ms-tile-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.tb-done { background: var(--green-lt); color: var(--green); }
-.tb-p1 { background: var(--blue-lt); color: var(--blue); }
-.tb-p2 { background: var(--purple-lt); color: var(--purple); }
-.ms-tile-effort { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: var(--pale); border: 1px solid var(--border); color: var(--muted); }
-.ms-tile-title { font-size: 12.5px; font-weight: 700; color: var(--text); line-height: 1.3; }
-.ms-tile-bottom { display: flex; gap: 6px; flex-wrap: wrap; }
-.ms-api-chip { font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 4px; }
-.mac-get  { background: var(--green-lt); color: var(--green); }
-.mac-post { background: var(--blue-lt);  color: var(--blue); }
-.mac-put  { background: var(--amber-lt); color: var(--amber); }
-.mac-del  { background: var(--red-lt);   color: var(--red); }
-.mac-none { background: var(--pale);     color: var(--muted); }
-
-/* detail panel */
-.ms-detail-panel {
-  display: none; padding: 22px 26px; border-top: 2px solid var(--blue-mid);
-  background: linear-gradient(180deg, var(--blue-lt) 0%, var(--white) 60px);
-  animation: panelIn .18s ease;
-}
-.ms-detail-panel.ph2  { border-top-color: rgba(124,58,237,.3); background: linear-gradient(180deg, var(--purple-lt) 0%, var(--white) 60px); }
-.ms-detail-panel.ph-done { border-top-color: rgba(5,150,105,.3); background: linear-gradient(180deg, var(--green-lt) 0%, var(--white) 60px); }
-.ms-detail-panel.open { display: block; }
-@keyframes panelIn { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform: translateY(0); } }
-
-.dp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
-.dp-header-left { display: flex; align-items: center; gap: 12px; }
-.dp-badge { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.dp-title { font-size: 18px; font-weight: 800; letter-spacing: -.02em; }
-.dp-desc { font-size: 13px; color: var(--sub); margin-top: 2px; line-height: 1.5; }
-.dp-effort-big { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; padding: 5px 14px; border-radius: 8px; background: var(--pale); border: 1px solid var(--border); color: var(--sub); white-space: nowrap; }
-
-.dp-body { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
-@media(max-width: 700px) { .dp-body { grid-template-columns: 1fr; } }
-.dp-section { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow-sm); }
-.dp-section-label { font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-.dp-section-text { font-size: 13px; color: var(--sub); line-height: 1.6; }
-
-.dp-tasks { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow-sm); margin-bottom: 14px; }
-.dp-tasks-label { font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-.task-list { display: flex; flex-direction: column; gap: 7px; }
-.task-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: var(--sub); line-height: 1.5; }
-.task-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); margin-top: 7px; flex-shrink: 0; }
-.task-dot.done { background: var(--green); }
-.task-dot.p2   { background: var(--purple); }
-
-.dp-api-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.dp-api-pill { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 600; padding: 4px 11px; border-radius: 6px; }
-.dp-total-pill { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; padding: 5px 14px; border-radius: 8px; background: var(--text); color: var(--white); margin-left: auto; }
-
-.dp-close { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; padding: 5px 10px; border-radius: 7px; background: var(--pale); border: 1px solid var(--border); transition: background .1s; flex-shrink: 0; }
-.dp-close:hover { background: var(--border); }
-
+.page{animation:fadeUp .5s ease .08s both}
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-grid"></div>
   <div class="hero-inner">
-    <div class="top-bar">
-      <div class="breadcrumb">
-        <a href="../../">Portal</a><span>/</span>
-        <a href="../e2e/">SmartPOS</a><span>/</span>
-        <span>API Optimization</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+    <div class="hero-left">
+      <div class="top-meta">
         <div class="author-chip">
-          <div class="author-av">D</div>
+          <div class="author-av">R</div>
           <div class="author-info">
-            <span class="author-name">Darshan</span>
-            <span class="author-role">Backend Engineer · Author</span>
+            <div class="author-name">Rohini Sujith</div>
+            <div class="author-role">Product Manager · Portal Owner</div>
           </div>
         </div>
-        <div class="repo-badge">milagro-pos</div>
-        <div class="live-badge"><div class="live-dot"></div>SmartPOS · Jul 2026</div>
+        <div class="live-badge"><div class="live-dot"></div>Milagro · Jul 2026</div>
       </div>
+      <h1>Milagro Engineering<br><em>Roadmap Portal</em></h1>
     </div>
-    <h1>milagro-pos: <em>Architecture</em><br>&amp; Build Plan</h1>
-    <p class="hero-desc">A plan to move SmartPOS APIs off the LoopBack monolith into one modern, well-structured microservice — built to be split further later, without a big-bang rewrite and without breaking the field app.</p>
-    <div class="stack-row">
-      <span class="stack-pill"><strong>Stack</strong> TypeScript · Prisma · Node LTS</span>
-      <span class="stack-pill"><strong>Database</strong> shared tenant_milagro</span>
-      <span class="stack-pill"><strong>Timeline</strong> ~3-4 mo terminal MVP · ~6-8 mo full</span>
-      <span class="stack-pill"><strong>Surface</strong> 261 APIs · 10 modules</span>
-    </div>
-    <div class="hero-stats">
-      <div class="hstat"><div class="hstat-val">261</div><div class="hstat-label">Total APIs</div></div>
-      <div class="hstat h-blue"><div class="hstat-val">2</div><div class="hstat-label">Phases</div></div>
-      <div class="hstat"><div class="hstat-val">12</div><div class="hstat-label">Milestones</div></div>
-      <div class="hstat"><div class="hstat-val">10</div><div class="hstat-label">Modules</div></div>
-      <div class="hstat h-amber"><div class="hstat-val">~6-8 mo</div><div class="hstat-label">Full Migration</div></div>
+    <div class="hero-right">
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-val">2</div><div class="hstat-label">Sections</div></div>
+        <div class="hstat"><div class="hstat-val">3</div><div class="hstat-label">Live Pages</div></div>
+        <div class="hstat"><div class="hstat-val">5</div><div class="hstat-label">Engineers</div></div>
+        <div class="hstat"><div class="hstat-val">2,992</div><div class="hstat-label">E2E TCs</div></div>
+        <div class="hstat"><div class="hstat-val">Sep 30</div><div class="hstat-label">Final ETA</div></div>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- PAGE -->
 <div class="page">
 
-  <!-- 01 SUMMARY -->
-  <section>
-    <div class="sec-head"><div class="sec-num">01</div><h2>At a Glance</h2><div class="sec-line"></div><span class="label-chip lc-blue">SUMMARY</span></div>
-    <p style="font-size:13.5px;color:var(--sub);margin-bottom:18px;line-height:1.7">Executive summary: migrate the 261-API POS surface from <code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--pale);padding:1px 6px;border-radius:4px">milagro-api</code> to <code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--pale);padding:1px 6px;border-radius:4px">milagro-pos</code> in two controlled phases, keeping the product operational and backward compatible throughout.</p>
-    <div class="glance-grid">
-      <div class="glance-card">
-        <div class="glance-val">2</div>
-        <div class="glance-title">phases</div>
-        <div class="glance-desc">Phase 1 delivers the core SmartPOS terminal path. Phase 2 completes back-office, online-ordering, external, and workforce capabilities.</div>
-      </div>
-      <div class="glance-card">
-        <div class="glance-val" style="color:var(--purple)">P1 · ~3–4 mo</div>
-        <div class="glance-title">Phase 1 scope</div>
-        <div class="glance-desc">5 module groups: Transactions, Payments, Floor &amp; Tables, Catalog &amp; Config, and Day Management.</div>
-      </div>
-      <div class="glance-card">
-        <div class="glance-val" style="color:var(--indigo)">P2 · ~2–4 mo</div>
-        <div class="glance-title">Phase 2 scope</div>
-        <div class="glance-desc">5 module groups: Reports, Online Ordering, 3PD Delivery, Attendance, and Identity &amp; Session. Full migration ~6–8 months total.</div>
-      </div>
-      <div class="glance-card">
-        <div class="glance-val">261</div>
-        <div class="glance-title">APIs</div>
-        <div class="glance-desc">95 SmartPOS-only · 154 web-only · 12 shared across both clients, organized into 10 domain groups.</div>
-      </div>
-      <div class="glance-card">
-        <div class="glance-val" style="color:var(--green)">12</div>
-        <div class="glance-title">milestones</div>
-        <div class="glance-desc">M1 proves one read API, M2 moves six production reads, and M3–M12 migrate the remaining scope domain-by-domain.</div>
-      </div>
-      <div class="glance-card">
-        <div class="glance-val" style="color:var(--amber)">Low</div>
-        <div class="glance-title">product impact</div>
-        <div class="glance-desc">No forced app update and no planned request/response changes. SmartPOS and web switch endpoints on their own release cadence.</div>
-      </div>
-    </div>
-    <div class="outcome-box" style="margin-top:16px">
-      <strong>Expected product outcome.</strong> Users continue operating during migration with no big-bang cutover. Engineering reduces monolith coupling, gains clear domain ownership and independent deployment, and preserves the option to split high-scale modules into separate services later. Payment flows move only after the low-risk read path is proven and receive stricter parity and QA controls.
-    </div>
-  </section>
-
-  <!-- 02 DESIGN PRINCIPLES -->
-  <section>
-    <div class="sec-head"><div class="sec-num">02</div><h2>Design Principles</h2><div class="sec-line"></div><span class="label-chip lc-purple">DECIDED</span><div class="sec-meta">6 fixed principles</div></div>
-    <p style="font-size:13px;color:var(--sub);margin-bottom:16px">Six principles are fixed and shape everything below.</p>
-    <div class="principles-grid">
-      <div class="principle-card"><div class="p-num">01 · SCOPE</div><div class="p-title">One service, not many</div><div class="p-desc">A single deployable microservice now — not a fleet. Multiple services stay a future option, not this milestone.</div></div>
-      <div class="principle-card"><div class="p-num">02 · STRUCTURE</div><div class="p-title">Built to split later</div><div class="p-desc">Organised by module so any part can be lifted into its own service later with minimal effort, if the need arises.</div></div>
-      <div class="principle-card"><div class="p-num">03 · SHARING</div><div class="p-title">Shared logic in one place</div><div class="p-desc">Common code lives in shared workspace libraries, never copied — so fixes land once.</div></div>
-      <div class="principle-card"><div class="p-num">04 · CONTRACT</div><div class="p-title">Industry-standard API naming</div><div class="p-desc">Clean, REST-style names using standard POS vocabulary (order, check, tender, refund), replacing legacy naming.</div></div>
-      <div class="principle-card"><div class="p-num">05 · DATA</div><div class="p-title">Modern data layer (Prisma)</div><div class="p-desc">A typed, safer database layer — on the existing shared database, so no data migration and no data risk.</div></div>
-      <div class="principle-card"><div class="p-num">06 · QUALITY</div><div class="p-title">Small, maintainable files</div><div class="p-desc">A hard file-size limit (≤500 LOC) enforced automatically, keeping the code readable and reviewable long-term.</div></div>
-    </div>
-  </section>
-
-  <!-- 03 ARCHITECTURE -->
-  <section>
-    <div class="sec-head"><div class="sec-num">03</div><h2>Architecture</h2><div class="sec-line"></div><span class="label-chip lc-blue">APPROACH</span></div>
-    <p style="font-size:13.5px;color:var(--sub);margin-bottom:18px;line-height:1.7">One service, internally divided into modules that stay independent of each other and share only through common libraries. Traffic is redirected one API at a time at the router — the app keeps calling the same endpoints, so nothing breaks in the field.</p>
-    <div class="arch-box">
-      <div class="arch-title">System Architecture</div>
-      <div class="arch-clients">
-        <div class="arch-client">SmartPOS app</div>
-        <div class="arch-client">online ordering</div>
-        <div class="arch-client">web</div>
-      </div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-arrow-label">router — sends each API to the right place, one at a time</div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-service">
-        <div class="arch-service-name">milagro-pos service</div>
-        <div class="arch-service-sub">modern stack · modular · TypeScript + Prisma</div>
-      </div>
-      <div class="arch-modules-label">↓ &nbsp; independent modules &nbsp; ↓</div>
-      <div class="arch-modules">
-        <div class="arch-mod"><div class="arch-mod-name">transactions</div><div class="arch-mod-sub">orders</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">payments</div><div class="arch-mod-sub">+ gift cards</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">floor</div><div class="arch-mod-sub">tables · servers</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">catalog</div><div class="arch-mod-sub">menu · config</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">reports</div><div class="arch-mod-sub">back-office</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">online order</div><div class="arch-mod-sub">OLO</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">3PD</div><div class="arch-mod-sub">Chowly</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">day-mgmt</div><div class="arch-mod-sub">start/end</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">attendance</div><div class="arch-mod-sub">clock</div></div>
-        <div class="arch-mod"><div class="arch-mod-name">identity</div><div class="arch-mod-sub">login/session</div></div>
-      </div>
-      <div class="arch-arrow">↓</div>
-      <div class="arch-db">shared company database (unchanged)</div>
-    </div>
-    <div class="compat-box">
-      <strong>Backward compatible by design.</strong> The SmartPOS app can't be force-updated, so the old API paths stay alive and keep working while the new, cleaner ones are introduced. Migration is invisible to the field.
-    </div>
-  </section>
-
-  <!-- 04 API NAMING -->
-  <section>
-    <div class="sec-head"><div class="sec-num">04</div><h2>Naming: LoopBack RPC → POS-standard REST</h2><div class="sec-line"></div><span class="label-chip lc-blue">REST</span></div>
-    <p style="font-size:13px;color:var(--sub);margin-bottom:14px">Resource-oriented paths using the vocabulary of Square / Toast / Oracle Simphony — order, check, tender, refund, void.</p>
-    <div class="tcard">
-      <div class="tcard-header"><div class="tcard-title">Endpoint Renaming Examples</div><div class="tcard-meta">Legacy paths kept live throughout migration</div></div>
-      <table class="naming-table">
-        <thead><tr><th>Today (LoopBack RPC)</th><th>New REST (POS-standard)</th></tr></thead>
-        <tbody>
-          <tr><td class="old">GET /PostTransactions/list</td><td class="new">GET /pos/orders</td></tr>
-          <tr><td class="old">GET /PostTransactions/listById/:id</td><td class="new">GET /pos/orders/{orderId}</td></tr>
-          <tr><td class="old">POST /PostTransactions/proceedPayment</td><td class="new">POST /pos/orders/{orderId}/payments</td></tr>
-          <tr><td class="old">POST /PostTransactions/createSplitPayment</td><td class="new">POST /pos/orders/{orderId}/splits</td></tr>
-          <tr><td class="old">POST /PostTransactions/voidRefundByPax</td><td class="new">POST /pos/orders/{orderId}/payments/{paymentId}/refund · /void</td></tr>
-          <tr><td class="old">POST /PostTransactions/addTipAmountByPax</td><td class="new">PATCH /pos/orders/{orderId}/payments/{paymentId}/tip</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="background:var(--amber-lt);border:1px solid rgba(217,119,6,.2);border-radius:10px;padding:12px 16px;margin-top:12px;font-size:13px;color:#92400e;line-height:1.6">
-      <strong>Compatibility is non-negotiable.</strong> The SmartPOS Android fleet can't be force-updated. New REST paths are the go-forward contract, but nginx must keep the legacy <code style="font-family:'JetBrains Mono',monospace;font-size:11px">/api/PostTransactions/*</code> paths alive — routed to the same new controllers via thin adapter routes — until old app versions age out.
-    </div>
-  </section>
-
-  <!-- 05 MODULE COVERAGE -->
-  <section>
-    <div class="sec-head"><div class="sec-num">05</div><h2>SmartPOS Module Coverage</h2><div class="sec-line"></div><span class="label-chip lc-blue">SCOPE</span><div class="sec-meta">261 endpoints · 10 module groups</div></div>
-    <p style="font-size:13px;color:var(--sub);margin-bottom:14px">Full scope: 261 endpoints, 10 module groups. Each module group bundles APIs that share the same DB tables and domain. <strong>POS</strong> = SmartPOS (Android), <strong>Web</strong> = milagro-ui, <strong>Both</strong>. Net split: 95 POS-only · 154 web-only · 12 both.</p>
-    <div class="tcard">
-      <div class="tcard-header"><div class="tcard-title">Module Groups → Milestones</div><div class="tcard-meta">10 groups → 12 delivery milestones (2 phases)</div></div>
-      <table class="dtable">
-        <thead><tr><th>Module Group</th><th>Why one group</th><th style="width:60px">APIs</th><th>Consumers</th><th>Milestone</th></tr></thead>
-        <tbody>
-          <tr><td class="td-name">Transactions / Orders</td><td>Order lifecycle — create · read · void · modify — all read/write the same <code style="font-family:'JetBrains Mono',monospace;font-size:11px">order + item</code> tables.</td><td><span class="api-count">37</span></td><td>POS 29 · Web 6 · 2</td><td><span class="phase-tag ph1">M2–M3 · P1</span></td></tr>
-          <tr><td class="td-name">Payments (+ Gift Cards)</td><td>All money movement — tender, split, tip, preauth, refund/void, gift-card — shares the payment tables and the single TSYS gateway adapter.</td><td><span class="api-count">48</span></td><td>POS 34 · Web 12 · 2</td><td><span class="phase-tag ph1">M4 · P1</span></td></tr>
-          <tr><td class="td-name">Floor / Tables / Servers</td><td>Dine-in floor state: layout, table status/transfer, server assignment — coupled by realtime socket events to the same rooms.</td><td><span class="api-count">13</span></td><td>POS 6 · Web 7</td><td><span class="phase-tag ph1">M2, M5 · P1</span></td></tr>
-          <tr><td class="td-name">Catalog / Menu / Config</td><td>Read-mostly reference data: menu, offline-sync, promocodes, coupons, service-charges, void-reasons, item stock, device config.</td><td><span class="api-count">49</span></td><td>POS 11 · Web 35 · 3</td><td><span class="phase-tag ph1">M1–M2, M6 · P1</span></td></tr>
-          <tr><td class="td-name">Day Management</td><td>Open/close-day, shift-end, cash reconciliation — one day-lifecycle workflow.</td><td><span class="api-count">6</span></td><td>POS 4 · Web 1 · 1</td><td><span class="phase-tag ph1">M7 · P1</span></td></tr>
-          <tr><td class="td-name">Reports</td><td>Back-office reporting — near-entirely web dashboards, replica-served, latency-tolerant.</td><td><span class="api-count">68</span></td><td>POS 1 · Web 64 · 3</td><td><span class="phase-tag ph2">M8 · P2</span></td></tr>
-          <tr><td class="td-name">Online Ordering</td><td>OLO order intake/status + customer flows — mostly web &amp; customer-facing.</td><td><span class="api-count">32</span></td><td>POS 4 · Web 27 · 1</td><td><span class="phase-tag ph2">M9 · P2</span></td></tr>
-          <tr><td class="td-name">3PD / Delivery</td><td>Third-party delivery ingestion (Chowly) + accept-status toggle.</td><td><span class="api-count">3</span></td><td>POS 1 · Web 2</td><td><span class="phase-tag ph2">M10 · P2</span></td></tr>
-          <tr><td class="td-name">Attendance</td><td>Staff clock in/out + break — small, self-contained.</td><td><span class="api-count">3</span></td><td>POS 3</td><td><span class="phase-tag ph2">M11 · P2</span></td></tr>
-          <tr><td class="td-name">Identity &amp; Session</td><td>Login, session, device — issues the auth token, so it's the most-coupled; moved last.</td><td><span class="api-count">2</span></td><td>POS 2</td><td><span class="phase-tag ph2">M12 · P2</span></td></tr>
-          <tr class="total-row"><td>10 groups → 12 delivery milestones</td><td></td><td><span class="api-count">261</span></td><td>95 · 154 · 12</td><td>M1–M12</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- 06 MILESTONE PLAN -->
-  <section>
-    <div class="sec-head"><div class="sec-num">06</div><h2>Phased Milestone Plan</h2><div class="sec-line"></div><span class="label-chip lc-green">DELIVERY</span><div class="sec-meta">M0–M12 · click to expand</div></div>
-    <p style="font-size:13px;color:var(--sub);margin-bottom:14px">Two phases. M1 proves the migration path with one read API; M2 expands it to six production reads; M3–M12 continue by domain. ETAs are AI-assisted implementation days, and every milestone carries work on both Android and API sides.</p>
-
-    <div class="phase-bar"><strong>PHASE 1</strong> — core POS terminal path &nbsp;·&nbsp; transactions · payments · floor · catalog · day-management &nbsp;·&nbsp; <strong>~95–145 AI-days · ~3–4 months</strong></div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-done">M0</div><div><div class="ms-title">Foundation &amp; health</div><div class="ms-desc">Deployed service, CI/K8s wiring, nginx strangler route. No business APIs.</div></div></div><span class="ms-effort">done · ~5–8</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>none</div>
-        <div class="ms-detail"><strong>API</strong>service scaffold + <code style="font-family:'JetBrains Mono',monospace;font-size:11px">/api/v5/pos/healthz</code></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p1">M1</div><div><div class="ms-title">Void reasons — first read migration</div><div class="ms-desc">Prove the complete migration path with one small, read-only API.</div></div></div><span class="ms-effort">~1–2</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swap · response model unchanged</div>
-        <div class="ms-detail"><strong>API</strong>TS+Prisma read · LoopBack envelope preserved · contract fixture + rollback check</div>
-        <div class="ms-apis"><span class="api-pill get">GET 1</span><span class="api-pill post">POST 0</span><span class="api-pill put">PUT 0</span><span class="api-pill del">DEL 0</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p1">M2</div><div><div class="ms-title">POS reference reads — first production batch</div><div class="ms-desc">Six focused reads for promotions, service charges, table transfer, report filters.</div></div></div><span class="ms-effort">~4–7</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swaps · request/response models unchanged · validate 409 recovery and sync flows</div>
-        <div class="ms-detail"><strong>API</strong>TS+Prisma rewrites · compatibility fixtures · per-endpoint metrics and independent rollback</div>
-        <div class="ms-apis"><span class="api-pill get">GET 6</span><span class="api-pill post">POST 0</span><span class="api-pill put">PUT 0</span><span class="api-pill del">DEL 0</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p1">M3</div><div><div class="ms-title">Transactions (orders) read/write core</div><div class="ms-desc">Order lifecycle reads and writes — order creation, updates, void.</div></div></div><span class="ms-effort">~8–12</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swaps · req/resp unchanged</div>
-        <div class="ms-detail"><strong>API</strong>Prisma rewrites · order + item tables · compatibility parity</div>
-        <div class="ms-apis"><span class="api-pill get">GET 23</span><span class="api-pill post">POST 8</span><span class="api-pill put">PUT 6</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p1">M4</div><div><div class="ms-title">Payments (+ gift cards)</div><div class="ms-desc">Highest-risk cluster. Gateway/CNP flows (TSYS adapter) + persistence. No new idempotency.</div></div></div><span class="ms-effort">~40–60</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swap ONLY · req/resp UNCHANGED (money) · no logic removed</div>
-        <div class="ms-detail"><strong>API</strong>persistence rewrite + TSYS adapter (libs) · saga/compensation · heaviest QA</div>
-        <div class="ms-apis"><span class="api-pill get">GET 11</span><span class="api-pill post">POST 34</span><span class="api-pill put">PUT 3</span><span class="api-pill del">DEL 0</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p1">M5</div><div><div class="ms-title">Floor &amp; tables</div><div class="ms-desc">Layout reads + table status/transfer/server assignment. Socket events preserved via Redis emitter.</div></div></div><span class="ms-effort">~8–14</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swap · sockets unchanged · req/resp diff</div>
-        <div class="ms-detail"><strong>API</strong>rewrite + libs socket emitter · behaviour-identical</div>
-        <div class="ms-apis"><span class="api-pill get">GET 3</span><span class="api-pill post">POST 5</span><span class="api-pill put">PUT 2</span><span class="api-pill del">DEL 2</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p1">M6</div><div><div class="ms-title">Catalog &amp; config</div><div class="ms-desc">Remaining menu, offline-sync, promocodes, coupons, service-charges, void-reasons, item stock, device config.</div></div></div><span class="ms-effort">~18–28</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swap · mostly no model change</div>
-        <div class="ms-detail"><strong>API</strong>extract reads (+cache) · restricted Prisma surface</div>
-        <div class="ms-apis"><span class="api-pill get">GET 16</span><span class="api-pill post">POST 14</span><span class="api-pill put">PUT 10</span><span class="api-pill del">DEL 5</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p1">M7</div><div><div class="ms-title">Day management</div><div class="ms-desc">Start/end day, shift-end, end-day cash. endDay orchestrates other domains.</div></div></div><span class="ms-effort">~5–9</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swap · day-state flow re-checked</div>
-        <div class="ms-detail"><strong>API</strong>rewrite · endDay saga groundwork</div>
-        <div class="ms-apis"><span class="api-pill get">GET 1</span><span class="api-pill post">POST 1</span><span class="api-pill put">PUT 4</span><span class="api-pill del">DEL 0</span></div>
-      </div>
-    </div>
-
-    <div class="phase-bar" style="margin-top:20px"><strong>PHASE 2</strong> — back-office &amp; external &nbsp;·&nbsp; reports · online order · 3PD · attendance · identity &nbsp;·&nbsp; <strong>~50–80 AI-days · follows Phase 1</strong></div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p2">M8</div><div><div class="ms-title">Reports</div><div class="ms-desc">Print/server/detail reports + daily-summary-for-mail. Replica-served, latency-tolerant. Overwhelmingly web (64/68).</div></div></div><span class="ms-effort">~22–34</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>mostly none (server/mail-side)</div>
-        <div class="ms-detail"><strong>API</strong>extract to replica reads · report parity</div>
-        <div class="ms-apis"><span class="api-pill get">GET 28</span><span class="api-pill post">POST 40</span><span class="api-pill put">PUT 0</span><span class="api-pill del">DEL 0</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p2">M9</div><div><div class="ms-title">Online Ordering</div><div class="ms-desc">OLO polling/status/detail, delivery/address checks, customer flows. Mostly web (27/32).</div></div></div><span class="ms-effort">~16–26</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>OLO endpoint swap (Android) · web front-end migrates on its own cadence</div>
-        <div class="ms-detail"><strong>API</strong>rewrite · external contracts preserved</div>
-        <div class="ms-apis"><span class="api-pill get">GET 8</span><span class="api-pill post">POST 22</span><span class="api-pill put">PUT 1</span><span class="api-pill del">DEL 1</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p2">M10</div><div><div class="ms-title">3PD (delivery integrations)</div><div class="ms-desc">Chowly acknowledge + accept-status. Third-party ingestion contract preserved.</div></div></div><span class="ms-effort">~4–8</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>OLO/3PD endpoint swap</div>
-        <div class="ms-detail"><strong>API</strong>rewrite · Chowly contract kept</div>
-        <div class="ms-apis"><span class="api-pill get">GET 1</span><span class="api-pill post">POST 1</span><span class="api-pill put">PUT 1</span><span class="api-pill del">DEL 0</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p2">M11</div><div><div class="ms-title">Attendance</div><div class="ms-desc">Clock in/out, break. Small, self-contained.</div></div></div><span class="ms-effort">~3–5</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swap</div>
-        <div class="ms-detail"><strong>API</strong>rewrite · time-clock parity</div>
-        <div class="ms-apis"><span class="api-pill get">GET 3</span><span class="api-pill post">POST 0</span><span class="api-pill put">PUT 0</span><span class="api-pill del">DEL 0</span></div>
-      </div>
-    </div>
-
-    <div class="milestone" onclick="toggle(this)">
-      <div class="ms-header"><div class="ms-left"><div class="ms-badge mb-p2">M12</div><div><div class="ms-title">Identity &amp; session</div><div class="ms-desc">Login, session, device — highest coupling, moved last. Login issues the session token.</div></div></div><span class="ms-effort">~4–8</span></div>
-      <div class="ms-body">
-        <div class="ms-detail"><strong>Android</strong>endpoint URL swap (session flow)</div>
-        <div class="ms-detail"><strong>API</strong>rewrite · login revocation preserved · access-token chain</div>
-        <div class="ms-apis"><span class="api-pill get">GET 2</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 07 MIGRATION CONTRACT -->
-  <section>
-    <div class="sec-head"><div class="sec-num">07</div><h2>Migration Contract</h2><div class="sec-line"></div><span class="label-chip lc-blue">CONTRACT</span><div class="sec-meta">5 rules · non-negotiable</div></div>
-    <p style="font-size:13px;color:var(--sub);margin-bottom:16px">Every endpoint follows these compatibility rules unless an explicitly approved follow-up says otherwise.</p>
-    <div class="contract-grid">
-      <div class="contract-card"><div class="cc-num">01 · CONTRACT</div><div class="cc-title">Preserve requests &amp; responses</div><div class="cc-desc">Keep query parameters, request bodies, status codes, response fields, and the LoopBack-compatible envelope unchanged during migration.</div></div>
-      <div class="contract-card"><div class="cc-num">02 · CLIENT</div><div class="cc-title">Endpoint swap by default</div><div class="cc-desc">Android and web clients change only the endpoint URL. Existing models and business logic remain unchanged unless separately reviewed and approved.</div></div>
-      <div class="contract-card"><div class="cc-num">03 · COEXISTENCE</div><div class="cc-title">Keep legacy routes live</div><div class="cc-desc">The monolith route and the new <code style="font-family:'JetBrains Mono',monospace;font-size:11px">/api/v5/pos/_</code> route operate in parallel until every known consumer has migrated.</div></div>
-      <div class="contract-card"><div class="cc-num">04 · CLEANUP</div><div class="cc-title">Separate optimization work</div><div class="cc-desc">Field cleanup, payload reduction, REST-model redesign, and response optimization are opt-in follow-ups — not bundled into the service move.</div></div>
-      <div class="contract-card"><div class="cc-num">05 · MONEY</div><div class="cc-title">Stricter payment parity</div><div class="cc-desc">Payment requests and responses remain byte-identical, with no idempotency or client-flow changes introduced as part of migration.</div></div>
-    </div>
-  </section>
-
-  <!-- 08 ROLLOUT STRATEGY -->
-  <section>
-    <div class="sec-head"><div class="sec-num">08</div><h2>Rollout Strategy — One API at a Time</h2><div class="sec-line"></div><span class="label-chip lc-green">ROLLOUT</span></div>
-    <p style="font-size:13px;color:var(--sub);margin-bottom:16px">Every API migrates through the same safe, reversible sequence. Old and new run in parallel until the field has drained onto the new app version.</p>
-    <div class="rollout-grid">
-      <div class="contract-card"><div class="cc-num">1 · BACKEND</div><div class="cc-title">Deploy new, keep legacy</div><div class="cc-desc">Ship the new <code style="font-family:'JetBrains Mono',monospace;font-size:11px">/api/v5/pos/…</code> endpoint on the microservice. The legacy <code style="font-family:'JetBrains Mono',monospace;font-size:11px">/api/PosTransactions/…</code> stays live on the monolith — both operational.</div></div>
-      <div class="contract-card"><div class="cc-num">2 · ANDROID</div><div class="cc-title">New version opts in</div><div class="cc-desc">A new app version calls the new endpoint; existing installed versions keep using the legacy endpoint. No forced update.</div></div>
-      <div class="contract-card"><div class="cc-num">3 · COEXIST</div><div class="cc-title">Run both until adoption</div><div class="cc-desc">Both paths serve production traffic until new-version adoption reaches the agreed threshold (to be set by Product).</div></div>
-      <div class="contract-card"><div class="cc-num">4 · DEPRECATE</div><div class="cc-title">Retire legacy</div><div class="cc-desc">Once old app versions are effectively unused, deprecate then remove the legacy endpoint from the monolith.</div></div>
-      <div class="contract-card"><div class="cc-num">↺ · ROLLBACK</div><div class="cc-title">One-line revert</div><div class="cc-desc">Revert the nginx route → traffic falls straight back to the monolith in seconds. New app versions can be toggled off via remote config.</div></div>
-      <div class="contract-card"><div class="cc-num">✓ · VALIDATE</div><div class="cc-title">Success criteria</div><div class="cc-desc">Response parity (golden fixtures), error-rate &amp; latency within SLO, no rise in support tickets — per API before moving to the next.</div></div>
-    </div>
-    <div style="background:var(--green-lt);border:1px solid rgba(5,150,105,.2);border-radius:10px;padding:13px 18px;margin-top:14px;font-size:13px;color:#065f46;line-height:1.65">
-      <strong>Why this is safe.</strong> Because the DB is shared and the contract is byte-identical, the new and legacy endpoints operate on the same rows with the same behaviour — so parallel-running and rollback carry no data risk. Releasing <strong>one API at a time</strong> keeps every change independently verifiable and reversible.
-    </div>
-  </section>
-
-  <!-- 09 RISKS -->
-  <section>
-    <div class="sec-head"><div class="sec-num">09</div><h2>What Keeps This Safe — and What Could Slow It</h2><div class="sec-line"></div><span class="label-chip lc-amber">RISK</span></div>
-    <div class="risk-list">
-      <div class="risk-item safe"><div class="risk-title">✅ The scariest part isn't moving</div><div class="risk-desc">Card charging happens on the payment terminal today; the backend only records the result. We keep it that way — no money-movement logic is relocated, removing the highest-risk change from scope.</div></div>
-      <div class="risk-item safe"><div class="risk-title">✅ The field app is protected</div><div class="risk-desc">Legacy API paths stay live throughout, so existing SmartPOS installs keep working with no forced update.</div></div>
-      <div class="risk-item safe"><div class="risk-title">✅ No data risk</div><div class="risk-desc">The service uses the existing shared database — there is no data migration and no cutover of data ownership.</div></div>
-      <div class="risk-item"><div class="risk-title">⚠️ Two external gates can dominate the calendar</div><div class="risk-desc">A payment-gateway (TSYS) test account and a PCI compliance review. These are dependencies on other teams, not engineering effort, and should be started early.</div></div>
-      <div class="risk-item"><div class="risk-title">⚠️ A prerequisite runs in parallel</div><div class="risk-desc">The payments step depends on the separate destructuring/callback-modernization cleanup of the source endpoints; it's estimated separately and shouldn't be assumed inside these numbers.</div></div>
-    </div>
-  </section>
-
-</div>
-
-
-  <!-- MILESTONE EXPLORER WIDGET -->
+  <!-- 01 ALL SECTIONS -->
   <section>
     <div class="sec-head">
-      <div class="sec-num" style="background:var(--indigo)">★</div>
-      <h2>Milestone Explorer</h2>
+      <div class="sec-num">01</div>
+      <h2>All Sections</h2>
       <div class="sec-line"></div>
-      <span class="label-chip lc-purple">INTERACTIVE</span>
-      <div class="sec-meta">Click any milestone to expand</div>
+      <div class="sec-count">4 sections · 5 live</div>
     </div>
-    <p style="font-size:13px;color:var(--sub);margin-bottom:16px">Click a milestone card to see everything it covers — tasks, Android changes, API work, and endpoint counts.</p>
 
-    <div class="ms-explorer">
-      <div class="ms-explorer-header">
-        <div class="ms-explorer-title">M0 → M12 — All 13 Milestones</div>
-        <div class="ms-explorer-legend">
-          <div class="ms-leg"><div class="ms-leg-dot" style="background:var(--green)"></div>Done</div>
-          <div class="ms-leg"><div class="ms-leg-dot" style="background:var(--blue)"></div>Phase 1</div>
-          <div class="ms-leg"><div class="ms-leg-dot" style="background:var(--purple)"></div>Phase 2</div>
+    <div class="cards-row">
+
+      <!-- SmartPOS -->
+      <div class="card" onclick="location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/e2e/'">
+        <div class="card-stripe s-blue"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon" style="background:var(--blue-lt)">📱</div>
+            <div class="pill pill-green"><div class="pdot pdot-g"></div>Active</div>
+          </div>
+          <div class="card-tag">Product · Android POS</div>
+          <div class="card-title">SmartPOS</div>
+          <div class="card-desc">E2E test coverage and Jet Compose migration roadmap for SmartPOS Android POS.</div>
+          <div class="sub-list">
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/e2e/'">
+              <div class="sub-left">
+                <div class="sub-icon" style="background:var(--blue-lt)">🧪</div>
+                <div><div class="sub-name">E2E Test Roadmap</div><div class="sub-meta">Satish · Sandeep · Darshan · 2,992 TCs · ETA Sep 30</div></div>
+              </div>
+              <div class="sub-right"><span class="sub-tag st-active">✅ Active</span><span class="sub-arrow">→</span></div>
+            </div>
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/jetcompose/'">
+              <div class="sub-left">
+                <div class="sub-icon" style="background:var(--green-lt)">🎨</div>
+                <div><div class="sub-name">Jet Compose Roadmap</div><div class="sub-meta">Satish & Sandeep · Sep 15 → Nov 30, 2026</div></div>
+              </div>
+              <div class="sub-right"><span class="sub-tag st-upcoming">⏳ Upcoming</span><span class="sub-arrow">→</span></div>
+            </div>
+          </div>
+          <div class="team-row">
+            <span class="team-lbl">Team</span>
+            <div class="avs">
+              <div class="av av-b">V</div><div class="av av-i">P</div>
+              <div class="av av-g">S</div><div class="av av-a">S</div><div class="av av-p">D</div>
+            </div>
+            <span class="team-names">Vaishanavi, Pratik, Satish, Sandeep, Darshan</span>
+          </div>
+        </div>
+        <div class="card-foot">
+          <span class="cf-label">View SmartPOS</span>
+          <div class="cf-arr">→</div>
         </div>
       </div>
 
-      <div class="ms-grid" id="ms-grid"></div>
-      <div class="ms-detail-panel" id="ms-detail-panel"></div>
+      <!-- Playwright -->
+      <div class="card" onclick="location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/playwright/'">
+        <div class="card-stripe s-purple"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon" style="background:var(--purple-lt)">🎭</div>
+            <div class="pill pill-green"><div class="pdot pdot-g"></div>Live</div>
+          </div>
+          <div class="card-tag">Automation · Utiliko | Milagro | PBX</div>
+          <div class="card-title">Playwright</div>
+          <div class="card-desc">Automation conversion roadmap across Utiliko, Milagro Cloud and PBX using Playwright and Android native.</div>
+          <div class="card-stats">
+            <div class="cstat"><div class="cstat-val" style="color:var(--blue)">5th Jun</div><div class="cstat-label">Cloud ETA</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--purple)">30th Jun</div><div class="cstat-label">Android ETA</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--teal)">3</div><div class="cstat-label">Milestones</div></div>
+          </div>
+          <div class="sub-list">
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/playwright/'">
+              <div class="sub-left"><div class="sub-icon" style="background:var(--blue-lt)">☁️</div><div><div class="sub-name">Milagro Cloud</div><div class="sub-meta">Vaishanavi & Pratik · 12 modules</div></div></div>
+              <span class="sub-arrow">→</span>
+            </div>
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/playwright/'">
+              <div class="sub-left"><div class="sub-icon" style="background:var(--purple-lt)">🏢</div><div><div class="sub-name">Utiliko Admin</div><div class="sub-meta">Prerana & Vrudavan · 35 sub-modules</div></div></div>
+              <span class="sub-arrow">→</span>
+            </div>
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/playwright/'">
+              <div class="sub-left"><div class="sub-icon" style="background:var(--amber-lt)">📞</div><div><div class="sub-name">PBX — Message</div><div class="sub-meta">Pramila · 16 sub-modules · Local only</div></div></div>
+              <span class="sub-arrow">→</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-foot">
+          <span class="cf-label">View Playwright Roadmap</span>
+          <div class="cf-arr">→</div>
+        </div>
+      </div
+      <!-- API OPTIMIZATION -->
+      <div class="card" onclick="location.href='smartpos/api-optimization/'">
+        <div class="card-stripe s-api"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon" style="background:rgba(124,58,237,.14)">⚡</div>
+            <div class="pill pill-blue"><div class="pdot pdot-b"></div>Active</div>
+          </div>
+          <div class="card-tag">Backend · milagro-pos · Darshan</div>
+          <div class="card-title">API Optimization</div>
+          <div class="card-desc">Migrate 261 SmartPOS APIs off the LoopBack monolith into milagro-pos — a modern, modular microservice. Two phases, 12 milestones, zero big-bang cutover.</div>
+          <div class="card-stats">
+            <div class="cstat"><div class="cstat-val" style="color:var(--blue)">261</div><div class="cstat-label">Total APIs</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--purple)">12</div><div class="cstat-label">Milestones</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--indigo)">~6-8 mo</div><div class="cstat-label">Timeline</div></div>
+          </div>
+          <div class="sub-list">
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='smartpos/api-optimization/'">
+              <div class="sub-left"><div class="sub-icon" style="background:var(--blue-lt)">🔷</div><div><div class="sub-name">Phase 1 — Core POS Terminal</div><div class="sub-meta">Transactions · Payments · Floor · Catalog · Day Mgmt · ~3-4 mo</div></div></div>
+              <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag st-active">Active</span><span class="sub-arrow">→</span></div>
+            </div>
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='smartpos/api-optimization/'">
+              <div class="sub-left"><div class="sub-icon" style="background:var(--purple-lt)">🔹</div><div><div class="sub-name">Phase 2 — Back-office &amp; External</div><div class="sub-meta">Reports · OLO · 3PD · Attendance · Identity · ~2-4 mo</div></div></div>
+              <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag st-upcoming">Upcoming</span><span class="sub-arrow">→</span></div>
+            </div>
+          </div>
+          <div class="team-row">
+            <span class="tm-lbl">Team</span>
+            <div class="av-stack"><div class="av" style="background:#2563eb;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;border:2px solid var(--bg,#07091a)">D</div></div>
+            <span class="tm-names">Darshan · TypeScript · Prisma · Node LTS</span>
+          </div>
+        </div>
+        <div class="card-foot" onclick="event.stopPropagation();location.href='smartpos/api-optimization/'">
+          <span class="cf-label">View API Optimization</span>
+          <div class="cf-arr">→</div>
+        </div>
+      </div>
+
+      <!-- SSR -->
+      <div class="card" onclick="location.href='ssr/'">
+        <div class="card-stripe s-ssr"></div>
+        <div class="card-body">
+          <div class="card-top">
+            <div class="card-icon" style="background:rgba(8,145,178,.14)">🌐</div>
+            <div class="pill pill-amber"><div class="pdot" style="background:var(--amber)"></div>In Progress</div>
+          </div>
+          <div class="card-tag">Frontend · Angular SSR · Milagro</div>
+          <div class="card-title">SSR</div>
+          <div class="card-desc">Migrating customer-facing Milagro modules to a new SSR Angular app. Replacing Bootstrap with Tailwind CSS, improving performance and SEO readiness.</div>
+          <div class="card-stats">
+            <div class="cstat"><div class="cstat-val" style="color:var(--teal)">P1 Live</div><div class="cstat-label">Phase 1</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--blue)">4</div><div class="cstat-label">Milestones</div></div>
+            <div class="cstat"><div class="cstat-val" style="color:var(--green)">Jul 13</div><div class="cstat-label">Started</div></div>
+          </div>
+          <div class="sub-list">
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='ssr/'">
+              <div class="sub-left"><div class="sub-icon" style="background:var(--teal-lt)">🚀</div><div><div class="sub-name">Phase 1 — SSR Foundation</div><div class="sub-meta">Docker · CICD · Dark mode · Skeleton loader · Loyalty page</div></div></div>
+              <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag st-active">Active</span><span class="sub-arrow">→</span></div>
+            </div>
+            <div class="sub-row clickable" onclick="event.stopPropagation();location.href='ssr/'">
+              <div class="sub-left"><div class="sub-icon" style="background:var(--blue-lt)">📦</div><div><div class="sub-name">Phase 2 — Customer Modules</div><div class="sub-meta">OLO · Login · Menu · Reviews · Gift Cards · Reservation · Waitlist</div></div></div>
+              <div style="display:flex;align-items:center;gap:8px"><span class="sub-tag st-upcoming">Upcoming</span><span class="sub-arrow">→</span></div>
+            </div>
+          </div>
+          <div class="team-row">
+            <span class="tm-lbl">Stack</span>
+            <span class="tm-names">Angular · SSR · Tailwind CSS · Angular Material · GCP</span>
+          </div>
+        </div>
+        <div class="card-foot" onclick="event.stopPropagation();location.href='ssr/'">
+          <span class="cf-label">View SSR</span>
+          <div class="cf-arr">→</div>
+        </div>
+      </div>
+    >
+
+          </div>
+  </section>
+
+  <!-- 02 QUICK LINKS -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <h2>Quick Links</h2>
+      <div class="sec-line"></div>
+      <div class="sec-count">All live URLs</div>
+    </div>
+    <div class="ql-wrap">
+      <div class="ql-title">🔗 All Pages</div>
+      <div class="ql-grid">
+        <a href="https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/e2e/" class="ql-item">
+          <div class="ql-left"><span class="ql-icon">🧪</span><div><div class="ql-name">SmartPOS E2E Roadmap</div><div class="ql-url">/smartpos/e2e/</div></div></div>
+          <span class="ql-badge ql-active">✅ Active</span>
+        </a>
+        <a href="https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/smartpos/jetcompose/" class="ql-item">
+          <div class="ql-left"><span class="ql-icon">🎨</span><div><div class="ql-name">Jet Compose Roadmap</div><div class="ql-url">/smartpos/jetcompose/</div></div></div>
+          <span class="ql-badge ql-draft">✏️ Draft</span>
+        </a>
+        <a href="https://RohiniS07.github.io/Milagro-Roadmap-Release-Deliverables/playwright/" class="ql-item">
+          <div class="ql-left"><span class="ql-icon">🎭</span><div><div class="ql-name">Playwright (Utiliko | Milagro | PBX)</div><div class="ql-url">/playwright/</div></div></div>
+          <span class="ql-badge ql-draft">✏️ Draft</span>
+        </a>
+        <a href="smartpos/api-optimization/" class="ql-item">
+          <div class="ql-left"><span class="ql-icon">⚡</span><div><div class="ql-name">API Optimization</div><div class="ql-url">/smartpos/api-optimization/</div></div></div>
+          <span class="ql-badge ql-active">✅ Active</span>
+        </a>
+        <a href="ssr/" class="ql-item">
+          <div class="ql-left"><span class="ql-icon">🌐</span><div><div class="ql-name">SSR</div><div class="ql-url">/ssr/</div></div></div>
+          <span class="ql-badge ql-active">✅ Active</span>
+        </a>
+        
+        
+      </div>
     </div>
   </section>
 
-<div class="footer">
-  <div class="footer-left"><div class="footer-av">D</div><span>Created by <span class="footer-name">Darshan</span> · Backend Engineer</span></div>
-  <div style="display:inline-flex;align-items:center;gap:6px;background:var(--blue-lt);border:1px solid var(--blue-mid);border-radius:100px;padding:3px 12px;font-size:11.5px;font-weight:600;color:var(--blue)">⚡ Active · Jul 2026</div>
-  <span>milagro-pos Architecture &amp; Build Plan · Jul 2026</span>
-</div>
-
-<script>
-// Old accordion toggle
-function toggle(el){
-  const body = el.querySelector('.ms-body');
-  body.classList.toggle('open');
-}
-
-// ── MILESTONE EXPLORER DATA ──────────────────────────────────────
-const milestones = [
-  {
-    id:'M0', phase:'done', effort:'done · ~5-8', title:'Foundation & health',
-    desc:'Deployed service, health checks, CI/K8s wiring, nginx strangler route. No business APIs.',
-    android:'No Android changes in this milestone. Service scaffold only.',
-    api:'Service scaffold + /api/v5/pos/healthz endpoint. Express app, Prisma client, auth middleware, shared libraries all wired up.',
-    tasks:[
-      'Deploy milagro-pos service to environment',
-      'Wire up CI/K8s pipeline',
-      'Configure nginx strangler route',
-      'Set up /api/v5/pos/healthz health endpoint',
-      'Wire Prisma client (mariadb adapter)',
-      'Add authGuard() middleware (JWT + access-token)',
-      'Set up shared/ libraries (common-response, helpers)',
-    ],
-    get:0, post:0, put:0, del:0, total:0
-  },
-  {
-    id:'M1', phase:'p1', effort:'~1-2 days', title:'Void reasons — first read migration',
-    desc:'Use one small, read-only API to prove the complete migration path: routing, Prisma access, legacy response compatibility, Android endpoint swap, observability, and rollback.',
-    android:'Endpoint URL swap only · response model unchanged · existing request parameters preserved.',
-    api:'TS+Prisma read implementation · LoopBack envelope preserved · contract fixture added · rollback check verified.',
-    tasks:[
-      'Implement void-reasons GET endpoint in catalog module',
-      'Prisma query replacing LoopBack data access',
-      'Preserve commonMsg LoopBack-compatible response envelope',
-      'Add contract fixture (golden fixture for response parity)',
-      'Configure Android endpoint swap in the app',
-      'Verify legacy /api/PostTransactions path still works via nginx',
-      'Add per-endpoint observability / metrics',
-      'Test rollback: revert nginx route → traffic back to monolith',
-    ],
-    get:1, post:0, put:0, del:0, total:1
-  },
-  {
-    id:'M2', phase:'p1', effort:'~4-7 days', title:'POS reference reads — first production batch',
-    desc:'Migrate six focused reads used by promotions, service charges, table transfer, report filters, 409 table recovery, and master-data synchronization. Preserve every current query parameter and response contract.',
-    android:'Endpoint URL swaps · request/response models unchanged · validate 409 recovery and sync flows.',
-    api:'TS+Prisma rewrites · compatibility fixtures per endpoint · per-endpoint metrics · independent rollback per API.',
-    tasks:[
-      'Promotions / promo-code read endpoint',
-      'Service charges read endpoint',
-      'Table transfer reference read',
-      'Report filters reference read',
-      '409 table recovery read endpoint',
-      'Master-data synchronization read',
-      'Compatibility fixture for each of the 6 endpoints',
-      'Independent rollback path verified for each endpoint',
-    ],
-    get:6, post:0, put:0, del:0, total:6
-  },
-  {
-    id:'M3', phase:'p1', effort:'~8-12 days', title:'Transactions (orders) read/write core',
-    desc:'Order lifecycle — create, read, void, modify. All read/write the same order + item tables, so they migrate together as one unit.',
-    android:'Endpoint URL swaps · req/resp unchanged · table read/write parity validated.',
-    api:'Prisma rewrites for order + item tables · full order lifecycle · compatibility parity tests.',
-    tasks:[
-      'GET orders list endpoint',
-      'GET order by ID endpoint',
-      'POST create order endpoint',
-      'PUT / PATCH modify order endpoint',
-      'POST void order endpoint',
-      'Order item add/remove endpoints',
-      'Prisma queries for order + item tables',
-      'Response parity fixture for all endpoints',
-      'Android endpoint swap verification',
-    ],
-    get:14, post:8, put:6, del:0, total:28
-  },
-  {
-    id:'M4', phase:'p1', effort:'~40-60 days', title:'Payments (+ gift cards)',
-    desc:'Highest-risk cluster. Gateway/CNP flows (TSYS adapter) + persistence (proceedPayment, splits, tips, refunds). App charges; backend records. No new idempotency.',
-    android:'Endpoint URL swap ONLY · req/resp UNCHANGED (money) · no logic removed from mobile side.',
-    api:'Persistence rewrite + TSYS adapter (libs/pos-domain/tsys) · saga/compensation patterns · heaviest QA · byte-identical payment responses.',
-    tasks:[
-      'proceedPayment endpoint (POS main payment flow)',
-      'createSplitPayment endpoint',
-      'addTipAmountByPax endpoint',
-      'voidRefundByPax endpoint',
-      'Gift card load / redeem endpoints',
-      'Pre-auth initiate / capture / void flows',
-      'TSYS gateway adapter in libs/pos-domain/tsys',
-      'Split payment orchestrator (split-payment.service.ts)',
-      'Saga/compensation pattern for partial failures',
-      'Byte-identical response validation (golden fixtures)',
-      'PCI compliance checklist items',
-      'Heaviest QA pass across all payment flows',
-    ],
-    get:11, post:34, put:3, del:0, total:48
-  },
-  {
-    id:'M5', phase:'p1', effort:'~8-14 days', title:'Floor & tables',
-    desc:'Layout reads + table status/transfer/server assignment. Socket events preserved via Redis emitter (socket server stays in monolith).',
-    android:'Endpoint URL swap · sockets unchanged · req/resp diff minimal.',
-    api:'Rewrite + libs socket emitter wiring · behaviour-identical · Redis pub/sub preserved.',
-    tasks:[
-      'Floor layout read endpoint',
-      'Table status read endpoint',
-      'Table transfer endpoint',
-      'Server assignment endpoint',
-      'Table status update endpoint',
-      'Wire Redis emitter for socket events (server stays in monolith)',
-      'Behaviour-identical socket event contracts',
-      'Response parity for all floor/table endpoints',
-    ],
-    get:3, post:5, put:2, del:2, total:12
-  },
-  {
-    id:'M6', phase:'p1', effort:'~18-28 days', title:'Catalog & config',
-    desc:'Remaining menu, offline-sync, promocodes, coupons, service-charges, void-reasons (bulk), item stock, and device config APIs after the M1–M2 read migrations.',
-    android:'Endpoint URL swap · mostly no model change · read-mostly traffic.',
-    api:'Extract reads (+cache) · restricted Prisma surface · cache-friendly read patterns.',
-    tasks:[
-      'Menu read endpoints (categories, items, modifiers)',
-      'Offline-sync endpoints',
-      'Promocodes CRUD endpoints',
-      'Coupons read/write endpoints',
-      'Service-charges full CRUD',
-      'Void-reasons remaining write endpoints',
-      'Item stock endpoints',
-      'Device config read/write endpoints',
-      'Cache layer for read-mostly catalog data',
-      'Restricted Prisma surface (per-module DB grants)',
-    ],
-    get:16, post:14, put:10, del:5, total:45
-  },
-  {
-    id:'M7', phase:'p1', effort:'~5-9 days', title:'Day management',
-    desc:'Start/end day, shift-end, end-day cash. endDay orchestrates other domains — later a Pub/Sub saga.',
-    android:'Endpoint URL swap · day-state flow re-checked end-to-end.',
-    api:'Rewrite · endDay saga groundwork · orchestration across catalog, floor, payments domains.',
-    tasks:[
-      'startDay endpoint',
-      'endDay endpoint (orchestrates across domains)',
-      'shift-end endpoint',
-      'End-day cash reconciliation endpoint',
-      'Day-state validation (open/closed transitions)',
-      'endDay saga groundwork (Pub/Sub prep for later)',
-      'Integration test: full day lifecycle (open → transactions → close)',
-    ],
-    get:1, post:1, put:4, del:0, total:6
-  },
-  {
-    id:'M8', phase:'p2', effort:'~22-34 days', title:'Reports',
-    desc:'Print/server/detail reports + daily-summary-for-mail. Replica-served, latency-tolerant. Overwhelmingly web (64/68).',
-    android:'Mostly none (server/mail-side reports). Very minimal Android surface.',
-    api:'Extract to replica reads · report parity · replica DB routing · daily summary mail endpoint.',
-    tasks:[
-      'Sales summary report endpoint',
-      'Location sales detail report',
-      'Employee sales report',
-      'Void check / void item reports',
-      'Refund report endpoint',
-      'Cash drawer report',
-      'Daily-summary-for-mail endpoint',
-      'Replica DB routing for all report reads',
-      'Report parity fixtures (response format validation)',
-      'Print report endpoints (server-side rendering)',
-    ],
-    get:28, post:40, put:0, del:0, total:68
-  },
-  {
-    id:'M9', phase:'p2', effort:'~16-26 days', title:'Online Ordering',
-    desc:'OLO polling/status/detail, delivery/address checks, customer flows. Mostly web (27/32), some customer-facing.',
-    android:'OLO endpoint swap (Android) · web front-end migrates on its own cadence.',
-    api:'Rewrite · external contracts preserved · customer-facing endpoints get most conservative canary.',
-    tasks:[
-      'OLO order polling endpoint',
-      'OLO order status endpoint',
-      'OLO order detail endpoint',
-      'Delivery address check endpoint',
-      'Customer flow endpoints (OLO customer-facing)',
-      'OLO order intake endpoints',
-      'Chowly / 3PD order acceptance flow',
-      'External contract preservation (OLO provider)',
-      'Web canary: confirm all consumers migrated before legacy retire',
-    ],
-    get:8, post:22, put:1, del:1, total:32
-  },
-  {
-    id:'M10', phase:'p2', effort:'~4-8 days', title:'3PD / Delivery integrations',
-    desc:'Third-party delivery ingestion (Chowly) + accept-status toggle. Small surface, preserved Chowly contract.',
-    android:'OLO/3PD endpoint swap.',
-    api:'Rewrite · Chowly contract kept · accept-status toggle.',
-    tasks:[
-      'Chowly order ingestion endpoint',
-      'Delivery accept-status toggle endpoint',
-      'Chowly contract fixture (response parity)',
-      'OLO/3PD Android endpoint swap',
-    ],
-    get:1, post:1, put:1, del:0, total:3
-  },
-  {
-    id:'M11', phase:'p2', effort:'~3-5 days', title:'Attendance',
-    desc:'Staff clock in/out + break — small, self-contained module. Time-clock parity verified.',
-    android:'Endpoint URL swap.',
-    api:'Rewrite · time-clock parity verified · self-contained module.',
-    tasks:[
-      'Clock-in endpoint',
-      'Clock-out endpoint',
-      'Break start/end endpoints',
-      'Time-clock parity fixture',
-      'Attendance module isolated (no cross-module deps)',
-    ],
-    get:3, post:0, put:0, del:0, total:3
-  },
-  {
-    id:'M12', phase:'p2', effort:'~4-8 days', title:'Identity & session',
-    desc:"Login, session, device — highest coupling, moved last. Login issues the auth token, so it's the most coupled to every other module.",
-    android:'Endpoint URL swap (session flow) · token chain verified.',
-    api:'Rewrite · login revocation preserved · access-token chain verified end-to-end.',
-    tasks:[
-      'Login endpoint (issues session token)',
-      'Session validation endpoint',
-      'Device registration endpoint',
-      'Login revocation / logout endpoint',
-      'Access-token chain verification (all modules)',
-      'Auth guard integration test across all migrated endpoints',
-      'Legacy login path kept live until full adoption',
-    ],
-    get:2, post:0, put:0, del:0, total:2
-  },
-];
-
-function phaseClass(p){ return p==='done'?'ph-done':p==='p1'?'ph1':'ph2'; }
-function badgeClass(p){ return p==='done'?'tb-done':p==='p1'?'tb-p1':'tb-p2'; }
-function panelClass(p){ return p==='done'?'ph-done':p==='p2'?'ph2':''; }
-
-function buildMsGrid(){
-  const grid = document.getElementById('ms-grid');
-  milestones.forEach((m, idx) => {
-    const tile = document.createElement('div');
-    tile.className = `ms-tile ${phaseClass(m.phase)}`;
-    tile.dataset.idx = idx;
-    const chips = [];
-    if(m.get)  chips.push(`<span class="ms-api-chip mac-get">GET ${m.get}</span>`);
-    if(m.post) chips.push(`<span class="ms-api-chip mac-post">POST ${m.post}</span>`);
-    if(m.put)  chips.push(`<span class="ms-api-chip mac-put">PUT ${m.put}</span>`);
-    if(m.del)  chips.push(`<span class="ms-api-chip mac-del">DEL ${m.del}</span>`);
-    if(!m.total) chips.push(`<span class="ms-api-chip mac-none">scaffold only</span>`);
-    tile.innerHTML = `
-      <div class="ms-tile-top">
-        <div class="ms-tile-badge ${badgeClass(m.phase)}">${m.id}</div>
-        <div class="ms-tile-effort">${m.effort}</div>
-      </div>
-      <div class="ms-tile-title">${m.title}</div>
-      <div class="ms-tile-bottom">${chips.join('')}${m.total?`<span class="ms-api-chip" style="background:var(--pale);color:var(--text);font-weight:700;margin-left:auto">${m.total} APIs</span>`:''}</div>`;
-    tile.addEventListener('click', () => openPanel(idx, tile));
-    grid.appendChild(tile);
-  });
-}
-
-let activeIdx = -1;
-function openPanel(idx, tile){
-  const panel = document.getElementById('ms-detail-panel');
-  // toggle off if same
-  if(activeIdx === idx){
-    panel.classList.remove('open');
-    tile.classList.remove('active');
-    activeIdx = -1;
-    return;
-  }
-  // deactivate previous
-  document.querySelectorAll('.ms-tile').forEach(t => t.classList.remove('active'));
-  tile.classList.add('active');
-  activeIdx = idx;
-  const m = milestones[idx];
-  const pc = panelClass(m.phase);
-  const bc = badgeClass(m.phase);
-  // build task list
-  const taskHtml = m.tasks.map(t => `<div class="task-item"><div class="task-dot ${phaseClass(m.phase)==='ph-done'?'done':phaseClass(m.phase)==='ph2'?'p2':''}"></div><span>${t}</span></div>`).join('');
-  // api verb row
-  const verbs = [];
-  if(m.get)  verbs.push(`<span class="dp-api-pill api-pill get">GET ${m.get}</span>`);
-  if(m.post) verbs.push(`<span class="dp-api-pill api-pill post">POST ${m.post}</span>`);
-  if(m.put)  verbs.push(`<span class="dp-api-pill api-pill put">PUT ${m.put}</span>`);
-  if(m.del)  verbs.push(`<span class="dp-api-pill api-pill del">DEL ${m.del}</span>`);
-  panel.className = `ms-detail-panel open ${pc}`;
-  panel.innerHTML = `
-    <div class="dp-header">
-      <div class="dp-header-left">
-        <div class="dp-badge ${bc}" style="width:40px;height:40px;font-size:14px">${m.id}</div>
-        <div>
-          <div class="dp-title">${m.title}</div>
-          <div class="dp-desc">${m.desc}</div>
+  <!-- 03 REPO STRUCTURE -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <h2>How to Add a New Roadmap</h2>
+      <div class="sec-line"></div>
+    </div>
+    <div class="howto">
+      <div class="howto-icon">📁</div>
+      <div class="howto-body">
+        <div class="howto-title">Create a subfolder → upload index.html → update portal card</div>
+        <div class="howto-text">Each roadmap lives in its own folder. Add the HTML as <code style="background:var(--pale);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px">index.html</code> and it gets its own clean URL instantly.</div>
+        <div class="howto-code">
+          Milagro-Roadmap-Release-Deliverables/<br>
+          ├── index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← this portal ✅<br>
+          ├── smartpos/e2e/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← E2E roadmap ✅ Active<br>
+          ├── smartpos/jetcompose/index.html &nbsp;← Jet Compose ⏳ Upcoming<br>
+          ├── playwright/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← Playwright ✅ Live<br>
+          ├── smartpos/api-optimization/index.html &nbsp;← API Optimization ✅ Active<br>
+          └── ssr/index.html &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;← SSR ✅ Active<br>
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-        <div class="dp-effort-big">${m.effort}</div>
-        <div class="dp-close" onclick="closePanel()">✕ Close</div>
-      </div>
     </div>
-    <div class="dp-body">
-      <div class="dp-section">
-        <div class="dp-section-label">📱 Android changes</div>
-        <div class="dp-section-text">${m.android}</div>
-      </div>
-      <div class="dp-section">
-        <div class="dp-section-label">⚙️ API / backend work</div>
-        <div class="dp-section-text">${m.api}</div>
-      </div>
-    </div>
-    <div class="dp-tasks">
-      <div class="dp-tasks-label">📋 Tasks in this milestone (${m.tasks.length})</div>
-      <div class="task-list">${taskHtml}</div>
-    </div>
-    ${m.total ? `<div class="dp-api-row">${verbs.join('')}<span class="dp-total-pill">${m.total} APIs total</span></div>` : `<div style="font-size:12px;color:var(--muted)">No business APIs in this milestone — service scaffold only.</div>`}`;
-  // scroll into view smoothly
-  setTimeout(() => panel.scrollIntoView({ behavior:'smooth', block:'nearest' }), 50);
-}
+  </section>
 
-function closePanel(){
-  document.getElementById('ms-detail-panel').classList.remove('open');
-  document.querySelectorAll('.ms-tile').forEach(t => t.classList.remove('active'));
-  activeIdx = -1;
-}
+</div>
 
-buildMsGrid();
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    <div class="footer-av">R</div>
+    <span>Maintained by <span class="footer-name">Rohini Sujith</span> · Product Manager</span>
+  </div>
+  <span>Milagro Engineering Portal · Jul 2026</span>
+</div>
 
-// Old accordion toggle
-function toggle(el){
-  const body = el.querySelector('.ms-body');
-  body.classList.toggle('open');
-}
-</script>
 </body>
 </html>
