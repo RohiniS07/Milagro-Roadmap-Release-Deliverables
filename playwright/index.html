@@ -180,6 +180,18 @@ section{margin-bottom:52px}
 .asgn-nr{background:var(--red-lt);color:var(--red)}
 .asgn-re{background:var(--purple-lt);color:var(--purple)}
 .asgn-ns{background:var(--pale);color:var(--muted)}
+
+/* ── COLUMN FILTERS ── */
+.col-filters{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;background:var(--off);border-bottom:1px solid var(--border);align-items:flex-end}
+.cf-group{display:flex;flex-direction:column;gap:3px;flex:1;min-width:110px}
+.cf-group label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.cf-group select,.cf-group input[type=text]{border:1px solid var(--border);border-radius:7px;background:var(--white);padding:5px 10px;font-family:'Outfit',sans-serif;font-size:12px;color:var(--text);outline:none;transition:border-color .15s;width:100%;cursor:pointer}
+.cf-group select:focus,.cf-group input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 2px rgba(124,58,237,.1)}
+.cf-group select option{font-size:12px}
+.cf-reset{display:flex;align-items:flex-end;flex-shrink:0}
+.cf-reset button{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:var(--white);font-size:11.5px;color:var(--muted);cursor:pointer;font-family:'Outfit',sans-serif;transition:all .15s;white-space:nowrap}
+.cf-reset button:hover{background:var(--red-lt);color:var(--red);border-color:rgba(220,38,38,.3)}
+.filter-count{font-size:11px;color:var(--muted);padding:5px 16px;background:var(--off);border-bottom:1px solid var(--border);font-family:'JetBrains Mono',monospace}
 </style>
 </head>
 <body>
@@ -377,8 +389,37 @@ section{margin-bottom:52px}
         </div>
         <div class="search-bar">
           <span class="si">🔍</span>
-          <input type="text" placeholder="Search suites…" oninput="filterTable('cloud-all-tbody', this.value)">
+          <input type="text" placeholder="Search all columns…" oninput="filterTable('cloud-all-tbody', this.value)">
         </div>
+        <div class="col-filters">
+          
+    <div class="cf-group">
+      <label>QA</label>
+      <select id="cf-cloud-all-qa" onchange="applyColFilters('cloud-all')">
+        <option value="">All QA</option>
+      </select>
+    </div>
+          <div class="cf-group">
+            <label>Module</label>
+            <select id="cf-cloud-all-module" onchange="applyColFilters('cloud-all')">
+              <option value="">All Modules</option>
+            </select>
+          </div>
+          <div class="cf-group" style="flex:1.5;min-width:140px">
+            <label>Sub-module</label>
+            <input type="text" id="cf-cloud-all-sub" placeholder="Type to filter..." oninput="applyColFilters('cloud-all')">
+          </div>
+          <div class="cf-group">
+            <label>Status</label>
+            <select id="cf-cloud-all-status" onchange="applyColFilters('cloud-all')">
+              <option value="">All Status</option>
+            </select>
+          </div>
+          <div class="cf-reset">
+            <button onclick="resetColFilters('cloud-all')">✕ Reset</button>
+          </div>
+        </div>
+        <div class="filter-count" id="fc-cloud-all"></div>
         <table class="dtable">
           <thead><tr><th>#</th><th>QA</th><th>Module</th><th>Sub-module</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
           <tbody id="cloud-all-tbody"></tbody>
@@ -388,8 +429,31 @@ section{margin-bottom:52px}
     <div class="tab-panel" id="panel-cloud-v">
       <div class="tcard">
         <div class="tcard-header"><div class="tcard-title">Vaishanavi's Suites</div></div>
+        <div class="col-filters">
+          
+          <div class="cf-group">
+            <label>Module</label>
+            <select id="cf-cloud-v-module" onchange="applyColFilters('cloud-v')">
+              <option value="">All Modules</option>
+            </select>
+          </div>
+          <div class="cf-group" style="flex:1.5;min-width:140px">
+            <label>Sub-module</label>
+            <input type="text" id="cf-cloud-v-sub" placeholder="Type to filter..." oninput="applyColFilters('cloud-v')">
+          </div>
+          <div class="cf-group">
+            <label>Status</label>
+            <select id="cf-cloud-v-status" onchange="applyColFilters('cloud-v')">
+              <option value="">All Status</option>
+            </select>
+          </div>
+          <div class="cf-reset">
+            <button onclick="resetColFilters('cloud-v')">✕ Reset</button>
+          </div>
+        </div>
+        <div class="filter-count" id="fc-cloud-v"></div>
         <table class="dtable">
-          <thead><tr><th>#</th><th>Suite Name</th><th>Module</th></tr></thead>
+          <thead><tr><th>#</th><th>Module</th><th>Sub-module</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
           <tbody id="cloud-v-tbody"></tbody>
         </table>
       </div>
@@ -397,8 +461,31 @@ section{margin-bottom:52px}
     <div class="tab-panel" id="panel-cloud-p">
       <div class="tcard">
         <div class="tcard-header"><div class="tcard-title">Pratik's Suites</div></div>
+        <div class="col-filters">
+          
+          <div class="cf-group">
+            <label>Module</label>
+            <select id="cf-cloud-p-module" onchange="applyColFilters('cloud-p')">
+              <option value="">All Modules</option>
+            </select>
+          </div>
+          <div class="cf-group" style="flex:1.5;min-width:140px">
+            <label>Sub-module</label>
+            <input type="text" id="cf-cloud-p-sub" placeholder="Type to filter..." oninput="applyColFilters('cloud-p')">
+          </div>
+          <div class="cf-group">
+            <label>Status</label>
+            <select id="cf-cloud-p-status" onchange="applyColFilters('cloud-p')">
+              <option value="">All Status</option>
+            </select>
+          </div>
+          <div class="cf-reset">
+            <button onclick="resetColFilters('cloud-p')">✕ Reset</button>
+          </div>
+        </div>
+        <div class="filter-count" id="fc-cloud-p"></div>
         <table class="dtable">
-          <thead><tr><th>#</th><th>Suite Name</th><th>Module</th></tr></thead>
+          <thead><tr><th>#</th><th>Module</th><th>Sub-module</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
           <tbody id="cloud-p-tbody"></tbody>
         </table>
       </div>
@@ -433,8 +520,37 @@ section{margin-bottom:52px}
       </div>
       <div class="search-bar">
         <span class="si">🔍</span>
-        <input type="text" placeholder="Search modules…" oninput="filterTable('utiliko-tbody', this.value)">
+        <input type="text" placeholder="Search all columns…" oninput="filterTable('utiliko-tbody', this.value)">
       </div>
+        <div class="col-filters">
+          
+    <div class="cf-group">
+      <label>QA</label>
+      <select id="cf-utiliko-qa" onchange="applyColFilters('utiliko')">
+        <option value="">All QA</option>
+      </select>
+    </div>
+          <div class="cf-group">
+            <label>Module</label>
+            <select id="cf-utiliko-module" onchange="applyColFilters('utiliko')">
+              <option value="">All Modules</option>
+            </select>
+          </div>
+          <div class="cf-group" style="flex:1.5;min-width:140px">
+            <label>Sub-module</label>
+            <input type="text" id="cf-utiliko-sub" placeholder="Type to filter..." oninput="applyColFilters('utiliko')">
+          </div>
+          <div class="cf-group">
+            <label>Status</label>
+            <select id="cf-utiliko-status" onchange="applyColFilters('utiliko')">
+              <option value="">All Status</option>
+            </select>
+          </div>
+          <div class="cf-reset">
+            <button onclick="resetColFilters('utiliko')">✕ Reset</button>
+          </div>
+        </div>
+        <div class="filter-count" id="fc-utiliko"></div>
       <table class="dtable">
         <thead><tr><th>#</th><th>QA</th><th>Module</th><th>Sub-module</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
         <tbody id="utiliko-tbody"></tbody>
@@ -458,6 +574,29 @@ section{margin-bottom:52px}
         <div class="tcard-title">Message Module — Automation ETAs</div>
         <span class="tcard-meta">Pramila · Jun 2, 2026 → Oct 26, 2026</span>
       </div>
+        <div class="col-filters">
+          
+          <div class="cf-group">
+            <label>Module</label>
+            <select id="cf-pbx-module" onchange="applyColFilters('pbx')">
+              <option value="">All Modules</option>
+            </select>
+          </div>
+          <div class="cf-group" style="flex:1.5;min-width:140px">
+            <label>Sub-module</label>
+            <input type="text" id="cf-pbx-sub" placeholder="Type to filter..." oninput="applyColFilters('pbx')">
+          </div>
+          <div class="cf-group">
+            <label>Status</label>
+            <select id="cf-pbx-status" onchange="applyColFilters('pbx')">
+              <option value="">All Status</option>
+            </select>
+          </div>
+          <div class="cf-reset">
+            <button onclick="resetColFilters('pbx')">✕ Reset</button>
+          </div>
+        </div>
+        <div class="filter-count" id="fc-pbx"></div>
       <table class="dtable">
         <thead><tr><th>#</th><th>Module</th><th>Sub-module</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
         <tbody id="pbx-tbody"></tbody>
@@ -735,6 +874,10 @@ function buildCloudTable(tbodyId, filter){
     if(filter && s.qa!==filter) return;
     const tr=document.createElement('tr');
     tr.dataset.search=(s.qa+s.module+s.sub).toLowerCase();
+    tr.dataset.fQa=s.qa||'';
+    tr.dataset.fMod=s.module||'';
+    tr.dataset.fSub=s.sub||'';
+    tr.dataset.fSt=s.status||'';
     const sc = s.status==='Completed' ? 'eta-done'
               : s.status==='In Progress' ? 'eta-soon'
               : s.status==='On Hold' ? 'eta-hold'
@@ -776,6 +919,10 @@ function switchTab(name){
 utilikoData.forEach((r,i)=>{
     const tr=document.createElement('tr');
     tr.dataset.search=(r.qa+r.module+r.sub).toLowerCase();
+    tr.dataset.fQa=r.qa||'';
+    tr.dataset.fMod=r.module||'';
+    tr.dataset.fSub=r.sub||'';
+    tr.dataset.fSt=r.status||'';
     const sl = r.status==='Completed'
       ? '<span class="asgn asgn-done">✅ Done</span>'
       : r.status==='In Progress'
@@ -796,6 +943,9 @@ utilikoData.forEach((r,i)=>{
 pbxData.forEach((r,i)=>{
   const tr=document.createElement('tr');
   tr.dataset.search=(r.module+r.sub).toLowerCase();
+  tr.dataset.fMod=r.module||'';
+  tr.dataset.fSub=r.sub||'';
+  tr.dataset.fSt=r.status||'';
   const statusClass = r.status==='Completed' ? 'eta-done' : r.status==='In Progress' ? 'eta-soon' : 'eta-future';
   const statusLabel = r.status==='Completed'
     ? '<span class="asgn asgn-done">✅ Done</span>'
@@ -811,6 +961,100 @@ buildCloudTable('cloud-all-tbody', null);
 buildCloudTable('cloud-v-tbody', 'Vaishnavi');
 buildCloudTable('cloud-p-tbody', 'Pratik');
 buildCloudTable('cloud-vp-tbody', 'Prerana');
+
+// Populate column filter dropdowns
+populateCfDropdown('cf-cloud-all-qa',     cloudSuites.map(s=>s.qa));
+populateCfDropdown('cf-cloud-all-module', cloudSuites.map(s=>s.module));
+populateCfDropdown('cf-cloud-all-status', cloudSuites.map(s=>s.status));
+
+// Individual tab filters (no QA — filtered by tab)
+populateCfDropdown('cf-cloud-v-module',  cloudSuites.filter(s=>s.qa==='Vaishnavi').map(s=>s.module));
+populateCfDropdown('cf-cloud-v-status',  cloudSuites.filter(s=>s.qa==='Vaishnavi').map(s=>s.status));
+populateCfDropdown('cf-cloud-p-module',  cloudSuites.filter(s=>s.qa==='Pratik').map(s=>s.module));
+populateCfDropdown('cf-cloud-p-status',  cloudSuites.filter(s=>s.qa==='Pratik').map(s=>s.status));
+populateCfDropdown('cf-cloud-vp-module', cloudSuites.filter(s=>s.qa==='Prerana').map(s=>s.module));
+populateCfDropdown('cf-cloud-vp-status', cloudSuites.filter(s=>s.qa==='Prerana').map(s=>s.status));
+
+// Utiliko
+populateCfDropdown('cf-utiliko-qa',     utilikoData.map(r=>r.qa));
+populateCfDropdown('cf-utiliko-module', utilikoData.map(r=>r.module));
+populateCfDropdown('cf-utiliko-status', utilikoData.map(r=>r.status));
+
+// PBX
+populateCfDropdown('cf-pbx-module', pbxData.map(r=>r.module));
+populateCfDropdown('cf-pbx-status', pbxData.map(r=>r.status));
+
+// Init counts
+['cloud-all','cloud-v','cloud-p','cloud-vp','utiliko','pbx'].forEach(p => applyColFilters(p));
+
+
+
+// ── COLUMN FILTERS ──────────────────────────────────────────────
+
+function applyColFilters(prefix) {
+  const tbodyId = prefix === 'cloud-all' ? 'cloud-all-tbody'
+                : prefix === 'cloud-v'   ? 'cloud-v-tbody'
+                : prefix === 'cloud-p'   ? 'cloud-p-tbody'
+                : prefix === 'cloud-vp'  ? 'cloud-vp-tbody'
+                : prefix === 'utiliko'   ? 'utiliko-tbody'
+                : 'pbx-tbody';
+
+  const qaEl  = document.getElementById('cf-' + prefix + '-qa');
+  const modEl = document.getElementById('cf-' + prefix + '-module');
+  const subEl = document.getElementById('cf-' + prefix + '-sub');
+  const stEl  = document.getElementById('cf-' + prefix + '-status');
+
+  const qa  = qaEl  ? qaEl.value.toLowerCase()  : '';
+  const mod = modEl ? modEl.value.toLowerCase()  : '';
+  const sub = subEl ? subEl.value.toLowerCase()  : '';
+  const st  = stEl  ? stEl.value.toLowerCase()   : '';
+
+  let shown = 0;
+  document.querySelectorAll('#' + tbodyId + ' tr').forEach(tr => {
+    const rowQa  = (tr.dataset.fQa  || '').toLowerCase();
+    const rowMod = (tr.dataset.fMod || '').toLowerCase();
+    const rowSub = (tr.dataset.fSub || '').toLowerCase();
+    const rowSt  = (tr.dataset.fSt  || '').toLowerCase();
+
+    const show = (!qa  || rowQa  === qa)           &&
+                 (!mod || rowMod === mod)           &&
+                 (!sub || rowSub.includes(sub))     &&
+                 (!st  || rowSt.includes(st));
+
+    tr.style.display = show ? '' : 'none';
+    if (show) shown++;
+  });
+
+  const total = document.querySelectorAll('#' + tbodyId + ' tr').length;
+  const countEl = document.getElementById('fc-' + prefix);
+  if (countEl) {
+    countEl.textContent = shown === total
+      ? total + ' rows'
+      : shown + ' of ' + total + ' rows shown';
+    countEl.style.color = shown < total ? 'var(--blue)' : 'var(--muted)';
+  }
+}
+
+function resetColFilters(prefix) {
+  ['qa','module','sub','status'].forEach(f => {
+    const el = document.getElementById('cf-' + prefix + '-' + f);
+    if (el) el.value = '';
+  });
+  applyColFilters(prefix);
+}
+
+function populateCfDropdown(selectId, values) {
+  const sel = document.getElementById(selectId);
+  if (!sel) return;
+  const unique = [...new Set(values)].filter(Boolean).sort();
+  unique.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v;
+    sel.appendChild(opt);
+  });
+}
+
 </script>
 </body>
 </html>
